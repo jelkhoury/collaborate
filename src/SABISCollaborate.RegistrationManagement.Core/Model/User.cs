@@ -9,12 +9,15 @@ namespace SABISCollaborate.RegistrationManagement.Core.Model
 {
     public class User : Entity
     {
+        #region Variables
         public int Id { get; private set; }
         public string Username { get; private set; }
         public string IdentifierEmail { get; private set; }
         public UserProfile Profile { get; private set; }
         public string PasswordHash { get; private set; }
+        #endregion
 
+        #region Constructors
         private User()
         {
         }
@@ -26,10 +29,13 @@ namespace SABISCollaborate.RegistrationManagement.Core.Model
             this.Profile = profile;
             this.PasswordHash = this.ComputePasswordHash(password);
         }
+        #endregion
 
+        #region Methods
         private string ComputePasswordHash(string password)
         {
             return password + "123";
         }
+        #endregion
     }
 }
