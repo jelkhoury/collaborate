@@ -21,5 +21,12 @@ namespace SABIS.Collaborate.Web.Controllers
 
             return View(users);
         }
+
+        [HttpPost]
+        public IActionResult Regiter(User user)
+        {
+
+            return Ok();
+        }
     }
 }
