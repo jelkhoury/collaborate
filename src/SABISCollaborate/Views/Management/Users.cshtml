@@ -1,0 +1,40 @@
+﻿@model List<User>
+
+
+@* Register new user *@
+<h2>Register</h2>
+<form>
+    <fieldset>
+        @* username *@
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter Username">
+        </div>
+        @* password *@
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter Password">
+        </div>
+        @* confirm password *@
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+        </div>
+        @* email *@
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter Email">
+        </div>
+        @* Register button *@
+        <button type="submit" (click)="" class="btn btn-default btn-primary">Register</button>
+    </fieldset>
+</form>
+
+@* All users *@
+<h2>All Users</h2>
+<ul class="list-group">
+    @foreach (var user in Model)
+    {
+        <li class="list-group-item">@user.Username</li>
+    }
+</ul>

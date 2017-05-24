@@ -43,10 +43,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SABISCollaborate.RegistrationManagement.Core\SABISCollaborate.RegistrationManagement.Core.csproj">
-      <Project>{88f8b6bb-3bd9-4fec-9c27-cc96c7a66b9f}</Project>
-      <Name>SABISCollaborate.RegistrationManagement.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SABISCollaborate.SharedKernel\SABISCollaborate.SharedKernel.csproj">
       <Project>{80988f77-f4b8-491c-938e-817f0beebbf7}</Project>
       <Name>SABISCollaborate.SharedKernel</Name>

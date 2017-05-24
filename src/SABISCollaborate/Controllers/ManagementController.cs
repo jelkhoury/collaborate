@@ -1,16 +1,32 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SABISCollaborate.Management.Core.Registration.Interfaces;
+using SABISCollaborate.Management.Core.Registration.Model;
+using System.Collections.Generic;
 
 namespace SABIS.Collaborate.Web.Controllers
 {
     public class ManagementController : Controller
     {
-        public IActionResult Index()
+        private IUserRepository _userRepository;
+
+        public ManagementController(IUserRepository userRepository)
         {
-            return View();
+            this._userRepository = userRepository;
+        }
+
+        public IActionResult Users()
+        {
+            // get all users
+            List<User> users = this._userRepository.GetAll();
+
+            return View(users);
+        }
+
+        [HttpPost]
+        public IActionResult Regiter(User user)
+        {
+
+            return Ok();
         }
     }
 }

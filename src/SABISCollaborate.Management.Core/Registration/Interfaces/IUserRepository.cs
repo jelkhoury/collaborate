@@ -1,11 +1,7 @@
-﻿using SABISCollaborate.RegistrationManagement.Core.Model;
-using System;
+﻿using SABISCollaborate.Management.Core.Registration.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SABISCollaborate.RegistrationManagement.Core.Interfaces
+namespace SABISCollaborate.Management.Core.Registration.Interfaces
 {
     public interface IUserRepository
     {

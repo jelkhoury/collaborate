@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SABISCollaborate.Management.Core.Registration.Interfaces;
+using SABISCollaborate.Management.Data;
 
 namespace SABISCollaborate
 {
@@ -27,6 +29,8 @@ namespace SABISCollaborate
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUserRepository, InMemoryUserRepository>();
+
             // Add framework services.
             services.AddMvc();
         }
