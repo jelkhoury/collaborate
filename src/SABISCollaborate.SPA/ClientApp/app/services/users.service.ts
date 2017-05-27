@@ -15,6 +15,14 @@ export class UsersService {
     getUsers(): Observable<Response> {
         return this._http.get(this._url + '/api/management/users');
     }
+
+    register(username: string, password: string, email: string): Observable<Response> {
+        return this._http.post(this._url + '/api/management/registration', {
+            Username: username,
+            Password: password,
+            Email: email
+        });
+    }
 }
 
 export interface User {

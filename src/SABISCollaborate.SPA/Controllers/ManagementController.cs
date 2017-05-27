@@ -5,33 +5,58 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SABISCollaborate.Management.Core.Registration.Interfaces;
 using SABISCollaborate.Management.Core.Registration.Model;
+using SABISCollaborate.Management.Core.Registration.Services;
+using SABISCollaborate.SharedKernel.Exceptions;
 
 namespace SABISCollaborate_SPA.Controllers
 {
     [Route("api/management")]
     public class ManagementController : Controller
     {
-        private IUserRepository _userRepository;
+        private IUserService _userService;
 
-        public ManagementController(IUserRepository userRepository)
+        public ManagementController(IUserService userService)
         {
-            this._userRepository = userRepository;
+            this._userService = userService;
         }
 
         [Route("users")]
         public IActionResult Users()
         {
             // get all users
-            List<User> users = this._userRepository.GetAll();
+            List<User> users = this._userService.GetAll();
 
             return Ok(users);
         }
 
         [HttpPost]
-        public IActionResult Regiter(User user)
+        [Route("registration")]
+        public IActionResult Regiter([FromBody] RegisterUserModel user)
         {
+            try
+            {
+                User result = this._userService.Register(user.Username, user.Password, user.Email);
 
-            return Ok();
+                return Ok(result);
+            }
+            catch (ValidationException vex)
+            {
+                return BadRequest(vex.Code);
+            }
+            catch
+            {
+                return BadRequest("");
+            }
         }
     }
+}
+
+
+public class RegisterUserModel
+{
+    public string Username { get; set; }
+
+    public string Password { get; set; }
+
+    public string Email { get; set; }
 }

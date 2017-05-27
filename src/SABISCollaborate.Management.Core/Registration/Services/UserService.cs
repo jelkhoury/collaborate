@@ -1,6 +1,9 @@
-﻿using SABISCollaborate.Management.Core.Registration.Interfaces;
+﻿using SABISCollaborate.Management.Core.Registration.Exceptions;
+using SABISCollaborate.Management.Core.Registration.Interfaces;
 using SABISCollaborate.Management.Core.Registration.Model;
+using SABISCollaborate.SharedKernel.Exceptions;
 using System;
+using System.Collections.Generic;
 
 namespace SABISCollaborate.Management.Core.Registration.Services
 {
@@ -18,9 +21,9 @@ namespace SABISCollaborate.Management.Core.Registration.Services
             // validate username is unique + email is unique
             if (!this.IsUsernameAndEmailUnique(username, email))
             {
-                throw new Exception("Username and or Email already in use");
+                throw new ValidationException(Constants.ExceptionCode.UsernameAlreadyInUse);
             }
-            User user = new User(username, password, email, null);
+            User user = new User(username, password + "9975", email, null);
             this._userRepository.SaveUser(user);
 
             return user;
@@ -31,6 +34,11 @@ namespace SABISCollaborate.Management.Core.Registration.Services
             bool result = this._userRepository.GetUserByUsernameOrEmail(username, email) == null;
 
             return result;
+        }
+
+        public List<User> GetAll()
+        {
+            return this._userRepository.GetAll();
         }
     }
 }

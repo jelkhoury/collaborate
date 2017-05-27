@@ -8,8 +8,10 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { ManageUsersComponent } from './components/management/users.component';
 import { RegistrationComponent } from './components/management/registration.component';
+import { GenderComponent } from './shared/components/gender.component';
 
 import { UsersService } from './services/users.service';
+import { LocalizationService } from './services/localization.service';
 
 export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
@@ -19,9 +21,10 @@ export const sharedConfig: NgModule = {
         CounterComponent,
         FetchDataComponent,
         ManageUsersComponent,
-        RegistrationComponent
+        RegistrationComponent,
+        GenderComponent
     ],
-    providers: [UsersService],
+    providers: [UsersService, LocalizationService],
     imports: [
         RouterModule.forRoot([
             { path: '', redirectTo: 'management/users', pathMatch: 'full' },
