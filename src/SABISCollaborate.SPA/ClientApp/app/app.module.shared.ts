@@ -32,7 +32,7 @@ export const sharedConfig: NgModule = {
             { path: 'fetch-data', component: FetchDataComponent },
             //{ path: '**', redirectTo: 'home' },
             { path: 'management/users', component: ManageUsersComponent },
-            { path: 'management/register', component: RegistrationComponent }
+            { path: 'management/register', component: RegistrationComponent, canActivate: [false] }
         ]),
         FormsModule
     ]
