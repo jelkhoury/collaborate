@@ -7,15 +7,16 @@ using SABISCollaborate.Management.Core.Registration.Interfaces;
 using SABISCollaborate.Management.Core.Registration.Model;
 using SABISCollaborate.Management.Core.Registration.Services;
 using SABISCollaborate.SharedKernel.Exceptions;
+using SABISCollaborate.SharedKernel.Enums;
 
 namespace SABISCollaborate_SPA.Controllers
 {
     [Route("api/management")]
     public class ManagementController : Controller
     {
-        private IUserService _userService;
+        private IUserManagementService _userService;
 
-        public ManagementController(IUserService userService)
+        public ManagementController(IUserManagementService userService)
         {
             this._userService = userService;
         }
@@ -35,7 +36,14 @@ namespace SABISCollaborate_SPA.Controllers
         {
             try
             {
-                User result = this._userService.Register(user.Username, user.Password, user.Email);
+                User result = this._userService.Register(
+                    user.Username,
+                    user.Password,
+                    user.Email,
+                    user.FirstName,
+                    user.LastName,
+                    user.Gender,
+                    user.BirthDate);
 
                 return Ok(result);
             }
@@ -59,4 +67,12 @@ public class RegisterUserModel
     public string Password { get; set; }
 
     public string Email { get; set; }
+
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+
+    public Gender Gender { get; set; }
+
+    public DateTime BirthDate { get; set; }
 }

@@ -12,7 +12,5 @@ namespace SABISCollaborate.Management.Core.Registration.Interfaces
         User GetUserByUsernameOrEmail(string username, string email);
 
         User SaveUser(User user);
-
-        UserProfile SaveProfile(int userId, UserProfile profile);
     }
 }

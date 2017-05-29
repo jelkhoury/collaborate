@@ -1,5 +1,5 @@
 ﻿import { Component } from '@angular/core';
-import { UsersService, User } from '../../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { Gender } from '../../shared/shared';
 
 @Component({
@@ -25,7 +25,7 @@ export class RegistrationComponent {
         // check unique username
 
         // register the user and redirect to all users
-        this._usersService.register(user.username, user.password, user.email).subscribe(r => {
+        this._usersService.register(user.username, user.password, user.email, user.firstName, user.lastName, user.gender, new Date()).subscribe(r => {
             alert('Account registered successfully');
         }, e => {
             if (e._body == "9000000") {

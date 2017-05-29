@@ -5,8 +5,8 @@ namespace SABISCollaborate.Management.Core.Registration.Model
     public class User : Entity
     {
         public int Id { get; private set; }
-        public string Username { get; private set; }
-        public string IdentifierEmail { get; private set; }
+        public string Username { get; set; }
+        public string IdentifierEmail { get; set; }
         public UserProfile Profile { get; private set; }
         public string PasswordHash { get; private set; }
 
