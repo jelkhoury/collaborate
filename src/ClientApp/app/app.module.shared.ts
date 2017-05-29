@@ -3,29 +3,26 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
+import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
-import { ManageUsersComponent } from './components/management/users.component';
-import { ManagementDepartmentsComponent } from './components/departments/departments.component';
 
 export const sharedConfig: NgModule = {
-    bootstrap: [AppComponent],
+    bootstrap: [ AppComponent ],
     declarations: [
         AppComponent,
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        ManageUsersComponent,
-        ManagementDepartmentsComponent
+        HomeComponent
     ],
     imports: [
         RouterModule.forRoot([
-            { path: '', redirectTo: 'management/users', pathMatch: 'full' },
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
-            //{ path: '**', redirectTo: 'home' },
-            { path: 'management/users', component: ManageUsersComponent },
-            { path: 'departments', component: ManagementDepartmentsComponent }
+            { path: '**', redirectTo: 'home' }
         ])
     ]
 };

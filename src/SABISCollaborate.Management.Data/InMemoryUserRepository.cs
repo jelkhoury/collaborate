@@ -17,6 +17,7 @@ namespace SABISCollaborate.Management.Data
             this._users.Add(new User("egh", "1", "eghazal@outlook.com", null));
         }
 
+        #region Users
         public List<User> GetAll()
         {
             return this._users;
@@ -41,5 +42,7 @@ namespace SABISCollaborate.Management.Data
         {
             throw new NotImplementedException();
         }
+        #endregion
+        
     }
 }
