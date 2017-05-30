@@ -5,8 +5,8 @@ namespace SABISCollaborate.Management.Core.Registration.Model
     public class User : Entity
     {
         public int Id { get; private set; }
-        public string Username { get; private set; }
-        public string IdentifierEmail { get; private set; }
+        public string Username { get; set; }
+        public string IdentifierEmail { get; set; }
         public UserProfile Profile { get; private set; }
         public string PasswordHash { get; private set; }
 
@@ -14,17 +14,19 @@ namespace SABISCollaborate.Management.Core.Registration.Model
         {
         }
 
-        public User(string username, string password, string email, UserProfile profile)
+        public User(string username, string passwordHash, string email, UserProfile profile) 
+            : this(0, username, passwordHash, email, profile)
         {
+
+        }
+
+        public User(int id, string username, string passwordHash, string email, UserProfile profile)
+        {
+            this.Id = id;
             this.Username = username;
             this.IdentifierEmail = email;
             this.Profile = profile;
-            this.PasswordHash = this.ComputePasswordHash(password);
-        }
-
-        private string ComputePasswordHash(string password)
-        {
-            return password + "123";
+            this.PasswordHash = passwordHash;
         }
     }
 }

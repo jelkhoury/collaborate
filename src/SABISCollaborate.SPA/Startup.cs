@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SABISCollaborate.Management.Core.Registration.Interfaces;
 using SABISCollaborate.Management.Data;
+using SABISCollaborate.Management.Core.Registration.Services;
 
 namespace SABISCollaborate_SPA
 {
@@ -32,6 +33,7 @@ namespace SABISCollaborate_SPA
         {
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
             services.AddScoped<IDepartmentRepository, InMemoryDepartmentRepository>(); 
+            services.AddScoped<IUserManagementService, UserManagementService>();
 
             // Add framework services.
             services.AddMvc();

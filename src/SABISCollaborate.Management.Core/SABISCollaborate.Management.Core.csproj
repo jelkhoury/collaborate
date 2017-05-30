@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\Registration\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SABISCollaborate.SharedKernel\SABISCollaborate.SharedKernel.csproj" />
   </ItemGroup>
 
