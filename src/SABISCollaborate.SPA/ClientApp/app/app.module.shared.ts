@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+import { AuthGuard } from './_guards/auth.guard';
+
 import { AppComponent } from './components/app/app.component'
+import { LoginComponent } from './components/login/login.component'
+
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
@@ -17,6 +21,7 @@ export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
     declarations: [
         AppComponent,
+        LoginComponent,
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
@@ -24,15 +29,22 @@ export const sharedConfig: NgModule = {
         RegistrationComponent,
         GenderComponent
     ],
-    providers: [UsersService, LocalizationService],
+    providers: [
+        AuthGuard,
+        UsersService,
+        LocalizationService
+    ],
     imports: [
         RouterModule.forRoot([
             { path: '', redirectTo: 'management/users', pathMatch: 'full' },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            //{ path: '**', redirectTo: 'home' },
-            { path: 'management/users', component: ManageUsersComponent },
-            { path: 'management/register', component: RegistrationComponent, canActivate: [false] }
+            { path: 'login', component: LoginComponent },
+            //{ path: 'counter', component: CounterComponent },
+            //{ path: 'fetch-data', component: FetchDataComponent },
+            { path: 'management/users', component: ManageUsersComponent, canActivate: [false] },
+            { path: 'management/register', component: RegistrationComponent, canActivate: [false] },
+
+            // otherwise redirect to home
+            { path: '**', redirectTo: '' }
         ]),
         FormsModule
     ]
