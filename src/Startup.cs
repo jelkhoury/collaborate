@@ -8,11 +8,8 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SABISCollaborate.Management.Core.Registration.Interfaces;
-using SABISCollaborate.Management.Data;
-using SABISCollaborate.Management.Core.Registration.Services;
 
-namespace SABISCollaborate_SPA
+namespace src
 {
     public class Startup
     {
@@ -31,10 +28,6 @@ namespace SABISCollaborate_SPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, InMemoryUserRepository>();
-            services.AddScoped<IDepartmentRepository, InMemoryDepartmentRepository>(); 
-            services.AddScoped<IUserManagementService, UserManagementService>();
-
             // Add framework services.
             services.AddMvc();
         }

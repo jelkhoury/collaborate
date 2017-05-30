@@ -14,10 +14,15 @@ namespace SABISCollaborate_SPA.Controllers
     [Route("api/management")]
     public class ManagementController : Controller
     {
+        private IUserRepository _userRepository;
+        private IDepartmentRepository _departmentRepository;
         private IUserManagementService _userService;
 
         public ManagementController(IUserManagementService userService)
+        public ManagementController(IUserRepository userRepository, IDepartmentRepository departmentRepository)
         {
+            this._userRepository = userRepository;
+            this._departmentRepository = departmentRepository;
             this._userService = userService;
         }
 
@@ -28,6 +33,13 @@ namespace SABISCollaborate_SPA.Controllers
             List<User> users = this._userService.GetAll();
 
             return Ok(users);
+        }
+
+        [Route("departments")]
+        public IActionResult Departments()
+        {
+            List<Department> department = this._departmentRepository.GetAll();
+            return Ok(department);
         }
 
         [HttpPost]

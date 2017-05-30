@@ -9,6 +9,7 @@ import { AppComponent } from './components/app/app.component'
 import { LoginComponent } from './components/login/login.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { ManageUsersComponent } from './components/management/users.component';
+import { ManagementDepartmentsComponent } from './components/departments/departments.component';
 import { RegistrationComponent } from './components/management/registration.component';
 import { GenderComponent } from './shared/components/gender.component';
 
@@ -26,6 +27,8 @@ export const sharedConfig: NgModule = {
         LoginComponent,
         NavMenuComponent,
         ManageUsersComponent,
+        ManagementDepartmentsComponent
+        ManageUsersComponent,
         RegistrationComponent,
         GenderComponent
     ],
@@ -38,5 +41,11 @@ export const sharedConfig: NgModule = {
     imports: [
         AppRoutingModule,
         FormsModule
+            { path: 'counter', component: CounterComponent },
+            { path: 'fetch-data', component: FetchDataComponent },
+            //{ path: '**', redirectTo: 'home' },
+            { path: 'management/users', component: ManageUsersComponent },
+            { path: 'departments', component: ManagementDepartmentsComponent }
+        ])
     ]
 };

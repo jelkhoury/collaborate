@@ -23,6 +23,7 @@ namespace SABISCollaborate.Management.Data
         }
         #endregion
 
+        #region Users
         public List<User> GetAll()
         {
             return this._users;
@@ -68,5 +69,7 @@ namespace SABISCollaborate.Management.Data
         {
             return profile;
         }
+        #endregion
+        
     }
 }
