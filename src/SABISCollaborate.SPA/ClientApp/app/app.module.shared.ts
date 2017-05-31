@@ -27,8 +27,7 @@ export const sharedConfig: NgModule = {
         LoginComponent,
         NavMenuComponent,
         ManageUsersComponent,
-        ManagementDepartmentsComponent
-        ManageUsersComponent,
+        ManagementDepartmentsComponent,
         RegistrationComponent,
         GenderComponent
     ],
@@ -41,11 +40,5 @@ export const sharedConfig: NgModule = {
     imports: [
         AppRoutingModule,
         FormsModule
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
-            //{ path: '**', redirectTo: 'home' },
-            { path: 'management/users', component: ManageUsersComponent },
-            { path: 'departments', component: ManagementDepartmentsComponent }
-        ])
     ]
 };

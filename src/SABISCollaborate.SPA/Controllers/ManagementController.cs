@@ -18,10 +18,8 @@ namespace SABISCollaborate_SPA.Controllers
         private IDepartmentRepository _departmentRepository;
         private IUserManagementService _userService;
 
-        public ManagementController(IUserManagementService userService)
-        public ManagementController(IUserRepository userRepository, IDepartmentRepository departmentRepository)
+        public ManagementController(IUserManagementService userService, IDepartmentRepository departmentRepository)
         {
-            this._userRepository = userRepository;
             this._departmentRepository = departmentRepository;
             this._userService = userService;
         }
