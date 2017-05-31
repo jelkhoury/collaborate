@@ -31,5 +31,12 @@ export class UsersService {
 }
 
 export interface User {
+    id: number,
     username: string;
+    profile: UserProfile;
+}
+
+export interface UserProfile {
+    firstName: string;
+    lastName: string;
 }

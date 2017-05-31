@@ -7,6 +7,7 @@ import { AuthGuard } from './_guards/auth.guard';
 // component
 import { AppComponent } from './components/app/app.component'
 import { LoginComponent } from './components/login/login.component'
+import { HomeComponent } from './components/home/home.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { TopNavMenuComponent } from './components/navmenu/top-navmenu.component';
 import { ManageUsersComponent } from './components/management/users.component';
@@ -26,6 +27,7 @@ export const sharedConfig: NgModule = {
     declarations: [
         AppComponent,
         LoginComponent,
+        HomeComponent,
         NavMenuComponent,
         TopNavMenuComponent,
         ManageUsersComponent,

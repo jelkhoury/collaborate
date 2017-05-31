@@ -1,6 +1,16 @@
 ﻿<h2>All Users</h2>
-<ul class="list-group">
+<!--<ul class="list-group">
     <li *ngFor="let user of users" class="list-group-item">
         {{ user.username }}
     </li>
-</ul>
+</ul>-->
+
+<div class="col-sm-3" *ngFor="let user of users">
+    <div class="card">
+        <div class="card-block">
+            <h3 class="card-title">{{ user.username }}</h3>
+            <p class="card-text">{{ user.profile.firstName + ' ' + user.profile.lastName }}</p>
+            <!--<a href="javascript:void(0)" (click)="onEditClick(user.id)" class="btn btn-primary">Edit</a>-->
+        </div>
+    </div>
+</div>

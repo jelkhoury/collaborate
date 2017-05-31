@@ -16,6 +16,6 @@ export class LoginComponent {
     login(): void {
         this.authService.login(this.model.username, this.model.password);
 
-        this.router.navigateByUrl('/management/users');
+        this.router.navigateByUrl('/home');
     }
 }

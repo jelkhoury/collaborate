@@ -28,6 +28,9 @@
     <None Remove="ClientApp\test\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="wwwroot\css\main.scss" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\SABISCollaborate.Management.Core\SABISCollaborate.Management.Core.csproj" />
     <ProjectReference Include="..\SABISCollaborate.Management.Data\SABISCollaborate.Management.Data.csproj" />
   </ItemGroup>

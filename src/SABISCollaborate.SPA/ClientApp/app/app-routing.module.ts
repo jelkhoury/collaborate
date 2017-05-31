@@ -4,13 +4,15 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './services/authentication.service';
 
 import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 import { ManageUsersComponent } from './components/management/users.component';
 import { RegistrationComponent } from './components/management/registration.component';
 import { ManagementDepartmentsComponent } from './components/departments/departments.component';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'management/users', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     {
         path: 'management',
         children: [

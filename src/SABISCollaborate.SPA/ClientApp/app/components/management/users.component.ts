@@ -16,6 +16,8 @@ export class ManageUsersComponent {
 
         this._usersService.getUsers().subscribe(result => {
             this.users = result.json() as User[];
+            console.log(result.json());
+            console.log(this.users);
         });
     }
 }
