@@ -7,7 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ManageUsersComponent } from './components/management/users.component';
 import { RegistrationComponent } from './components/management/registration.component';
-import { ManagementDepartmentsComponent } from './components/departments/departments.component';
+import { ManagementDepartmentsComponent } from './components/management/departments.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },

@@ -1,8 +1,7 @@
-﻿using SABISCollaborate.Management.Core.Registration.Interfaces;
+﻿using SABISCollaborate.Management.Core.Registration.Model;
+using SABISCollaborate.Management.Core.Registration.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using SABISCollaborate.Management.Core.Registration.Model;
 using System.Linq;
 
 namespace SABISCollaborate.Management.Data
@@ -57,7 +56,7 @@ namespace SABISCollaborate.Management.Data
              || String.Compare(u.IdentifierEmail, email, true) == 0);
         }
 
-        public User SaveUser(User user)
+        public void SaveUser(User user)
         {
             User result = this.GetUser(user.Id);
 
@@ -78,8 +77,6 @@ namespace SABISCollaborate.Management.Data
             result = new User(newId, user.Username, user.PasswordHash, user.IdentifierEmail, user.Profile);
 
             this._users.Add(result);
-
-            return result;
         }
 
         public UserProfile UpdateProfile(int userId, UserProfile profile)

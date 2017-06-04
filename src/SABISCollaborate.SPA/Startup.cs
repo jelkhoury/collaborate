@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SABISCollaborate.Management.Core.Registration.Interfaces;
-using SABISCollaborate.Management.Data;
+using SABISCollaborate.Management.Core.Registration.Repositories;
 using SABISCollaborate.Management.Core.Registration.Services;
+using SABISCollaborate.Management.Data;
 
 namespace SABISCollaborate_SPA
 {
@@ -32,7 +28,7 @@ namespace SABISCollaborate_SPA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
-            services.AddScoped<IDepartmentRepository, InMemoryDepartmentRepository>(); 
+            services.AddScoped<SABISCollaborate.Management.Core.CRUD.Repositories.IDepartmentRepository, InMemoryDepartmentRepository>(); 
             services.AddScoped<IUserManagementService, UserManagementService>();
 
             // Add framework services.
