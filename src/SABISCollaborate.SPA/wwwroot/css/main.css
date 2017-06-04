@@ -1,3 +1,27 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+.collaborate-button, .login-button {
+  background-color: #016836;
+  color: #F0F0F0;
+  font-size: 14px;
+  font-weight: 500;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background-clip: padding-box;
+  /* stops bg color from leaking outside the border: */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: none;
+  padding: 7.5px 15px; }
+  .collaborate-button:hover, .login-button:hover {
+    background-color: #4D9572; }
+
+body {
+  font-size: 14px;
+  color: #333333;
+  font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
+  background: url("../img/background.png"); }
+
 .card {
   border: 1px solid lightgray;
   border-radius: 3px; }
@@ -5,5 +29,6 @@
 .card-block {
   margin: 15px; }
 
-.test {
-  color: red; }
+.login-button {
+  width: 100%;
+  text-align: center; }
