@@ -11,7 +11,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { TopNavMenuComponent } from './components/navmenu/top-navmenu.component';
 import { ManageUsersComponent } from './components/management/users.component';
-import { ManagementDepartmentsComponent } from './components/departments/departments.component';
+import { ManagementDepartmentsComponent } from './components/management/departments.component';
 import { RegistrationComponent } from './components/management/registration.component';
 import { GenderComponent } from './shared/components/gender.component';
 

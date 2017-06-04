@@ -1,20 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SABISCollaborate.Management.Core.Registration.Interfaces;
+using SABISCollaborate.Management.Core.CRUD.Repositories;
 using SABISCollaborate.Management.Core.Registration.Model;
 using SABISCollaborate.Management.Core.Registration.Services;
-using SABISCollaborate.SharedKernel.Exceptions;
 using SABISCollaborate.SharedKernel.Enums;
+using SABISCollaborate.SharedKernel.Exceptions;
+using System;
+using System.Collections.Generic;
 
 namespace SABISCollaborate_SPA.Controllers
 {
     [Route("api/management")]
     public class ManagementController : Controller
     {
-        private IUserRepository _userRepository;
         private IDepartmentRepository _departmentRepository;
         private IUserManagementService _userService;
 
@@ -36,7 +33,8 @@ namespace SABISCollaborate_SPA.Controllers
         [Route("departments")]
         public IActionResult Departments()
         {
-            List<Department> department = this._departmentRepository.GetAll();
+            List<SABISCollaborate.Management.Core.CRUD.Model.Department> department = this._departmentRepository.GetAll();
+
             return Ok(department);
         }
 
@@ -46,14 +44,16 @@ namespace SABISCollaborate_SPA.Controllers
         {
             try
             {
-                User result = this._userService.Register(
-                    user.Username,
-                    user.Password,
-                    user.Email,
-                    user.FirstName,
-                    user.LastName,
-                    user.Gender,
-                    user.BirthDate);
+                UserProfile profile = new UserProfile
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    BirthDate = user.BirthDate,
+                    Gender = user.Gender,
+
+                };
+
+                User result = this._userService.Register(user.Username, user.Password, user.Email, profile);
 
                 return Ok(result);
             }

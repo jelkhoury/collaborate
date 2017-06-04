@@ -1,12 +1,11 @@
-﻿using SABISCollaborate.Management.Core.Registration.Interfaces;
-using SABISCollaborate.Management.Core.Registration.Model;
-using System;
+﻿using SABISCollaborate.Management.Core.CRUD.Model;
+using SABISCollaborate.Management.Core.CRUD.Repositories;
 using System.Collections.Generic;
-using System.Text;
+using System;
 
 namespace SABISCollaborate.Management.Data
 {
-    public class InMemoryDepartmentRepository: IDepartmentRepository
+    public class InMemoryDepartmentRepository : IDepartmentRepository
     {
         private List<Department> _departments = new List<Department>();
         public InMemoryDepartmentRepository()
@@ -29,6 +28,16 @@ namespace SABISCollaborate.Management.Data
                 _departments.Add(newDept);
             }
             return newDept;
+        }
+
+        public Department SaveDepartment(Department department)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int departmentId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

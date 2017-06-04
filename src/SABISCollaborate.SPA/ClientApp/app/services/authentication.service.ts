@@ -25,11 +25,15 @@ export class AuthenticationService {
         return username;
     }
 
-    login(username: string, password: string): void {
+    login(username: string, password: string): boolean {
         if (username == password) {
             localStorage.setItem("currentUser", username);
             this.userLoggedInSource.next(username);
+
+            return true;
         }
+
+        return false;
     };
 
     logout(): void {

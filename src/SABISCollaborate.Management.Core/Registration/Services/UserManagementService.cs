@@ -1,10 +1,10 @@
 ﻿using SABISCollaborate.Management.Core.Registration.Exceptions;
-using SABISCollaborate.Management.Core.Registration.Interfaces;
 using SABISCollaborate.Management.Core.Registration.Model;
+using SABISCollaborate.Management.Core.Registration.Repositories;
+using SABISCollaborate.SharedKernel.Enums;
 using SABISCollaborate.SharedKernel.Exceptions;
 using System;
 using System.Collections.Generic;
-using SABISCollaborate.SharedKernel.Enums;
 
 namespace SABISCollaborate.Management.Core.Registration.Services
 {
@@ -21,56 +21,6 @@ namespace SABISCollaborate.Management.Core.Registration.Services
         }
         #endregion
 
-        public User Register(string username, string password, string email)
-        {
-            // validate username is unique + email is unique
-            if (!this.IsUsernameAndEmailUnique(username, email))
-            {
-                throw new ValidationException(Constants.ExceptionCode.UsernameAlreadyInUse);
-            }
-            User user = new User(username, password + "9975", email, null);
-            this._userRepository.SaveUser(user);
-
-            return user;
-        }
-
-        public User Register(string username, string password, string email, string firstName, string lastName, Gender gender, DateTime birthDate)
-        {
-            // validation
-            if (String.IsNullOrWhiteSpace(firstName))
-            {
-                throw new ArgumentNullException("firstName");
-            }
-            if (String.IsNullOrWhiteSpace(lastName))
-            {
-                throw new ArgumentNullException("lastName");
-            }
-            if (birthDate.Year < 1910)
-            {
-                throw new ArgumentOutOfRangeException("birthDate", "birthDate should be greater than 1910");
-            }
-            // validate username is unique + email is unique
-            if (!this.IsUsernameAndEmailUnique(username, email))
-            {
-                throw new ValidationException(Constants.ExceptionCode.UsernameAlreadyInUse);
-            }
-
-
-            string passwordHash = this.HashPassword(password);
-            UserProfile profile = new UserProfile
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                Gender = gender,
-                BirthDate = birthDate
-            };
-
-            User user = new User(username, passwordHash, email, profile);
-            this._userRepository.SaveUser(user);
-
-            return user;
-        }
-
         /// <summary>
         /// Get all users and related profiles
         /// </summary>
@@ -79,6 +29,58 @@ namespace SABISCollaborate.Management.Core.Registration.Services
         {
             return this._userRepository.GetAll();
         }
+
+        public User Register(string username, string password, string email, UserProfile profile)
+        {
+            // validate username is unique + email is unique
+            if (!this.IsUsernameAndEmailUnique(username, email))
+            {
+                throw new ValidationException(Constants.ExceptionCode.UsernameAlreadyInUse);
+            }
+
+            // create user model
+            User user = new User(username, password, email, profile);
+            this._userRepository.SaveUser(user);
+
+            return user;
+        }
+
+        //public User Register(string username, string password, string email, string firstName, string lastName, Gender gender, DateTime birthDate)
+        //{
+        //    // validation
+        //    if (String.IsNullOrWhiteSpace(firstName))
+        //    {
+        //        throw new ArgumentNullException("firstName");
+        //    }
+        //    if (String.IsNullOrWhiteSpace(lastName))
+        //    {
+        //        throw new ArgumentNullException("lastName");
+        //    }
+        //    if (birthDate.Year < 1910)
+        //    {
+        //        throw new ArgumentOutOfRangeException("birthDate", "birthDate should be greater than 1910");
+        //    }
+        //    // validate username is unique + email is unique
+        //    if (!this.IsUsernameAndEmailUnique(username, email))
+        //    {
+        //        throw new ValidationException(Constants.ExceptionCode.UsernameAlreadyInUse);
+        //    }
+
+
+        //    string passwordHash = this.HashPassword(password);
+        //    UserProfile profile = new UserProfile
+        //    {
+        //        FirstName = firstName,
+        //        LastName = lastName,
+        //        Gender = gender,
+        //        BirthDate = birthDate
+        //    };
+
+        //    User user = new User(username, passwordHash, email, profile);
+        //    this._userRepository.SaveUser(user);
+
+        //    return user;
+        //}
 
         #region CRUD
         //public UserProfile UpdateUserProfile(int userId, UserProfile profile)
@@ -109,11 +111,6 @@ namespace SABISCollaborate.Management.Core.Registration.Services
             bool result = this._userRepository.GetUserByUsernameOrEmail(username, email) == null;
 
             return result;
-        }
-
-        private string HashPassword(string password)
-        {
-            return password + "99987";
         }
         #endregion
     }

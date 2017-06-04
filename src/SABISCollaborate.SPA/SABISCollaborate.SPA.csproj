@@ -34,6 +34,9 @@
     <ProjectReference Include="..\SABISCollaborate.Management.Core\SABISCollaborate.Management.Core.csproj" />
     <ProjectReference Include="..\SABISCollaborate.Management.Data\SABISCollaborate.Management.Data.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ClientApp\app\components\departments\" />
+  </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec Command="npm install" />
