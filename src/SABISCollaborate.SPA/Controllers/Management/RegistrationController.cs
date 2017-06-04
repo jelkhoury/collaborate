@@ -6,16 +6,17 @@ using SABISCollaborate.SharedKernel.Enums;
 using SABISCollaborate.SharedKernel.Exceptions;
 using System;
 using System.Collections.Generic;
+using S = SABISCollaborate.Management.Core.CRUD.Model;
 
 namespace SABISCollaborate_SPA.Controllers
 {
     [Route("api/management")]
-    public class ManagementController : Controller
+    public class RegistrationController : Controller
     {
         private IDepartmentRepository _departmentRepository;
         private IUserManagementService _userService;
 
-        public ManagementController(IUserManagementService userService, IDepartmentRepository departmentRepository)
+        public RegistrationController(IUserManagementService userService, IDepartmentRepository departmentRepository)
         {
             this._departmentRepository = departmentRepository;
             this._userService = userService;
@@ -30,12 +31,15 @@ namespace SABISCollaborate_SPA.Controllers
             return Ok(users);
         }
 
-        [Route("departments")]
-        public IActionResult Departments()
+        [Route("registration")]
+        public IActionResult GetRegistrationModel(int? userId)
         {
-            List<SABISCollaborate.Management.Core.CRUD.Model.Department> department = this._departmentRepository.GetAll();
+            RegistrationModel result = new RegistrationModel
+            {
+                Departments = this._departmentRepository.GetAll()
+            };
 
-            return Ok(department);
+            return Ok(result);
         }
 
         [HttpPost]
@@ -49,8 +53,7 @@ namespace SABISCollaborate_SPA.Controllers
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     BirthDate = user.BirthDate,
-                    Gender = user.Gender,
-
+                    Gender = user.Gender
                 };
 
                 User result = this._userService.Register(user.Username, user.Password, user.Email, profile);
@@ -69,7 +72,6 @@ namespace SABISCollaborate_SPA.Controllers
     }
 }
 
-
 public class RegisterUserModel
 {
     public string Username { get; set; }
@@ -85,4 +87,11 @@ public class RegisterUserModel
     public Gender Gender { get; set; }
 
     public DateTime BirthDate { get; set; }
+
+    public List<int> DepartmentsIds { get; set; }
+}
+
+public class RegistrationModel
+{
+    public List<S.Department> Departments { get; set; }
 }

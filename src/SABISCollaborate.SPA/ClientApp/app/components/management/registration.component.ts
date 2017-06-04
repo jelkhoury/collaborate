@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { Gender } from '../../shared/shared';
+import { DropdownOption, DropdownComponent } from '../../shared/components/dropdown.component';
 
 @Component({
     selector: 'registration',
@@ -10,13 +11,19 @@ import { Gender } from '../../shared/shared';
 
 export class RegistrationComponent {
     public model: RegistrationModel;
-    private _usersService: UsersService;
+    private usersService: UsersService;
+    private departmentsOptions: DropdownOption[];
 
     constructor(usersService: UsersService) {
-        this._usersService = usersService;
+        this.usersService = usersService;
+        this.loadModel();
+    }
+
+    loadModel() {
         this.model = new RegistrationModel();
     }
 
+    // register click
     onRegister(user: RegistrationModel): void {
         // validate required
 
@@ -25,7 +32,7 @@ export class RegistrationComponent {
         // check unique username
 
         // register the user and redirect to all users
-        this._usersService.register(user.username, user.password, user.email, user.firstName, user.lastName, user.gender, new Date()).subscribe(r => {
+        this.usersService.register(user.username, user.password, user.email, user.firstName, user.lastName, user.gender, new Date()).subscribe(r => {
             alert('Account registered successfully');
         }, e => {
             if (e._body == "9000000") {
@@ -46,6 +53,7 @@ class RegistrationModel {
     firstName: string;
     lastName: string;
     gender: Gender;
+    selectedDepartmentIds: number[];
 
     constructor() {
         this.gender = Gender.Male;

@@ -14,6 +14,8 @@ import { ManageUsersComponent } from './components/management/users.component';
 import { ManagementDepartmentsComponent } from './components/management/departments.component';
 import { RegistrationComponent } from './components/management/registration.component';
 import { GenderComponent } from './shared/components/gender.component';
+import { DropdownComponent } from './shared/components/dropdown.component';
+import { DatepickerComponent } from './shared/components/datepicker.component';
 
 // services
 import { UsersService } from './services/users.service';
@@ -21,6 +23,10 @@ import { LocalizationService } from './services/localization.service';
 import { AuthenticationService } from './services/authentication.service';
 
 import { AppRoutingModule } from './app-routing.module';
+
+// 3rd party modules
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 
 export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
@@ -33,7 +39,9 @@ export const sharedConfig: NgModule = {
         ManageUsersComponent,
         ManagementDepartmentsComponent,
         RegistrationComponent,
-        GenderComponent
+        GenderComponent,
+        DropdownComponent,
+        DatepickerComponent
     ],
     providers: [
         AuthGuard,
@@ -43,6 +51,8 @@ export const sharedConfig: NgModule = {
     ],
     imports: [
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        MultiselectDropdownModule,
+        Ng2DatetimePickerModule
     ]
 };

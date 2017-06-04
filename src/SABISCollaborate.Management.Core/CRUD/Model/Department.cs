@@ -7,11 +7,11 @@ namespace SABISCollaborate.Management.Core.CRUD.Model
 {
     public class Department : Entity
     {
-        public string Description { get; set; }
+        public string Title { get; set; }
 
-        public Department(string description)
+        public Department(string title)
         {
-            this.Description = description;
+            this.Title = title;
         }
     }
 }

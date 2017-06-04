@@ -17,6 +17,10 @@ export class UsersService {
         return this._http.get(this._url + '/api/management/users');
     }
 
+    getRegistrationModel(): Observable<Response> {
+        return this._http.get(this._url + '/api/management/registration');
+    }
+
     register(username: string, password: string, email: string, firstName: string, lastName: string, gender: Gender, birthDate: Date): Observable<Response> {
         return this._http.post(this._url + '/api/management/registration', {
             Username: username,
@@ -39,4 +43,9 @@ export interface User {
 export interface UserProfile {
     firstName: string;
     lastName: string;
+}
+
+export interface Department {
+    id: number;
+    title: string;
 }

@@ -9,7 +9,7 @@ namespace SABISCollaborate.Management.Core.Registration.Model
     {
         public int Id { get; protected set; }
 
-        public string Description { get; protected set; }
+        public string Title { get; protected set; }
 
         private Department() { }
     }
