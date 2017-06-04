@@ -1,4 +1,18 @@
-﻿.card {
+﻿@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+@import "helpers/_variables.scss";
+@import "helpers/_mixins.scss";
+@import "helpers/_functions.scss";
+@import "components/_controls.scss";
+
+body {
+    font-size: $font-size-normal;
+    color: $color-grey-dark;
+    font-family: $font-stack;
+    background:url("../img/background.png");
+}
+
+.card {
     border: 1px solid lightgray;
     border-radius: 3px;
 }
@@ -7,6 +21,9 @@
     margin: 15px;
 }
 
-.test{
-    color:red;
+.login-button {
+    @extend .collaborate-button;
+    width: 100%;
+    text-align: center;
 }
+
