@@ -1,5 +1,5 @@
 ﻿import { Component } from '@angular/core';
-import { UsersService } from '../../services/users.service';
+import { UsersService, Department } from '../../services/users.service';
 import { Gender } from '../../shared/shared';
 import { DropdownOption, DropdownComponent } from '../../shared/components/dropdown.component';
 
@@ -10,7 +10,9 @@ import { DropdownOption, DropdownComponent } from '../../shared/components/dropd
 })
 
 export class RegistrationComponent {
-    public model: RegistrationModel;
+    public model: RegisterUserModel;
+
+    private initModel: RegistrationModel;
     private usersService: UsersService;
     private departmentsOptions: DropdownOption[];
 
@@ -20,11 +22,22 @@ export class RegistrationComponent {
     }
 
     loadModel() {
-        this.model = new RegistrationModel();
+        this.model = new RegisterUserModel();
+        this.usersService.getRegistrationModel().subscribe(m => {
+            this.initModel = m.json() as RegistrationModel;
+            this.initModel.departments.forEach(d => {
+                this.departmentsOptions = new Array<DropdownOption>();
+
+                this.departmentsOptions.push({
+                    id: d.id,
+                    name: d.title
+                });
+            });
+        });
     }
 
     // register click
-    onRegister(user: RegistrationModel): void {
+    onRegister(user: RegisterUserModel): void {
         // validate required
 
         // validate password
@@ -45,7 +58,7 @@ export class RegistrationComponent {
     }
 }
 
-class RegistrationModel {
+class RegisterUserModel {
     username: string;
     password: string;
     confirmPassowrd: string;
@@ -58,4 +71,8 @@ class RegistrationModel {
     constructor() {
         this.gender = Gender.Male;
     }
+}
+
+class RegistrationModel {
+    departments: Department[];
 }
