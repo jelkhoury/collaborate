@@ -6,6 +6,7 @@
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="BuildWebCompiler" Version="1.11.347" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="1.1.1" />
@@ -28,11 +29,19 @@
     <None Remove="ClientApp\test\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="wwwroot\css\helpers\_functions.scss" />
+    <Content Include="wwwroot\css\helpers\_mixins.scss" />
+    <Content Include="wwwroot\css\helpers\_variables.scss" />
     <Content Include="wwwroot\css\main.scss" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SABISCollaborate.Management.Core\SABISCollaborate.Management.Core.csproj" />
     <ProjectReference Include="..\SABISCollaborate.Management.Data\SABISCollaborate.Management.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\css\components\" />
+    <Folder Include="wwwroot\css\layout\" />
+    <Folder Include="wwwroot\css\pages\" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
