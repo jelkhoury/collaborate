@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SABISCollaborate.Management.Core.Registration.Model
+namespace SABISCollaborate.Registration.Core.Model
 {
     public class User : Entity
     {

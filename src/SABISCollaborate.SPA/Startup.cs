@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SABISCollaborate.Management.Core.Registration.Repositories;
-using SABISCollaborate.Management.Core.Registration.Services;
-using SABISCollaborate.Management.Data;
+using SABISCollaborate.Registration.Core.Repositories;
+using SABISCollaborate.Registration.Core.Services;
+using SABISCollaborate.Registration.Data;
 
 namespace SABISCollaborate_SPA
 {
@@ -28,7 +28,7 @@ namespace SABISCollaborate_SPA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
-            services.AddScoped<SABISCollaborate.Management.Core.CRUD.Repositories.IDepartmentRepository, InMemoryDepartmentRepository>(); 
+            services.AddScoped<SABISCollaborate.Registration.Core.CRUD.Repositories.IDepartmentRepository, InMemoryDepartmentRepository>(); 
             services.AddScoped<IUserManagementService, UserManagementService>();
 
             // Add framework services.

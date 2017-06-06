@@ -2,7 +2,7 @@
 using SABISCollaborate.SharedKernel.Enums;
 using System;
 
-namespace SABISCollaborate.Management.Core.Registration.Model
+namespace SABISCollaborate.Registration.Core.Model
 {
     public class UserProfile : Entity
     {

@@ -38,8 +38,8 @@
     <Content Include="wwwroot\img\background.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SABISCollaborate.Management.Core\SABISCollaborate.Management.Core.csproj" />
-    <ProjectReference Include="..\SABISCollaborate.Management.Data\SABISCollaborate.Management.Data.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.Management.Core\SABISCollaborate.Registration.Core.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.Management.Data\SABISCollaborate.Registration.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\css\layout\" />

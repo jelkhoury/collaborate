@@ -1,12 +1,10 @@
-﻿using SABISCollaborate.Management.Core.Registration.Exceptions;
-using SABISCollaborate.Management.Core.Registration.Model;
-using SABISCollaborate.Management.Core.Registration.Repositories;
-using SABISCollaborate.SharedKernel.Enums;
+﻿using SABISCollaborate.Registration.Core.Exceptions;
+using SABISCollaborate.Registration.Core.Model;
+using SABISCollaborate.Registration.Core.Repositories;
 using SABISCollaborate.SharedKernel.Exceptions;
-using System;
 using System.Collections.Generic;
 
-namespace SABISCollaborate.Management.Core.Registration.Services
+namespace SABISCollaborate.Registration.Core.Services
 {
     public class UserManagementService : IUserManagementService
     {

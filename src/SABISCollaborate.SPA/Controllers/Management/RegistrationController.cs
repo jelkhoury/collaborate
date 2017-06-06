@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using SABISCollaborate.Management.Core.CRUD.Repositories;
-using SABISCollaborate.Management.Core.Registration.Model;
-using SABISCollaborate.Management.Core.Registration.Services;
+using SABISCollaborate.Registration.Core.CRUD.Repositories;
+using SABISCollaborate.Registration.Core.Model;
+using SABISCollaborate.Registration.Core.Services;
 using SABISCollaborate.SharedKernel.Enums;
 using SABISCollaborate.SharedKernel.Exceptions;
 using System;
 using System.Collections.Generic;
-using S = SABISCollaborate.Management.Core.CRUD.Model;
+using S = SABISCollaborate.Registration.Core.CRUD.Model;
 
 namespace SABISCollaborate_SPA.Controllers
 {

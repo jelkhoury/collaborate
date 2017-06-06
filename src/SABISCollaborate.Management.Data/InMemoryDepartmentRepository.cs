@@ -1,9 +1,9 @@
-﻿using SABISCollaborate.Management.Core.CRUD.Model;
-using SABISCollaborate.Management.Core.CRUD.Repositories;
+﻿using SABISCollaborate.Registration.Core.CRUD.Model;
+using SABISCollaborate.Registration.Core.CRUD.Repositories;
 using System.Collections.Generic;
 using System;
 
-namespace SABISCollaborate.Management.Data
+namespace SABISCollaborate.Registration.Data
 {
     public class InMemoryDepartmentRepository : IDepartmentRepository
     {

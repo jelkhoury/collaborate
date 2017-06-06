@@ -1,10 +1,10 @@
-﻿using SABISCollaborate.Management.Core.Registration.Model;
-using SABISCollaborate.Management.Core.Registration.Repositories;
+﻿using SABISCollaborate.Registration.Core.Model;
+using SABISCollaborate.Registration.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SABISCollaborate.Management.Data
+namespace SABISCollaborate.Registration.Data
 {
     public class InMemoryUserRepository : IUserRepository
     {

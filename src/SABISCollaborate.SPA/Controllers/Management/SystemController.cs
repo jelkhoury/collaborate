@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using SABISCollaborate.Management.Core.CRUD.Model;
-using SABISCollaborate.Management.Core.CRUD.Repositories;
+using SABISCollaborate.Registration.Core.CRUD.Model;
+using SABISCollaborate.Registration.Core.CRUD.Repositories;
 using System;
 using System.Collections.Generic;
 

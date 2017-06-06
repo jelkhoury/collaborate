@@ -1,7 +1,7 @@
-﻿using SABISCollaborate.Management.Core.Registration.Model;
+﻿using SABISCollaborate.Registration.Core.Model;
 using System.Collections.Generic;
 
-namespace SABISCollaborate.Management.Core.Registration.Repositories
+namespace SABISCollaborate.Registration.Core.Repositories
 {
     public interface IUserRepository
     {
