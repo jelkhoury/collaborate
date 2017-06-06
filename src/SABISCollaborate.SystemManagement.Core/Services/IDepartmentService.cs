@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SABISCollaborate.Registration.Core.CRUD.Services
+namespace SABISCollaborate.SystemManagement.Core.Services
 {
     public interface IDepartmentService
     {

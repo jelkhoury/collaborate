@@ -1,9 +1,6 @@
 ﻿using SABISCollaborate.SharedKernel;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SABISCollaborate.Registration.Core.CRUD.Model
+namespace SABISCollaborate.SystemManagement.Core.Model
 {
     public class Department : Entity
     {

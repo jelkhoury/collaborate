@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using SABISCollaborate.Registration.Core.Repositories;
 using SABISCollaborate.Registration.Core.Services;
 using SABISCollaborate.Registration.Data;
+using S = SABISCollaborate.SystemManagement.Core;
+using SD = SABISCollaborate.SystemManagement.Data;
 
 namespace SABISCollaborate_SPA
 {
@@ -28,7 +30,7 @@ namespace SABISCollaborate_SPA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
-            services.AddScoped<SABISCollaborate.Registration.Core.CRUD.Repositories.IDepartmentRepository, InMemoryDepartmentRepository>(); 
+            services.AddScoped<S.Repositories.IDepartmentRepository, SD.InMemoryDepartmentRepository>(); 
             services.AddScoped<IUserManagementService, UserManagementService>();
 
             // Add framework services.

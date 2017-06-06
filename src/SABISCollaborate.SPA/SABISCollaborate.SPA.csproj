@@ -40,6 +40,8 @@
   <ItemGroup>
     <ProjectReference Include="..\SABISCollaborate.Management.Core\SABISCollaborate.Registration.Core.csproj" />
     <ProjectReference Include="..\SABISCollaborate.Management.Data\SABISCollaborate.Registration.Data.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SystemManagement.Core\SABISCollaborate.SystemManagement.Core.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SystemManagement.Data\SABISCollaborate.SystemManagement.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\css\layout\" />

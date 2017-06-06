@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using SABISCollaborate.Registration.Core.CRUD.Repositories;
 using SABISCollaborate.Registration.Core.Model;
 using SABISCollaborate.Registration.Core.Services;
 using SABISCollaborate.SharedKernel.Enums;
 using SABISCollaborate.SharedKernel.Exceptions;
+using SABISCollaborate.SystemManagement.Core.Repositories;
 using System;
 using System.Collections.Generic;
-using S = SABISCollaborate.Registration.Core.CRUD.Model;
+using S = SABISCollaborate.SystemManagement.Core;
 
 namespace SABISCollaborate_SPA.Controllers
 {
@@ -93,5 +93,5 @@ public class RegisterUserModel
 
 public class RegistrationModel
 {
-    public List<S.Department> Departments { get; set; }
+    public List<S.Model.Department> Departments { get; set; }
 }
