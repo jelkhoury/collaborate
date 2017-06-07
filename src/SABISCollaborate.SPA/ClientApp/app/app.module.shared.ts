@@ -27,6 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
 // 3rd party modules
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
+import { Ng2UploaderModule } from 'ng2-uploader';
 
 export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
@@ -53,6 +54,7 @@ export const sharedConfig: NgModule = {
         AppRoutingModule,
         FormsModule,
         MultiselectDropdownModule,
-        Ng2DatetimePickerModule
+        Ng2DatetimePickerModule,
+        Ng2UploaderModule
     ]
 };

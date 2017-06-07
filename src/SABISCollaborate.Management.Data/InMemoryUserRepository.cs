@@ -16,26 +16,11 @@ namespace SABISCollaborate.Registration.Data
         public InMemoryUserRepository()
         {
             this._users = new List<User>();
-            this.SaveUser(new User("jek", "1", "joseph.elkhoury@outlook.com", new UserProfile
-            {
-                FirstName = "Joseph",
-                LastName = "El Khoury"
-            }));
-            this.SaveUser(new User("hri", "1", "hrizk@outlook.com", new UserProfile
-            {
-                FirstName = "Hiba",
-                LastName = "Rizk"
-            }));
-            this.SaveUser(new User("egh", "1", "eghazal@outlook.com", new UserProfile
-            {
-                FirstName = "Elie",
-                LastName = "Ghazal"
-            }));
-            this.SaveUser(new User("rbr", "1", "ralphbouraad@outlook.com", new UserProfile
-            {
-                FirstName = "Ralph",
-                LastName = "Bou Raad"
-            }));
+            this.SaveUser(new User("jek", "1", "joseph.elkhoury@outlook.com", new UserProfile("hri", "Joseph", "El Khoury", DateTime.Now)));
+            this.SaveUser(new User("hri", "1", "hrizk@outlook.com", new UserProfile("hri", "Hiba", "Rizk", DateTime.Now)));
+            this.SaveUser(new User("egh", "1", "eghazal@outlook.com", new UserProfile("hri", "Elie", "Ghazal", DateTime.Now)));
+            this.SaveUser(new User("rbr", "1", "ralphbouraad@outlook.com", new UserProfile("hri", "Ralph", "Bou Raad", DateTime.Now)));
+            this.SaveUser(new User("gma", "1", "gmantoufeh@outlook.com", new UserProfile("manatifo", "Georges", "Mantoufeh", DateTime.Now)));
         }
         #endregion
 

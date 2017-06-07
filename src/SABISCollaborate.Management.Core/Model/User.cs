@@ -45,14 +45,10 @@ namespace SABISCollaborate.Registration.Core.Model
                 throw new ArgumentNullException("email");
             }
 
-            if (profile == null)
-            {
-                throw new ArgumentNullException("profile");
-            }
+            this.Profile = profile ?? throw new ArgumentNullException("profile");
 
             this.Username = username;
             this.IdentifierEmail = email;
-            this.Profile = profile;
             this.CreatedDate = DateTime.Now;
             this.SetPassword(password);
         }

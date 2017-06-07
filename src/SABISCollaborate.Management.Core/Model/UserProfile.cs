@@ -6,13 +6,53 @@ namespace SABISCollaborate.Registration.Core.Model
 {
     public class UserProfile : Entity
     {
-        public int Id { get; protected set; }
+        #region Fields
+        private string _nickName;
+        private string _firstName;
+        private string _lastName;
+        #endregion
 
-        public string Nickname { get; set; }
+        #region Properties
+        public int Id { get; private set; }
 
-        public string FirstName { get; set; }
+        public string Nickname
+        {
+            get { return this._nickName; }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("Nickname");
+                }
+                this._nickName = value;
+            }
+        }
 
-        public string LastName { get; set; }
+        public string FirstName
+        {
+            get { return this._firstName; }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("FirstName");
+                }
+                this._firstName = value;
+            }
+        }
+
+        public string LastName
+        {
+            get { return this._lastName; }
+            set
+            {
+                if (String.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException("LastName");
+                }
+                this._lastName = value;
+            }
+        }
 
         public Gender Gender { get; set; }
 
@@ -21,7 +61,23 @@ namespace SABISCollaborate.Registration.Core.Model
         public DateTime BirthDate { get; set; }
 
         public EmploymentInfo EmploymentInfo { get; set; }
+        #endregion
 
-        //private UserProfile() { }
+        #region Constructors
+        private UserProfile() { }
+
+        public UserProfile(string nickname, string firstName, string lastName, DateTime birthDate) : this()
+        {
+            this.Nickname = nickname;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.BirthDate = birthDate;
+
+            this.Gender = Gender.Unspecified;
+            this.MaritalStatus = MaritalStatus.Unspecified;
+
+            this.EmploymentInfo = null;
+        }
+        #endregion
     }
 }

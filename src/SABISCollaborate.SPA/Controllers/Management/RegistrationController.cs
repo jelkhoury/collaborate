@@ -48,13 +48,8 @@ namespace SABISCollaborate_SPA.Controllers
         {
             try
             {
-                UserProfile profile = new UserProfile
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    BirthDate = user.BirthDate,
-                    Gender = user.Gender
-                };
+                UserProfile profile = new UserProfile(user.FirstName, user.FirstName, user.LastName, user.BirthDate);
+                profile.Gender = user.Gender;
 
                 User result = this._userService.Register(user.Username, user.Password, user.Email, profile);
 

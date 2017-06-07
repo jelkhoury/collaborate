@@ -11,6 +11,10 @@ import { DropdownOption, DropdownComponent } from '../../shared/components/dropd
 
 export class RegistrationComponent {
     public model: RegisterUserModel;
+    public options: Object = {
+        url: 'http://localhost:10050/upload'
+    };
+    uploadFile: any;
 
     private initModel: RegistrationModel;
     private usersService: UsersService;
@@ -19,6 +23,20 @@ export class RegistrationComponent {
     constructor(usersService: UsersService) {
         this.usersService = usersService;
         this.loadModel();
+    }
+
+    handleUpload(data): void {
+        if (data && data.response) {
+            data = JSON.parse(data.response);
+            this.uploadFile = data;
+        }
+    }
+
+    beforeUpload(uploadingFile): void {
+        //if (uploadingFile.size > this.sizeLimit) {
+            //uploadingFile.setAbort();
+            //alert('File is too large');
+        //}
     }
 
     loadModel() {
@@ -35,7 +53,6 @@ export class RegistrationComponent {
             });
         });
     }
-
     // register click
     onRegister(user: RegisterUserModel): void {
         // validate required
@@ -59,6 +76,7 @@ export class RegistrationComponent {
 }
 
 class RegisterUserModel {
+    nickname: string;
     username: string;
     password: string;
     confirmPassowrd: string;

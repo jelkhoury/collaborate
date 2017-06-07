@@ -23,6 +23,11 @@
         </div>
 
         <h2>User Info</h2>
+        <!-- Nickname -->
+        <div class="form-group">
+            <label for="nickname">Nickname</label>
+            <input type="text" [(ngModel)]="model.nickname" class="form-control" name="nickname" placeholder="Enter a Nickname" required>
+        </div>
         <!-- First Name -->
         <div class="form-group">
             <label for="firstName">First Name</label>
@@ -48,6 +53,11 @@
             <label for="departments">Departments</label>
             <sc-dropdown name="departments" [allOptions]="departmentsOptions" [(selection)]="model.selectedDepartmentIds"></sc-dropdown>
         </div>
+        <input type="file"
+               ngFileSelect
+               [options]="options"
+               (onUpload)="handleUpload($event)"
+               (beforeUpload)="beforeUpload($event)">
 
         <button type="submit" (click)="onRegister(model)" class="btn btn-default btn-primary">Register</button>
     </fieldset>
