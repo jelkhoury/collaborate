@@ -14,11 +14,12 @@ import { ManageUsersComponent } from './components/management/users.component';
 import { ManagementDepartmentsComponent } from './components/management/departments.component';
 import { RegistrationComponent } from './components/management/registration.component';
 import { GenderComponent } from './shared/components/gender.component';
+import { MaritalStatusComponent } from './shared/components/marital-status.component';
 import { DropdownComponent } from './shared/components/dropdown.component';
 import { DatepickerComponent } from './shared/components/datepicker.component';
 
 // services
-import { UsersService } from './services/users.service';
+import { RegistrationService } from './services/registration.service';
 import { LocalizationService } from './services/localization.service';
 import { AuthenticationService } from './services/authentication.service';
 
@@ -27,7 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
 // 3rd party modules
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
-import { Ng2UploaderModule } from 'ng2-uploader';
+import { NgUploaderModule } from 'ngx-uploader';
 
 export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
@@ -41,12 +42,13 @@ export const sharedConfig: NgModule = {
         ManagementDepartmentsComponent,
         RegistrationComponent,
         GenderComponent,
+        MaritalStatusComponent,
         DropdownComponent,
         DatepickerComponent
     ],
     providers: [
         AuthGuard,
-        UsersService,
+        RegistrationService,
         LocalizationService,
         AuthenticationService
     ],
@@ -55,6 +57,6 @@ export const sharedConfig: NgModule = {
         FormsModule,
         MultiselectDropdownModule,
         Ng2DatetimePickerModule,
-        Ng2UploaderModule
+        NgUploaderModule
     ]
 };

@@ -1,4 +1,4 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'sc-datepicker',
@@ -6,5 +6,11 @@
 })
 
 export class DatepickerComponent {
+    @Output() selectedDateChange = new EventEmitter();
     @Input() selectedDate: Date;
+
+    onChange($event): void {
+        this.selectedDate = $event;
+        this.selectedDateChange.emit(this.selectedDate);
+    }
 }

@@ -6,14 +6,14 @@ using System.Collections.Generic;
 
 namespace SABISCollaborate.Registration.Core.Services
 {
-    public class UserManagementService : IUserManagementService
+    public class RegistrationService : IRegistrationService
     {
         #region Fields
         private IUserRepository _userRepository;
         #endregion
 
         #region ctor
-        public UserManagementService(IUserRepository userRepository)
+        public RegistrationService(IUserRepository userRepository)
         {
             this._userRepository = userRepository;
         }
@@ -23,7 +23,7 @@ namespace SABISCollaborate.Registration.Core.Services
         /// Get all users and related profiles
         /// </summary>
         /// <returns></returns>
-        public List<User> GetAll()
+        public List<User> GetAllUser()
         {
             return this._userRepository.GetAll();
         }

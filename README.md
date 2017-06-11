@@ -24,6 +24,8 @@ https://github.com/angular/material2 see https://material2-app.firebaseapp.com/
 
 https://github.com/valor-software/ngx-bootstrap
 
+https://github.com/jkuri/ngx-uploader
+
 https://github.com/atais/ng2-eonasdan-datetimepicker
 
 see also

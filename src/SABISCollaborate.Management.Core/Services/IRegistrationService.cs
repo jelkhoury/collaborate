@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SABISCollaborate.Registration.Core.Services
 {
-    public interface IUserManagementService
+    public interface IRegistrationService
     {
-        List<User> GetAll();
+        List<User> GetAllUser();
 
         User Register(string username, string password, string email, UserProfile profile);
 

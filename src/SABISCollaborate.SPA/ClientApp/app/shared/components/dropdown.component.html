@@ -1,3 +1,4 @@
 ﻿<ss-multiselect-dropdown [options]="allOptions"
-                         [(ngModel)]="selection">
+                         [ngModel]="selection"
+                         (ngModelChange)="onChange($event)">
 </ss-multiselect-dropdown>

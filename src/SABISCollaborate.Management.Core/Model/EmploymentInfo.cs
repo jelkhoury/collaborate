@@ -23,29 +23,11 @@ namespace SABISCollaborate.Registration.Core.Model
         {
 
         }
-
-        //public EmploymentInfo(List<Department> departments, Position position, DateTime employmentDate)
-        //{
-        //    if (departments == null)
-        //    {
-        //        throw new ArgumentNullException("departments");
-        //    }
-        //    if (departments.Count == 0)
-        //    {
-        //        throw new ArgumentOutOfRangeException("A user cannot exists without department");
-        //    }
-        //    this.AddDepartments(departments.ToArray());
-
-        //    if (position == null)
-        //    {
-        //        throw new ArgumentNullException("position");
-        //    }
-        //    this.Position = position;
-        //    this.EmploymentDate = employmentDate;
-        //}
-
+        
         public EmploymentInfo(List<int> departmentsIds, int positionId, DateTime employmentDate)
         {
+            this.DepartmentIds = new List<int>();
+
             if (departmentsIds == null)
             {
                 throw new ArgumentNullException("departmentsIds");

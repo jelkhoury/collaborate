@@ -8,11 +8,16 @@ namespace SABISCollaborate.SystemManagement.Data
     public class InMemoryDepartmentRepository : IDepartmentRepository
     {
         private List<Department> _departments = new List<Department>();
+
         public InMemoryDepartmentRepository()
         {
             this._departments.Add(new Department("Academics"));
             this._departments.Add(new Department("Books"));
             this._departments.Add(new Department("IT Department"));
+            for (int i = 0; i < this._departments.Count; i++)
+            {
+                this._departments[i].Id = i + 1;
+            }
         }
 
         public List<Department> GetAll()

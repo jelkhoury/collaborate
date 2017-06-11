@@ -1,17 +1,17 @@
 ﻿import { Component } from '@angular/core';
-import { UsersService, User } from '../../services/users.service';
+import { RegistrationService, User } from '../../services/registration.service';
 
 @Component({
     selector: 'manage-users',
     templateUrl: './users.component.html',
-    providers: [UsersService]
+    providers: [RegistrationService]
 })
 
 export class ManageUsersComponent {
     public users: User[];
-    private _usersService: UsersService;
+    private _usersService: RegistrationService;
 
-    constructor(usersService: UsersService) {
+    constructor(usersService: RegistrationService) {
         this._usersService = usersService;
 
         this._usersService.getUsers().subscribe(result => {

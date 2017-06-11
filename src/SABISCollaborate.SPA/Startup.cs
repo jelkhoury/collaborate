@@ -31,7 +31,8 @@ namespace SABISCollaborate_SPA
         {
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
             services.AddScoped<S.Repositories.IDepartmentRepository, SD.InMemoryDepartmentRepository>(); 
-            services.AddScoped<IUserManagementService, UserManagementService>();
+            services.AddScoped<S.Repositories.IPositionRepository, SD.InMemoryPositionRepository>(); 
+            services.AddScoped<IRegistrationService, RegistrationService>();
 
             // Add framework services.
             services.AddMvc();

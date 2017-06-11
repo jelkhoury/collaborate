@@ -1,19 +1,22 @@
 ﻿using SABISCollaborate.SharedKernel;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SABISCollaborate.SystemManagement.Core.Model
 {
-    public class Department : Entity
+    public class Position : Entity
     {
         public int Id { get; set; }
 
         public string Title { get; set; }
 
-        public Department()
+        public Position()
         {
 
         }
 
-        public Department(string title) : this()
+        public Position(string title) : this()
         {
             this.Title = title;
         }
