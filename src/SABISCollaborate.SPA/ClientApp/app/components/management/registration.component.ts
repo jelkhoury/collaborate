@@ -16,7 +16,11 @@ export class RegistrationComponent {
     public formErrors = {
         username: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        email: '',
+        nickname: '',
+        firstName: '',
+        lastName: ''
     };
     currentForm: NgForm;
     @ViewChild('f') newForm: NgForm;
@@ -101,6 +105,18 @@ export class RegistrationComponent {
         }
         else if (field == 'confirmPassword') {
             return 'Password is required and should match the Confirm Password';
+        }
+        else if (field == 'email') {
+            return 'Email is required';
+        }
+        else if (field == 'nickname') {
+            return 'A Nickname is required';
+        }
+        else if (field == 'firstName') {
+            return 'First Name is required';
+        }
+        else if (field == 'lastName') {
+            return 'Last Name is required';
         }
     }
 
