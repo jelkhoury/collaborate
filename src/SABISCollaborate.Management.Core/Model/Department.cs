@@ -1,6 +1,6 @@
 ﻿using SABISCollaborate.SharedKernel;
 
-namespace SABISCollaborate.Management.Core.Registration.Model
+namespace SABISCollaborate.Registration.Core.Model
 {
     /// <summary>
     /// Read-only Department, in the registration context we can only consume a department.

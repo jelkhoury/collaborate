@@ -1,13 +1,11 @@
-﻿using SABISCollaborate.Management.Core.Registration.Model;
-using SABISCollaborate.SharedKernel.Enums;
-using System;
+﻿using SABISCollaborate.Registration.Core.Model;
 using System.Collections.Generic;
 
-namespace SABISCollaborate.Management.Core.Registration.Services
+namespace SABISCollaborate.Registration.Core.Services
 {
-    public interface IUserManagementService
+    public interface IRegistrationService
     {
-        List<User> GetAll();
+        List<User> GetAllUser();
 
         User Register(string username, string password, string email, UserProfile profile);
 

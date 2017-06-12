@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SABISCollaborate.Management.Core.Registration.Model
+namespace SABISCollaborate.Registration.Core.Model
 {
     public class User : Entity
     {
@@ -45,14 +45,10 @@ namespace SABISCollaborate.Management.Core.Registration.Model
                 throw new ArgumentNullException("email");
             }
 
-            if (profile == null)
-            {
-                throw new ArgumentNullException("profile");
-            }
+            this.Profile = profile ?? throw new ArgumentNullException("profile");
 
             this.Username = username;
             this.IdentifierEmail = email;
-            this.Profile = profile;
             this.CreatedDate = DateTime.Now;
             this.SetPassword(password);
         }

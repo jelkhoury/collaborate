@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SABISCollaborate.Management.Core.Registration.Repositories;
-using SABISCollaborate.Management.Core.Registration.Services;
-using SABISCollaborate.Management.Data;
+using SABISCollaborate.Registration.Core.Repositories;
+using SABISCollaborate.Registration.Core.Services;
+using SABISCollaborate.Registration.Data;
+using S = SABISCollaborate.SystemManagement.Core;
+using SD = SABISCollaborate.SystemManagement.Data;
 
 namespace SABISCollaborate_SPA
 {
@@ -28,8 +30,9 @@ namespace SABISCollaborate_SPA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, InMemoryUserRepository>();
-            services.AddScoped<SABISCollaborate.Management.Core.CRUD.Repositories.IDepartmentRepository, InMemoryDepartmentRepository>(); 
-            services.AddScoped<IUserManagementService, UserManagementService>();
+            services.AddScoped<S.Repositories.IDepartmentRepository, SD.InMemoryDepartmentRepository>(); 
+            services.AddScoped<S.Repositories.IPositionRepository, SD.InMemoryPositionRepository>(); 
+            services.AddScoped<IRegistrationService, RegistrationService>();
 
             // Add framework services.
             services.AddMvc();

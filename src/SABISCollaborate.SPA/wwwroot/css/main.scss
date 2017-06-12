@@ -9,7 +9,7 @@ body {
     font-size: $font-size-normal;
     color: $color-grey-dark;
     font-family: $font-stack;
-    background:url("../img/background.png");
+    background: url("../img/background.png");
 }
 
 .card {
@@ -27,3 +27,9 @@ body {
     text-align: center;
 }
 
+// ************ override bootstrap ************
+.navbar {
+    margin-bottom: 0px;
+}
+
+// ************ END override bootstrap ************

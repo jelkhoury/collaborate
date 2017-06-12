@@ -1,9 +1,7 @@
-﻿using SABISCollaborate.Management.Core.CRUD.Model;
-using System;
+﻿using SABISCollaborate.SystemManagement.Core.Model;
 using System.Collections.Generic;
-using System.Text;
 
-namespace SABISCollaborate.Management.Core.CRUD.Repositories
+namespace SABISCollaborate.SystemManagement.Core.Repositories
 {
     public interface IDepartmentRepository
     {

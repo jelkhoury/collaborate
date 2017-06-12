@@ -1,5 +1,5 @@
 ﻿import { Inject, Injectable } from '@angular/core';
-import { Gender } from '../shared/shared';
+import { Gender, MaritalStatus } from '../shared/models';
 
 @Injectable()
 export class LocalizationService {
@@ -11,6 +11,23 @@ export class LocalizationService {
             }
             case Gender.Male: {
                 return "Male";
+            }
+            default: {
+                return "";
+            }
+        }
+    }
+
+    getMaritalStatusDisplayName(status: MaritalStatus): string {
+        switch (status) {
+            case MaritalStatus.Unspecified: {
+                return "Unspecified";
+            }
+            case MaritalStatus.Single: {
+                return "Single";
+            }
+            case MaritalStatus.NotSingle: {
+                return "NotSingle";
             }
             default: {
                 return "";

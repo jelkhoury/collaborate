@@ -32,3 +32,6 @@ body {
 .login-button {
   width: 100%;
   text-align: center; }
+
+.navbar {
+  margin-bottom: 0px; }

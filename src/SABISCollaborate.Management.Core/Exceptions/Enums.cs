@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SABISCollaborate.Management.Core.Registration.Exceptions
+namespace SABISCollaborate.Registration.Core.Exceptions
 {
     public enum ValidationExceptionCode : int
     {
