@@ -3,6 +3,7 @@ import { NgForm, FormBuilder, Validators } from '@angular/forms';
 import { RegistrationService } from '../../services/registration.service';
 import { Gender, MaritalStatus, Position, Department } from '../../shared/models';
 import { DropdownOption, DropdownComponent } from '../../shared/components/dropdown.component';
+import { MultiDropdownOption, MultiDropdownComponent } from '../../shared/components/multi-dropdown.component';
 import { UploadOutput, UploadInput, UploadFile } from 'ngx-uploader';
 
 @Component({
@@ -22,7 +23,9 @@ export class RegistrationComponent {
         firstName: '',
         lastName: ''
     };
-    currentForm: NgForm;
+
+    private isSubmitted = false;
+    private currentForm: NgForm;
     @ViewChild('f') newForm: NgForm;
     private initModel: InitRegistrationModel;
     private registrationService: RegistrationService;
@@ -44,7 +47,7 @@ export class RegistrationComponent {
             this.initModel = m.json() as InitRegistrationModel;
 
             // create departments options
-            this.model.departmentsOptions = new Array<DropdownOption>();
+            this.model.departmentsOptions = new Array<MultiDropdownOption>();
             this.initModel.departments.forEach(d => {
                 this.model.departmentsOptions.push({
                     id: d.id,
@@ -89,7 +92,7 @@ export class RegistrationComponent {
             this.formErrors[field] = '';
             const control = form.get(field);
 
-            if (control && (control.dirty || control.touched || this.currentForm.submitted)) {
+            if (control && (control.dirty || control.touched || this.isSubmitted)) {
                 if (!control.valid) {
                     this.formErrors[field] = this.getValidationMessage(field);
                 }
@@ -101,7 +104,6 @@ export class RegistrationComponent {
         }
     }
 
-
     getValidationMessage(field: string): string {
         if (field == 'username') {
             return 'Username is required';
@@ -110,7 +112,7 @@ export class RegistrationComponent {
             return 'Password is required and should match the Confirm Password';
         }
         else if (field == 'confirmPassword') {
-            return 'Password is required and should match the Confirm Password';
+            return 'Confirm Password is required and should match the Password';
         }
         else if (field == 'email') {
             return 'Email is required';
@@ -155,6 +157,7 @@ export class RegistrationComponent {
 
     // register click
     onRegister(): void {
+        this.isSubmitted = true;
         // call for validation
         this.onValueChanged();
         if (this.currentForm.valid) {
@@ -197,7 +200,7 @@ class RegistrationModel {
     positionId: number[];
     departmentIds: number[];
     employmentDate: Date;
-    departmentsOptions: DropdownOption[];
+    departmentsOptions: MultiDropdownOption[];
     positionsOptions: DropdownOption[];
 
     constructor() {

@@ -9,7 +9,11 @@ body {
     font-size: $font-size-normal;
     color: $color-grey-dark;
     font-family: $font-stack;
-    background: url("../img/background.png");
+    /*background: url("../img/background.png");*/
+}
+
+.ng2-datetime-picker-wrapper {
+    display: inline;
 }
 
 .card {
@@ -27,9 +31,56 @@ body {
     text-align: center;
 }
 
+.inline {
+    display: inline;
+}
 // ************ override bootstrap ************
 .navbar {
     margin-bottom: 0px;
 }
-
 // ************ END override bootstrap ************
+.navbar-inverse {
+    background-color: $color-purple;
+    border: 0px;
+
+    .navbar-brand,
+    .navbar-nav > li > a,
+    .navbar-text {
+        color: $color-white;
+    }
+
+    .navbar-brand:hover, .navbar-brand:focus {
+        color: $color-grey-light;
+        background-color: transparent;
+    }
+
+    .navbar-nav > .open > a,
+    .navbar-nav > .open > a:hover,
+    .navbar-nav > .open > a:focus {
+        color: #fff;
+        background-color: $color-purple-bright;
+    }
+}
+
+/* page-header */
+.page-header {
+    color: $color-blue-dark;
+    border: 0;
+    margin-top: 20px;
+
+    .title {
+        padding-bottom: 10px;
+        border-bottom: 3px solid $color-blue-dark;
+    }
+}
+
+/* page content */
+.body-content {
+    margin-top: 50px;
+}
+
+/* registration-component */
+.register-button {
+    background: url("../img/register-button.jpg");
+    height: 750px;
+}

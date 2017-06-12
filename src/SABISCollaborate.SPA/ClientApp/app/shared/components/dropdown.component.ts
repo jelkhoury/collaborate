@@ -1,5 +1,4 @@
 ﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
 @Component({
     selector: 'sc-dropdown',
@@ -7,20 +6,26 @@ import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 })
 
 export class DropdownComponent {
-    @Input() allOptions: number[];
-    @Input() selection: IMultiSelectOption[];
+    // selected option
+    public selectedOption: DropdownOption = {
+        id: -1,
+        name: '-- Select --'
+    };
+    // ids of selected options
+    @Input() selection: number;
+    // all possible options
+    @Input() options: DropdownOption[];
+    // notify when selection change
     @Output() selectionChange = new EventEmitter();
 
-    onChange($event): void {
-        this.selection = $event;
+    onChange(option): void {
+        this.selectedOption = option;
+        this.selection = this.selectedOption.id;
         this.selectionChange.emit(this.selection);
     }
 }
 
-export class DropdownOption implements IMultiSelectOption {
+export class DropdownOption {
     id: any;
     name: string;
-    isLabel?: boolean;
-    parentId?: any;
-    params?: any;
 }

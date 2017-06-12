@@ -29,13 +29,16 @@
     <None Remove="ClientApp\test\**" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="wwwroot\css\components\_collaborateControls.scss" />
+    <Content Remove="wwwroot/css\main.scss~RF2940845e.TMP" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="wwwroot\css\components\_controls.scss" />
     <Content Include="wwwroot\css\helpers\_functions.scss" />
     <Content Include="wwwroot\css\helpers\_mixins.scss" />
     <Content Include="wwwroot\css\helpers\_variables.scss" />
     <Content Include="wwwroot\css\main.scss" />
     <Content Include="wwwroot\img\background.png" />
+    <Content Include="wwwroot\img\register-button.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SABISCollaborate.Management.Core\SABISCollaborate.Registration.Core.csproj" />

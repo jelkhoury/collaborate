@@ -16,6 +16,7 @@ import { RegistrationComponent } from './components/management/registration.comp
 import { GenderComponent } from './shared/components/gender.component';
 import { MaritalStatusComponent } from './shared/components/marital-status.component';
 import { DropdownComponent } from './shared/components/dropdown.component';
+import { MultiDropdownComponent } from './shared/components/multi-dropdown.component';
 import { DatepickerComponent } from './shared/components/datepicker.component';
 
 // services
@@ -44,6 +45,7 @@ export const sharedConfig: NgModule = {
         GenderComponent,
         MaritalStatusComponent,
         DropdownComponent,
+        MultiDropdownComponent,
         DatepickerComponent
     ],
     providers: [

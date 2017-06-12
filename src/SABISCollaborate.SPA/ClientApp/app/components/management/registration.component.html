@@ -1,9 +1,7 @@
-﻿<section class="page-header">
-    <h2>Registration</h2>
-</section>
-<form #f="ngForm">
+﻿<form #f="ngForm">
     <fieldset>
         <div class="row">
+            <div class="col-md-6 register-button hidden-sm hidden-xs"></div>
             <div class="col-md-6">
                 <section class="panel">
                     <div class="panel-heading">
@@ -52,12 +50,12 @@
                         <!-- Departments -->
                         <div class="form-group">
                             <label for="departments">Departments</label>
-                            <sc-dropdown name="departments" [allOptions]="model.departmentsOptions" [(selection)]="model.departmentIds"></sc-dropdown>
+                            <sc-multi-dropdown name="departments" [allOptions]="model.departmentsOptions" [(selection)]="model.departmentIds"></sc-multi-dropdown>
                         </div>
                         <!-- Position -->
                         <div class="form-group">
                             <label for="position">Position</label>
-                            <sc-dropdown name="position" [allOptions]="model.positionsOptions" [(selection)]="model.positionId"></sc-dropdown>
+                            <sc-dropdown name="position" [options]="model.positionsOptions" [(selection)]="model.positionId"></sc-dropdown>
                         </div>
                         <!-- Employment date -->
                         <div class="form-group">
@@ -66,8 +64,6 @@
                         </div>
                     </div>
                 </section>
-            </div>
-            <div class="col-md-6">
                 <section class="panel">
                     <div class="panel-heading">
                         <h3>User Info</h3>
@@ -122,10 +118,6 @@
                         </label>
                     </div>
                 </section>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
                 <button type="submit" (click)="onRegister()" class="btn btn-default btn-primary">Register</button>
             </div>
         </div>
