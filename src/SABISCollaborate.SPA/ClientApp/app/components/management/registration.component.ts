@@ -8,7 +8,7 @@ import { UploadOutput, UploadInput, UploadFile } from 'ngx-uploader';
 @Component({
     selector: 'registration',
     templateUrl: './registration.component.html',
-    providers: [RegistrationService]
+    providers: [RegistrationService, FormBuilder]
 })
 
 export class RegistrationComponent {

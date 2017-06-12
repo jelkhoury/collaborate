@@ -1,7 +1,7 @@
 ﻿<section class="page-header">
     <h2>Registration</h2>
 </section>
-<form #f="ngForm" [ngFormModel]='registerForm'>
+<form #f="ngForm">
     <fieldset>
         <div class="row">
             <div class="col-md-6">
@@ -102,10 +102,10 @@
                         </div>
                         <!-- Profile Picture -->
                         <label class="upload-button">
-                            <input type="file"
+                            <!--<input type="file"
                                    ngFileSelect
                                    (uploadOutput)="onUploadOutput($event)"
-                                   [uploadInput]="uploadInput">
+                                   [uploadInput]="uploadInput">-->
                             Profile Picture
                         </label>
                     </div>
