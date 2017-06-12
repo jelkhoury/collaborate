@@ -89,14 +89,20 @@ export class RegistrationComponent {
             this.formErrors[field] = '';
             const control = form.get(field);
 
-            if (control && (control.dirty || control.touched || this.currentForm.submitted) && !control.valid) {
-                this.formErrors[field] = this.getValdationMessage(field);
+            if (control && (control.dirty || control.touched || this.currentForm.submitted)) {
+                if (!control.valid) {
+                    this.formErrors[field] = this.getValidationMessage(field);
+                }
+
+                if ((field == 'password' || field == 'confirmPassword') && this.model.password != this.model.confirmPassword) {
+                    this.formErrors.confirmPassword = 'Confirm password should match the password';
+                }
             }
         }
     }
 
 
-    getValdationMessage(field: string): string {
+    getValidationMessage(field: string): string {
         if (field == 'username') {
             return 'Username is required';
         }
@@ -181,7 +187,7 @@ class RegistrationModel {
     nickname: string;
     username: string;
     password: string;
-    confirmPassowrd: string;
+    confirmPassword: string;
     email: string;
     firstName: string;
     lastName: string;
