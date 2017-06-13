@@ -64,7 +64,8 @@ namespace SABISCollaborate_SPA.Controllers
                 profile.Gender = user.Gender;
                 profile.MaritalStatus = user.MaritalStatus;
                 profile.EmploymentInfo = employmentInfo;
-
+                profile.PictureId = user.TempPictureId;
+                
                 User result = this._userService.Register(user.Username, user.Password, user.Email, profile);
 
                 return Ok(result);
@@ -79,26 +80,49 @@ namespace SABISCollaborate_SPA.Controllers
             }
         }
 
-        [HttpPost("profile/picture")]
-        public async Task<IActionResult> Post(IFormFile file)
+        [HttpPost("profile/picture/temp")]
+        public async Task<IActionResult> UploadProfilePicture(IFormFile file)
         {
-            // full path to file in temp location
-            string filePath = Path.GetTempFileName();
+            Guid fileId = Guid.NewGuid();
 
-            //foreach (var formFile in files)
-            //{
             if (file.Length > 0)
             {
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var stream = new MemoryStream())
                 {
                     await file.CopyToAsync(stream);
+                    this._userService.SaveTempProfilePicture(fileId.ToString(), stream.ToArray());
                 }
             }
 
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
+            return Ok(fileId);
+        }
 
-            return Ok();
+        [HttpGet("profile/picture/temp")]
+        public IActionResult GetTempProfileImage(Guid fileId)
+        {
+            byte[] imageBytes = this._userService.GetTempProfilePicture(fileId.ToString());
+            if(imageBytes != null)
+            {
+                return File(imageBytes, "image/jpeg");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("profile/picture")]
+        public IActionResult GetProfileImage(Guid fileId)
+        {
+            byte[] imageBytes = this._userService.GetProfilePicture(fileId.ToString());
+            if (imageBytes != null)
+            {
+                return File(imageBytes, "image/jpeg");
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
@@ -128,4 +152,6 @@ public class RegisterUserModel
     public int PositionId { get; set; }
 
     public DateTime EmploymentDate { get; set; }
+
+    public string TempPictureId { get; set; }
 }

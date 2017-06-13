@@ -8,6 +8,7 @@
 export class DatepickerComponent {
     @Output() selectedDateChange = new EventEmitter();
     @Input() selectedDate: Date;
+    @Input() class: string;
 
     onChange($event): void {
         this.selectedDate = $event;

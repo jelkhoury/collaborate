@@ -9,8 +9,12 @@ namespace SABISCollaborate.Registration.Core.Services
 
         User Register(string username, string password, string email, UserProfile profile);
 
-        //User Register(string username, string password, string email, string firstName, string lastName, Gender gender, DateTime birthDate);
+        byte[] GetTempProfilePicture(string pictureId);
 
-        //UserProfile UpdateUserProfile(int userId, UserProfile profile);
+        byte[] GetProfilePicture(string pictureId);
+
+        void SaveTempProfilePicture(string id, byte[] bytes);
+
+        void CommitProfilePicture(string id);
     }
 }

@@ -29,9 +29,9 @@ namespace SABISCollaborate_SPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, InMemoryUserRepository>();
-            services.AddScoped<S.Repositories.IDepartmentRepository, SD.InMemoryDepartmentRepository>(); 
-            services.AddScoped<S.Repositories.IPositionRepository, SD.InMemoryPositionRepository>(); 
+            services.AddSingleton<IUserRepository, InMemoryUserRepository>();
+            services.AddSingleton<S.Repositories.IDepartmentRepository, SD.InMemoryDepartmentRepository>(); 
+            services.AddSingleton<S.Repositories.IPositionRepository, SD.InMemoryPositionRepository>(); 
             services.AddScoped<IRegistrationService, RegistrationService>();
 
             // Add framework services.

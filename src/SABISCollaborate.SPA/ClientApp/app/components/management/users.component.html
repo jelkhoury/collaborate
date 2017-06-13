@@ -10,6 +10,7 @@
         <div class="card-block">
             <h3 class="card-title">{{ user.username }}</h3>
             <p class="card-text">{{ user.profile.firstName + ' ' + user.profile.lastName }}</p>
+            <img class="profile-picture" [src]="'http://localhost:49506/api/management/profile/picture?fileId=' + user.profile.pictureId" />
             <!--<a href="javascript:void(0)" (click)="onEditClick(user.id)" class="btn btn-primary">Edit</a>-->
         </div>
     </div>

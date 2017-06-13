@@ -38,6 +38,7 @@
     <Content Include="wwwroot\css\helpers\_variables.scss" />
     <Content Include="wwwroot\css\main.scss" />
     <Content Include="wwwroot\img\background.png" />
+    <Content Include="wwwroot\img\no-avatar.jpg" />
     <Content Include="wwwroot\img\register-button.jpg" />
   </ItemGroup>
   <ItemGroup>

@@ -62,7 +62,7 @@
                         <!-- Employment date -->
                         <div class="form-group">
                             <label for="employmentDate">Employment Date</label>
-                            <sc-datepicker [(selectedDate)]="model.EmploymentDate" name="employmentDate"></sc-datepicker>
+                            <sc-datepicker [class]="'form-control'" [(selectedDate)]="model.EmploymentDate" name="employmentDate"></sc-datepicker>
                         </div>
                     </div>
                 </section>
@@ -71,6 +71,20 @@
                         <h3>User Info</h3>
                     </div>
                     <div class="panel-body">
+                        <!-- Profile Picture -->
+                        <div class="form-group">
+                            <div class="image-container">
+                                <img class="profile-picture img-thumbnail" [src]="model.profilePictureUrl" alt="Profile Picture" />
+                                <div class="image-caption" (click)="pictureInput.click()">Profile Picture</div>
+                                <input type="file"
+                                       #pictureInput
+                                       ngFileSelect
+                                       style="display:none;"
+                                       (change)="uploadTempPicture()"
+                                       (uploadOutput)="onUploadOutput($event)"
+                                       [uploadInput]="uploadInput">
+                            </div>
+                        </div>
                         <!-- Nickname -->
                         <div class="form-group">
                             <label for="nickname">Nickname</label>
@@ -108,19 +122,11 @@
                         <!-- Birth date -->
                         <div class="form-group">
                             <label for="birthDate">Birth Date</label>
-                            <sc-datepicker [(selectedDate)]="model.birthDate" name="birthDate"></sc-datepicker>
+                            <sc-datepicker [class]="'form-control'" [(selectedDate)]="model.birthDate" name="birthDate"></sc-datepicker>
                         </div>
-                        <!-- Profile Picture -->
-                        <label class="upload-button">
-                            <!--<input type="file"
-                                   ngFileSelect
-                                   (uploadOutput)="onUploadOutput($event)"
-                                   [uploadInput]="uploadInput">-->
-                            Profile Picture
-                        </label>
+                        <button type="submit" (click)="onRegister()" class="btn btn-default btn-primary">Register</button>
                     </div>
                 </section>
-                <button type="submit" (click)="onRegister()" class="btn btn-default btn-primary">Register</button>
             </div>
         </div>
     </fieldset>

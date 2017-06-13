@@ -1,4 +1,4 @@
-﻿import { Component, EventEmitter, ViewChild } from '@angular/core';
+﻿import { Component, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { NgForm, FormBuilder, Validators } from '@angular/forms';
 import { RegistrationService } from '../../services/registration.service';
 import { Gender, MaritalStatus, Position, Department } from '../../shared/models';
@@ -29,14 +29,10 @@ export class RegistrationComponent {
     @ViewChild('f') newForm: NgForm;
     private initModel: InitRegistrationModel;
     private registrationService: RegistrationService;
-
-    //// profile picture uploader
-    //uploadInput: EventEmitter<UploadInput>;
-    //files: UploadFile[];
+    uploadInput: EventEmitter<UploadInput> = new EventEmitter<UploadInput>()
+    file: UploadFile;
 
     constructor(registrationService: RegistrationService, private formBuilder: FormBuilder) {
-        //this.files = []; // local uploading files array
-        //this.uploadInput = new EventEmitter<UploadInput>();
         this.registrationService = registrationService;
         this.loadModel();
     }
@@ -65,24 +61,15 @@ export class RegistrationComponent {
             });
         });
     }
-
     // when view value changes
     ngAfterViewChecked() {
         if (this.currentForm === this.newForm) { return; }
         this.currentForm = this.newForm;
 
-        //var gp = this.formBuilder.group({
-        //    'passwords': this.formBuilder.group({
-        //        password: ['', Validators.required],
-        //        repeat: ['', Validators.required]
-        //    }, { validator: this.areEqual })
-        //});
-        //this.currentForm.addFormGroup(gp);
         if (this.currentForm) {
             this.currentForm.valueChanges.subscribe(data => this.onValueChanged(data));
         }
     }
-
     // when form value changes
     onValueChanged(data?: any) {
         if (!this.currentForm) { return; }
@@ -103,7 +90,6 @@ export class RegistrationComponent {
             }
         }
     }
-
     getValidationMessage(field: string): string {
         if (field == 'username') {
             return 'Username is required';
@@ -127,51 +113,39 @@ export class RegistrationComponent {
             return 'Last Name is required';
         }
     }
+    uploadTempPicture(): void {  // manually start uploading
+        const event: UploadInput = {
+            type: 'uploadAll',
+            url: 'http://localhost:49506/api/management/profile/picture/temp',
+            method: 'POST',
+            //data: { foo: 'bar' },
+            concurrency: 1 // set sequential uploading of files with concurrency 1
+        }
+        setTimeout(() => {
+            this.uploadInput.emit(event);
+        }, 0);
+    }
+    onUploadOutput(output: UploadOutput): void {
+        if (output.type === 'done') {
+            this.file = output.file;
 
-    //startUpload(): void {  // manually start uploading
-    //    const event: UploadInput = {
-    //        type: 'uploadAll',
-    //        url: 'http://localhost:49506/api/management/profile/picture',
-    //        method: 'POST',
-    //        //data: { foo: 'bar' },
-    //        concurrency: 1 // set sequential uploading of files with concurrency 1
-    //    }
-
-    //    this.uploadInput.emit(event);
-    //}
-
-    //onUploadOutput(output: UploadOutput): void {
-    //    console.log(output);
-
-    //    if (output.type === 'addedToQueue') {
-    //        this.files.push(output.file); // add file to array when added
-    //    } else if (output.type === 'uploading') {
-    //        // update current data in files array for uploading file
-    //        const index = this.files.findIndex(file => file.id === output.file.id);
-    //        this.files[index] = output.file;
-    //    } else if (output.type === 'removed') {
-    //        // remove file from array when removed
-    //        this.files = this.files.filter((file: UploadFile) => file !== output.file);
-    //    }
-    //}
-
+            // set view url
+            this.model.profilePictureUrl = "http://localhost:49506/api/management/profile/picture/temp?fileId=" + this.file.response;
+        }
+    }
     // register click
     onRegister(): void {
         this.isSubmitted = true;
         // call for validation
         this.onValueChanged();
         if (this.currentForm.valid) {
-
             var user = this.model;
-
-            // validate required
-
-            // validate password
 
             // check unique username
 
+            var tempPictureId = this.file != null ? this.file.response : "";
             // register the user and redirect to all users
-            this.registrationService.register(user.username, user.password, user.email, user.nickname, user.firstName, user.lastName, user.maritalStatus, user.gender, user.birthDate, user.departmentIds, user.positionId[0], user.employmentDate)
+            this.registrationService.register(user.username, user.password, user.email, user.nickname, user.firstName, user.lastName, user.maritalStatus, user.gender, user.birthDate, user.departmentIds, user.positionId, user.employmentDate, tempPictureId)
                 .subscribe(r => {
                     alert('Account registered successfully');
                 }, e => {
@@ -197,15 +171,17 @@ class RegistrationModel {
     maritalStatus: MaritalStatus;
     gender: Gender;
     birthDate: Date;
-    positionId: number[];
+    positionId: number;
     departmentIds: number[];
     employmentDate: Date;
     departmentsOptions: MultiDropdownOption[];
     positionsOptions: DropdownOption[];
+    profilePictureUrl: string;
 
     constructor() {
         this.gender = Gender.Male;
         this.maritalStatus = MaritalStatus.Unspecified;
+        this.profilePictureUrl = 'img/no-avatar.jpg';
     }
 }
 

@@ -11,6 +11,14 @@ namespace SABISCollaborate.Registration.Core.Repositories
 
         User GetUserByUsernameOrEmail(string username, string email);
 
+        byte[] GetTempProfilePicture(string id);
+
+        byte[] GetProfilePicture(string id);
+
+        void SaveTempProfilePicture(string id, byte[] bytes);
+
+        void CommitProfilePicture(string id);
+
         void SaveUser(User user);
     }
 }

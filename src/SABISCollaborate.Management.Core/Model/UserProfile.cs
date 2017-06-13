@@ -61,6 +61,8 @@ namespace SABISCollaborate.Registration.Core.Model
         public DateTime BirthDate { get; set; }
 
         public EmploymentInfo EmploymentInfo { get; set; }
+
+        public string PictureId { get; set; }
         #endregion
 
         #region Constructors
