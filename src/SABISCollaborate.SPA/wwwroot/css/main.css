@@ -74,4 +74,18 @@ body {
 /* registration-component */
 .register-button {
   background: url("../img/register-button.jpg");
-  height: 750px; }
+  height: 750px;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 50%; }
+
+.panel-group {
+  padding: 0; }
+
+.panel-heading h3 {
+  display: inline-block;
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #00517A;
+  color: #00517A; }
