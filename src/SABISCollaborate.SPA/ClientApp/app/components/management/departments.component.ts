@@ -1,31 +1,48 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { Http } from '@angular/http';
+import { SystemService, Department } from '../../services/system.service';
 
 
 
 @Component({
     selector: 'department',
-    templateUrl: './departments.component.html'
+    templateUrl: './departments.component.html',
+    providers: [SystemService]
 })
 
 export class ManagementDepartmentsComponent {
     public departments: Department[];
-    public newdepartment;
+    private _departmentService: SystemService;
+
+    public departmentName;
     public valid = false;
 
-    constructor(http: Http, @Inject('ORIGIN_URL') originUrl: string) {
-        http.get(originUrl + '/api/management/departments').subscribe(result => {
+    constructor(SystemService: SystemService) {
+        this._departmentService = SystemService;
+
+        this.getDepartments();
+
+        //this._departmentService.addDepartment(this.departmentName).subscribe(result => {
+        //    this.departments = result.json() as Department[];
+        //    console.log(this.departments);
+        //});
+
+        
+
+    }
+
+    public addDepartment() {
+        this._departmentService.addDepartment(this.departmentName).subscribe(result => {
+            this.getDepartments();
+            this.departmentName = "";
+        });
+    }
+    public getDepartments() {
+        this._departmentService.getDepartment().subscribe(result => {
             this.departments = result.json() as Department[];
             console.log(this.departments);
         });
     }
-
-    public add() {
-        alert(this.newdepartment);
-    }
     
 }
 
-interface Department {
-    department:string
-}

@@ -23,6 +23,7 @@ import { DatepickerComponent } from './shared/components/datepicker.component';
 import { RegistrationService } from './services/registration.service';
 import { LocalizationService } from './services/localization.service';
 import { AuthenticationService } from './services/authentication.service';
+import { SystemService } from './services/system.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -52,7 +53,8 @@ export const sharedConfig: NgModule = {
         AuthGuard,
         RegistrationService,
         LocalizationService,
-        AuthenticationService
+        AuthenticationService,
+        SystemService
     ],
     imports: [
         AppRoutingModule,

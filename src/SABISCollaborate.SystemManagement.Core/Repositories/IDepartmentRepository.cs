@@ -7,7 +7,7 @@ namespace SABISCollaborate.SystemManagement.Core.Repositories
     {
         List<Department> GetAll();
 
-        Department SaveDepartment(Department department);
+        Department AddDepartment(string departmentName);
 
         void Delete(int departmentId);
     }

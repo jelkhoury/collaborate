@@ -7,10 +7,16 @@ namespace SABISCollaborate.Registration.Core.Model
     /// </summary>
     public class Department : Entity
     {
+
         public int Id { get; protected set; }
 
         public string Title { get; protected set; }
 
-        private Department() { }
+        public Department(int id, string title) {
+            this.Id = id;
+            this.Title = title;
+        }
+
+        
     }
 }
