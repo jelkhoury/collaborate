@@ -70,6 +70,11 @@ namespace SABISCollaborate.Registration.Core.Services
             this._userRepository.SaveTempProfilePicture(id, bytes);
         }
 
+        public bool IsUsernameAvailable(string username)
+        {
+            return this.IsUsernameAndEmailUnique(username, String.Empty);
+        }
+
         #region Helpers
         private bool IsUsernameAndEmailUnique(string username, string email)
         {

@@ -124,6 +124,14 @@ namespace SABISCollaborate_SPA.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet("username/available")]
+        public IActionResult IsUsernameAvailable(string username)
+        {
+            bool isInUse = this._userService.IsUsernameAvailable(username);
+
+            return Ok(isInUse);
+        }
     }
 }
 
