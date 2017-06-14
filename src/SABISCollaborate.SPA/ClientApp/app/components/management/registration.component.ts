@@ -90,6 +90,7 @@ export class RegistrationComponent {
             }
         }
     }
+    // get validation message by field name
     getValidationMessage(field: string): string {
         if (field == 'username') {
             return 'Username is required';
@@ -113,6 +114,7 @@ export class RegistrationComponent {
             return 'Last Name is required';
         }
     }
+    // upload temp profile picture to the server
     uploadTempPicture(): void {  // manually start uploading
         const event: UploadInput = {
             type: 'uploadAll',
@@ -125,6 +127,7 @@ export class RegistrationComponent {
             this.uploadInput.emit(event);
         }, 0);
     }
+    // receive upload events from the upload control
     onUploadOutput(output: UploadOutput): void {
         if (output.type === 'done') {
             this.file = output.file;
@@ -141,8 +144,6 @@ export class RegistrationComponent {
         if (this.currentForm.valid) {
             var user = this.model;
 
-            // check unique username
-
             var tempPictureId = this.file != null ? this.file.response : "";
             // register the user and redirect to all users
             this.registrationService.register(user.username, user.password, user.email, user.nickname, user.firstName, user.lastName, user.maritalStatus, user.gender, user.birthDate, user.departmentIds, user.positionId, user.employmentDate, tempPictureId)
@@ -156,6 +157,19 @@ export class RegistrationComponent {
                         alert('Registration error');
                     }
                 });
+        }
+    }
+    // validate the username is available
+    validateUsernameAvailable(): void {
+        this.model.isUsernameAvailable = true;
+        if (this.model.username.trim().length > 0) {
+            this.model.isValidatingUsername = true;
+
+            this.registrationService.isUsernameAvailable(this.model.username).subscribe(r => {
+                var isAvailable: boolean = r.json() as boolean;
+                this.model.isUsernameAvailable = isAvailable;
+                this.model.isValidatingUsername = false;
+            });
         }
     }
 }
@@ -177,11 +191,15 @@ class RegistrationModel {
     departmentsOptions: MultiDropdownOption[];
     positionsOptions: DropdownOption[];
     profilePictureUrl: string;
+    isValidatingUsername: boolean;
+    isUsernameAvailable: boolean;
 
     constructor() {
         this.gender = Gender.Male;
         this.maritalStatus = MaritalStatus.Unspecified;
         this.profilePictureUrl = 'img/no-avatar.jpg';
+        this.isValidatingUsername = false;
+        this.isUsernameAvailable = true;
     }
 }
 

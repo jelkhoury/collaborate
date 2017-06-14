@@ -21,6 +21,10 @@ export class RegistrationService {
         return this.http.get(this.url + '/api/management/registration');
     }
 
+    isUsernameAvailable(username: string): Observable<Response> {
+        return this.http.get(this.url + '/api/management/username/available?username=' + username);
+    }
+
     register(username: string,
         password: string,
         email: string,
