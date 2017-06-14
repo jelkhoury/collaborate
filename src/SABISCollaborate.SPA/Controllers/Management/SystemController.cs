@@ -16,10 +16,18 @@ namespace SABISCollaborate_SPA.Controllers
             this._departmentRepository = departmentRepository;
         }
 
-        [Route("departments")]
+        [HttpGet("departments")]
         public IActionResult Departments()
         {
             List<Department> department = this._departmentRepository.GetAll();
+
+            return Ok(department);
+        }
+
+        [HttpPost("department")]
+        public IActionResult AddDepartment(string departmentName)
+        {
+            Department department = this._departmentRepository.AddDepartment(departmentName);
 
             return Ok(department);
         }

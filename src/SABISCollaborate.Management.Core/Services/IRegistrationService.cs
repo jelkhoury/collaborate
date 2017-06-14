@@ -13,6 +13,8 @@ namespace SABISCollaborate.Registration.Core.Services
 
         byte[] GetProfilePicture(string pictureId);
 
+        bool IsUsernameAvailable(string username);
+
         void SaveTempProfilePicture(string id, byte[] bytes);
 
         void CommitProfilePicture(string id);

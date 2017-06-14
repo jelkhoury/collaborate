@@ -35,10 +35,7 @@ namespace SABISCollaborate.SystemManagement.Data
             return newDept;
         }
 
-        public Department SaveDepartment(Department department)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public void Delete(int departmentId)
         {

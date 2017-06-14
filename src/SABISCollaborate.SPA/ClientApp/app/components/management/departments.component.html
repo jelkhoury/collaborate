@@ -1,12 +1,12 @@
 ﻿<h2>Add Department</h2>
-<div><input type="text" name="department" value=""/>
-    <input type="button" name="addDepartment" value="Add" (click)="add()"/>
+<div><input type="text" name="department" value="" [(ngModel)]='departmentName'/>
+    <input type="button" name="addDepartment" value="Add" (click)="addDepartment()"/>
            </div>
 
 
 <h2>All Departments</h2>
 <ul class="list-group">
     <li *ngFor="let department of departments" class="list-group-item">
-        {{ department.description }}
+        {{ department.title }}
     </li>
 </ul>
