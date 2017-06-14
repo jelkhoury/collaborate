@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 .collaborate-button, .login-button {
-  background-color: #016836;
+  background-color: #0099E6;
   color: #F0F0F0;
   font-size: 14px;
   font-weight: 500;
@@ -14,13 +14,17 @@
   border: none;
   padding: 7.5px 15px; }
   .collaborate-button:hover, .login-button:hover {
-    background-color: #4D9572; }
+    background-color: #4C93B7; }
 
 body {
   font-size: 14px;
   color: #333333;
   font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
-  background: url("../img/collaboration.jpg"); }
+  background: url("../img/ppl Connection.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
 
 .ng2-datetime-picker-wrapper {
   display: inline; }
@@ -32,9 +36,13 @@ body {
 .card-block {
   margin: 15px; }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset; }
+
 .login-button {
   width: 100%;
-  text-align: center; }
+  text-align: center;
+  margin: 20px 0; }
 
 .inline {
   display: inline; }
@@ -43,20 +51,20 @@ body {
   margin-bottom: 0px; }
 
 .navbar-inverse {
-  background-color: #663377;
+  background-color: #464646;
   border: 0px; }
   .navbar-inverse .navbar-brand,
   .navbar-inverse .navbar-nav > li > a,
   .navbar-inverse .navbar-text {
     color: #F0F0F0; }
   .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
-    color: #E4E4E4;
+    color: #C1ADC8;
     background-color: transparent; }
   .navbar-inverse .navbar-nav > .open > a,
   .navbar-inverse .navbar-nav > .open > a:hover,
   .navbar-inverse .navbar-nav > .open > a:focus {
     color: #fff;
-    background-color: #944AAD; }
+    background-color: #7895A2; }
 
 /* page-header */
 .page-header {
@@ -120,9 +128,41 @@ body {
     cursor: pointer; }
 
 /* Login */
-.login-image-wrapper img {
-  width: 100%; }
+.login-image-wrapper {
+  background-image: url("../img/collaborate-login.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 400px;
+  z-index: 50; }
+  .login-image-wrapper img {
+    width: 100%; }
+
+.login-modal {
+  width: 600px;
+  height: auto; }
+
+/* enable absolute positioning */
+.inner-addon {
+  position: relative; }
+
+/* style glyph */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none; }
 
 .auth-form {
-  width: 300px;
-  margin: 0 auto; }
+  width: 50%;
+  margin: 0 auto;
+  margin-top: -70px;
+  z-index: 100; }
+  .auth-form .login-text-input {
+    height: 32px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #435861;
+    color: #435861;
+    font-size: 18px;
+    outline: none;
+    background: transparent;
+    padding: 0 40px; }

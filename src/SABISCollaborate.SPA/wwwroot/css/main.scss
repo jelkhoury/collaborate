@@ -9,7 +9,11 @@ body {
     font-size: $font-size-normal;
     color: $color-grey-dark;
     font-family: $font-stack;
-    background: url("../img/collaboration.jpg");
+    background: url("../img/ppl Connection.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .ng2-datetime-picker-wrapper {
@@ -25,10 +29,15 @@ body {
     margin: 15px;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
 .login-button {
     @extend .collaborate-button;
     width: 100%;
     text-align: center;
+    margin:20px 0;
 }
 
 .inline {
@@ -40,7 +49,7 @@ body {
 }
 // ************ END override bootstrap ************
 .navbar-inverse {
-    background-color: $color-purple;
+    background-color: $color-grey;
     border: 0px;
 
     .navbar-brand,
@@ -50,7 +59,7 @@ body {
     }
 
     .navbar-brand:hover, .navbar-brand:focus {
-        color: $color-grey-light;
+        color: $color-purple-light;
         background-color: transparent;
     }
 
@@ -58,7 +67,7 @@ body {
     .navbar-nav > .open > a:hover,
     .navbar-nav > .open > a:focus {
         color: #fff;
-        background-color: $color-purple-bright;
+        background-color: $color-blue-grey-bright;
     }
 }
 
@@ -147,9 +156,46 @@ body {
     img {
         width: 100%;
     }
+
+    background-image: url('../img/collaborate-login.png');
+    background-size: 100%;
+    background-repeat:no-repeat;
+    height: 400px;
+    z-index: 50;
+}
+
+.login-modal {
+    width: 600px;
+    height: auto;
+}
+
+/* enable absolute positioning */
+.inner-addon {
+    position: relative;
+}
+
+/* style glyph */
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
 }
 
 .auth-form {
-    width: 300px;
+    width: 50%;
     margin: 0 auto;
+    margin-top: -70px;
+    z-index: 100;
+
+    .login-text-input {
+        height: 32px;
+        width:100%;
+        border: none;
+        border-bottom: 1px solid $color-blue-grey-dark;
+        color: $color-blue-grey-dark;
+        font-size: $font-size-large;
+        outline: none;
+        background: transparent;
+        padding:0 40px;
+    }
 }

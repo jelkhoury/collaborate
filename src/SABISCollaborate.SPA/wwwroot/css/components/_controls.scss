@@ -4,7 +4,7 @@
 @import "../helpers/_functions.scss";
 
 .collaborate-button {
-    background-color: $color-green;
+    background-color: $color-blue-bright;
     color: $color-white;
     font-size: $font-size-normal;
     font-weight: 500;
@@ -15,6 +15,6 @@
 
 
     &:hover {
-        background-color: $color-green-fade;
+        background-color: $color-blue-fade;
     }
 }
