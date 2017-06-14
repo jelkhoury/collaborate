@@ -20,7 +20,7 @@ body {
   font-size: 14px;
   color: #333333;
   font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
-  /*background: url("../img/background.png");*/ }
+  background: url("../img/collaboration.jpg"); }
 
 .ng2-datetime-picker-wrapper {
   display: inline; }
@@ -118,3 +118,11 @@ body {
     line-height: 30px;
     border-radius: 0 0 4px 4px;
     cursor: pointer; }
+
+/* Login */
+.login-image-wrapper img {
+  width: 100%; }
+
+.auth-form {
+  width: 300px;
+  margin: 0 auto; }

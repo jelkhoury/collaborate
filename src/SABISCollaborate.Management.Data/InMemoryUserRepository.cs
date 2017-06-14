@@ -11,8 +11,8 @@ namespace SABISCollaborate.Registration.Data
     {
         #region Fields
         private List<User> _users;
-        private string _tempFolderPath = @"D:\DeleteLater";
-        private string _picturesFolderPath = @"D:\ProfilePictures";
+        private string _tempFolderPath = @"c:\DeleteLater";
+        private string _picturesFolderPath = @"c:\ProfilePictures";
         #endregion
 
         #region ctor

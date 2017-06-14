@@ -116,7 +116,7 @@ export class RegistrationComponent {
     uploadTempPicture(): void {  // manually start uploading
         const event: UploadInput = {
             type: 'uploadAll',
-            url: 'http://localhost:49506/api/management/profile/picture/temp',
+            url: 'http://localhost:1529/api/management/profile/picture/temp',
             method: 'POST',
             //data: { foo: 'bar' },
             concurrency: 1 // set sequential uploading of files with concurrency 1
@@ -130,7 +130,7 @@ export class RegistrationComponent {
             this.file = output.file;
 
             // set view url
-            this.model.profilePictureUrl = "http://localhost:49506/api/management/profile/picture/temp?fileId=" + this.file.response;
+            this.model.profilePictureUrl = "http://localhost:1529/api/management/profile/picture/temp?fileId=" + this.file.response;
         }
     }
     // register click

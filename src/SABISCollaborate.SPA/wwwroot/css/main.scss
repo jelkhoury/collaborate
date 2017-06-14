@@ -9,7 +9,7 @@ body {
     font-size: $font-size-normal;
     color: $color-grey-dark;
     font-family: $font-stack;
-    /*background: url("../img/background.png");*/
+    background: url("../img/collaboration.jpg");
 }
 
 .ng2-datetime-picker-wrapper {
@@ -139,4 +139,17 @@ body {
         border-radius: 0 0 4px 4px;
         cursor: pointer;
     }
+}
+
+
+/* Login */
+.login-image-wrapper {
+    img {
+        width: 100%;
+    }
+}
+
+.auth-form {
+    width: 300px;
+    margin: 0 auto;
 }
