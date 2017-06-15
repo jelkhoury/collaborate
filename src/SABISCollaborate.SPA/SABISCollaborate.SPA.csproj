@@ -46,6 +46,8 @@
     <Content Include="wwwroot\img\collaborate-login.png" />
     <Content Include="wwwroot\img\collaboration.jpg" />
     <Content Include="wwwroot\img\no-avatar.jpg" />
+    <Content Include="wwwroot\img\ppl-connection.jpg" />
+    <Content Include="wwwroot\img\ppl_connection.jpg" />
     <Content Include="wwwroot\img\register-button.jpg" />
   </ItemGroup>
   <ItemGroup>
