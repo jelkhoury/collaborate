@@ -65,7 +65,7 @@ namespace SABISCollaborate_SPA.Controllers
                 profile.MaritalStatus = user.MaritalStatus;
                 profile.EmploymentInfo = employmentInfo;
                 profile.PictureId = user.TempPictureId;
-                
+
                 User result = this._userService.Register(user.Username, user.Password, user.Email, profile);
 
                 return Ok(result);
@@ -101,7 +101,7 @@ namespace SABISCollaborate_SPA.Controllers
         public IActionResult GetTempProfileImage(Guid fileId)
         {
             byte[] imageBytes = this._userService.GetTempProfilePicture(fileId.ToString());
-            if(imageBytes != null)
+            if (imageBytes != null)
             {
                 return File(imageBytes, "image/jpeg");
             }
@@ -131,6 +131,14 @@ namespace SABISCollaborate_SPA.Controllers
             bool isInUse = this._userService.IsUsernameAvailable(username);
 
             return Ok(isInUse);
+        }
+
+        [HttpGet("email/owner")]
+        public IActionResult GetEmailOwner(string email)
+        {
+            User user = this._userService.GetUserByEmail(email);
+
+            return Ok(user);
         }
     }
 }

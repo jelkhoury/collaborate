@@ -16,9 +16,9 @@
                             <input type="text" (change)="validateUsernameAvailable()" [(ngModel)]="model.username" class="form-control" name="username" placeholder="Enter Username" required>
                             <div *ngIf="model.isValidatingUsername">
                                 <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                Checking username is available
+                                Validating username is available
                             </div>
-                            <div *ngIf="!model.isUsernameAvailable" class="text-danger">Username "{{model.username}}" is not available</div>
+                            <div *ngIf="!model.isUsernameAvailable" class="text-danger">Username "{{model.validatedUsername}}" is not available</div>
                             <div *ngIf="formErrors.username" class="alert alert-danger">
                                 {{formErrors.username}}
                             </div>
@@ -42,7 +42,12 @@
                         <!-- Email -->
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" [(ngModel)]="model.email" class="form-control" name="email" placeholder="Enter Email" required>
+                            <input type="email" (change)="validateEmailNotUsed()" [(ngModel)]="model.email" class="form-control" name="email" placeholder="Enter Email" required>
+                            <div *ngIf="model.isValidatingEmail">
+                                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                Validating email...
+                            </div>
+                            <div *ngIf="model.emailOwner" class="text-danger">Email "{{model.validatedEmail}}" is already in use for account "{{model.emailOwner.username}}"</div>
                             <div *ngIf="formErrors.email" class="alert alert-danger">
                                 {{formErrors.email}}
                             </div>
@@ -129,7 +134,7 @@
                             <label for="birthDate">Birth Date</label>
                             <sc-datepicker [class]="'form-control'" [(selectedDate)]="model.birthDate" name="birthDate"></sc-datepicker>
                         </div>
-                        <button type="submit" (click)="onRegister()" class="btn btn-default btn-primary">Register</button>
+                        <button type="submit" [disabled]="model.isSubmitting" (click)="onRegister()" class="btn btn-default btn-primary">Register</button>
                     </div>
                 </section>
             </div>

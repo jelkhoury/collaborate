@@ -75,6 +75,11 @@ namespace SABISCollaborate.Registration.Core.Services
             return this.IsUsernameAndEmailUnique(username, String.Empty);
         }
 
+        public User GetUserByEmail(string email)
+        {
+            return this._userRepository.GetUserByUsernameOrEmail(String.Empty, email);
+        }
+
         #region Helpers
         private bool IsUsernameAndEmailUnique(string username, string email)
         {

@@ -15,6 +15,8 @@ namespace SABISCollaborate.Registration.Core.Services
 
         bool IsUsernameAvailable(string username);
 
+        User GetUserByEmail(string email);
+
         void SaveTempProfilePicture(string id, byte[] bytes);
 
         void CommitProfilePicture(string id);

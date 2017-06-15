@@ -121,6 +121,5 @@ namespace SABISCollaborate.Registration.Data
             return profile;
         }
         #endregion
-
     }
 }

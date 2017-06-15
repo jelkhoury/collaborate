@@ -25,6 +25,10 @@ export class RegistrationService {
         return this.http.get(this.url + '/api/management/username/available?username=' + username);
     }
 
+    getEmailOwner(email: string): Observable<Response> {
+        return this.http.get(this.url + '/api/management/email/owner?email=' + email);
+    }
+
     register(username: string,
         password: string,
         email: string,
