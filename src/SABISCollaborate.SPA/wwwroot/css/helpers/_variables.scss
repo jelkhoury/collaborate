@@ -6,11 +6,12 @@ $color-grey: #464646;
 $color-silver: #BBBBBB;
 $color-white: #F0F0F0;
 
-$color-blue: #006699;
-$color-blue-grey: #546E7A;
-$color-red: #881111;
-$color-yellow: #FFCC00;
-$color-purple: #663377;
+$color-blue: #2196F3;
+$color-blue-grey: #607D8B;
+$color-red: #F44336;
+$color-yellow: #FFEB3B;
+$color-purple: #673AB7;
+$color-teal: #009688;
 
 $color-grey-dark: #333333;
 $color-grey-light: #E4E4E4;
@@ -21,47 +22,42 @@ $color-green-light: #99C2AE;
 $color-green-pale: #CCE0D6;
 $color-green-bright: #02B45D;
 
-$color-blue-dark: #00517A;
-$color-blue-fade: #4C93B7;
-$color-blue-light: #99C1D6;
-$color-blue-pale: #CCE0EA;
-$color-blue-bright: #0099E6;
 
-$color-blue-grey-dark: #435861;
-$color-blue-grey-fade: #8799A1;
-$color-blue-grey-light: #BAC5C9;
-$color-blue-grey-pale: #DCE2E4;
-$color-blue-grey-bright: #7895A2;
+$color-blue-dark: #1565C0;
+$color-blue-light: #64B5F6;
+$color-blue-fade: #BBDEFB;
+
+$color-blue-grey-dark: #37474F;
+$color-blue-grey-light: #90A4AE;
+$color-blue-grey-fade: #CFD8DC;
 
 
-$color-red-dark: #6C0D0D;
-$color-red-fade: #AB5858;
-$color-red-light: #CF9F9F;
-$color-red-pale: #E7CFCF;
-$color-red-bright: #CC1A1A;
 
-$color-yellow-dark: #CCA300;
-$color-yellow-fade: #FFE57F;
-$color-yellow-light: #FFEFB2;
-$color-yellow-pale: #FFF4CC;
-$color-yellow-bright: #FFDB4D;
+$color-red-dark: #C62828;
+$color-red-light: #EF5350;
+$color-red-fade: #FFCDD2;
 
-$color-purple-dark: #51285F;
-$color-purple-fade: #93709F;
-$color-purple-light: #C1ADC8;
-$color-purple-pale: #E0D6E3;
-$color-purple-bright: #944AAD;
+$color-yellow-dark: #F9A825;
+$color-yellow-light: #FFF176;
+$color-yellow-fade: #FFF9C4;
 
+$color-purple-dark: #4527A0;
+$color-purple-light: #9575CD;
+$color-purple-fade: #D1C4E9;
+
+$color-teal-dark: #00695C;
+$color-teal-light: #4DB6AC;
+$color-teal-fade: #B2DFDB;
 // =============================================================================
 //Fonts and sizes
 // =============================================================================
 $font-stack: 'Open Sans',Arial,Helvetica,Sans-Serif;
-
-$font-size-extra-large: 22px;
-$font-size-large: 18px;
-$font-size-normal: 14px;
-$font-size-small: 10px;
-$font-size-extra-small: 8px;
+$font-size-default: 16px;
+$font-size-extra-large: 1.4em;
+$font-size-large: 1.12em;
+$font-size-normal: 0.88em;
+$font-size-small: 0.7em;
+$font-size-extra-small: 0.6em;
 
 
 // =============================================================================
