@@ -13,6 +13,14 @@ export class RegistrationService {
         this.http = http;
     }
 
+    tempUploadProfileImageUrl(): string {
+        return this.url + '/api/management/profile/picture/temp';
+    }
+
+    getTempProfilePictureUrl(tempId: string): string {
+        return this.url + '/api/management/profile/picture/temp?fileId=' + tempId;
+    }
+
     getUsers(): Observable<Response> {
         return this.http.get(this.url + '/api/management/users');
     }

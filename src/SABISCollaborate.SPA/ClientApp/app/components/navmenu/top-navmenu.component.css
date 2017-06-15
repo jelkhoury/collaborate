@@ -1,3 +1,15 @@
 .navbar {
     border-radius: 0;
 }
+
+.navbar-center {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+.navbar-form[role=search] button,
+.navbar-form[role=search] input {
+    border-radius: 0;
+}

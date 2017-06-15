@@ -11,8 +11,10 @@ namespace SABISCollaborate.Registration.Data
     {
         #region Fields
         private List<User> _users;
-        private string _tempFolderPath = @"c:\DeleteLater";
-        private string _picturesFolderPath = @"c:\ProfilePictures";
+        private Dictionary<string, byte[]> _tempImages = new Dictionary<string, byte[]>();
+        private Dictionary<string, byte[]> _profilePictures = new Dictionary<string, byte[]>();
+        //private string _tempFolderPath = @"c:\DeleteLater";
+        //private string _picturesFolderPath = @"c:\ProfilePictures";
         #endregion
 
         #region ctor
@@ -33,15 +35,21 @@ namespace SABISCollaborate.Registration.Data
         #region Users
         public void CommitProfilePicture(string id)
         {
-            string source = Path.Combine(this._tempFolderPath, $"{id}.jpg");
-            string destination = Path.Combine(this._picturesFolderPath, $"{id}.jpg");
+            //string source = Path.Combine(this._tempFolderPath, $"{id}.jpg");
+            //string destination = Path.Combine(this._picturesFolderPath, $"{id}.jpg");
 
-            if (!File.Exists(source))
+            //if (!File.Exists(source))
+            //{
+            //    throw new ArgumentOutOfRangeException($"temp profile picture of id {id} is not available");
+            //}
+
+            //File.Move(source, destination);
+
+            byte[] imageBytes = null;
+            if (this._tempImages.TryGetValue(id, out imageBytes))
             {
-                throw new ArgumentOutOfRangeException($"temp profile picture of id {id} is not available");
+                this._profilePictures.Add(id, imageBytes);
             }
-
-            File.Move(source, destination);
         }
 
         public List<User> GetAll()
@@ -51,11 +59,17 @@ namespace SABISCollaborate.Registration.Data
 
         public byte[] GetProfilePicture(string id)
         {
-            string filePath = Path.Combine(this._picturesFolderPath, $"{id}.jpg");
-            if (System.IO.File.Exists(filePath))
+            //string filePath = Path.Combine(this._picturesFolderPath, $"{id}.jpg");
+            //if (System.IO.File.Exists(filePath))
+            //{
+            //    Byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            //    return fileBytes;
+            //}
+
+            byte[] imageBytes = null;
+            if (this._profilePictures.TryGetValue(id, out imageBytes))
             {
-                Byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-                return fileBytes;
+                return imageBytes;
             }
 
             return null;
@@ -63,11 +77,17 @@ namespace SABISCollaborate.Registration.Data
 
         public byte[] GetTempProfilePicture(string id)
         {
-            string filePath = Path.Combine(this._tempFolderPath, $"{id}.jpg");
-            if (System.IO.File.Exists(filePath))
+            //string filePath = Path.Combine(this._tempFolderPath, $"{id}.jpg");
+            //if (System.IO.File.Exists(filePath))
+            //{
+            //    Byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            //    return fileBytes;
+            //}
+
+            byte[] imageBytes = null;
+            if (this._tempImages.TryGetValue(id, out imageBytes))
             {
-                Byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-                return fileBytes;
+                return imageBytes;
             }
 
             return null;
@@ -86,11 +106,13 @@ namespace SABISCollaborate.Registration.Data
 
         public void SaveTempProfilePicture(string id, byte[] bytes)
         {
-            string filePath = Path.Combine(this._tempFolderPath, $"{id}.jpg"); //Path.GetTempFileName();
-            using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate))
-            {
-                stream.Write(bytes, 0, bytes.Count());
-            }
+            //string filePath = Path.Combine(this._tempFolderPath, $"{id}.jpg"); //Path.GetTempFileName();
+            //using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate))
+            //{
+            //    stream.Write(bytes, 0, bytes.Count());
+            //}
+
+            this._tempImages.Add(id, bytes);
         }
 
         public void SaveUser(User user)
