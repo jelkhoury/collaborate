@@ -22,11 +22,15 @@
     <!-- Files not to show in IDE -->
     <None Remove="yarn.lock" />
     <Compile Remove="ClientApp\test\**" />
+    <Compile Remove="node_modules\**" />
 
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
+    <Content Remove="node_modules\**" />
     <EmbeddedResource Remove="ClientApp\test\**" />
+    <EmbeddedResource Remove="node_modules\**" />
     <None Remove="ClientApp\test\**" />
+    <None Remove="node_modules\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot/css\main.scss~RF2940845e.TMP" />

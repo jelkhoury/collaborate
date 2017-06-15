@@ -9,7 +9,7 @@
                 <div class="form-group inner-addon left-addon" [ngClass]="{'has-error' : formErrors.username}">
                     <i class="glyphicon glyphicon-user"></i>
                     <input type="text" class="login-text-input" name="username" placeholder="Username or Email" [(ngModel)]="model.username" required />
-                    <div *ngIf="formErrors.username" class="alert alert-danger">
+                    <div *ngIf="formErrors.username" class="text-danger">
                         {{ formErrors.username }}
                     </div>
                 </div>   
@@ -17,7 +17,7 @@
                 <div class="form-group inner-addon left-addon" [ngClass]="{ 'has-error': formErrors.password }">
                     <i class="glyphicon glyphicon-lock"></i>
                     <input type="password" class="login-text-input" name="password" placeholder="Password" [(ngModel)]="model.password" required />
-                    <div *ngIf="formErrors.password" class="alert alert-danger">
+                    <div *ngIf="formErrors.password" class="text-danger">
                         {{ formErrors.password }}
                     </div>
                 </div>

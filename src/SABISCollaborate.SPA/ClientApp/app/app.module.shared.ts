@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Material Modules
+import { MdButtonModule, MdCheckboxModule } from '@angular/material';
 
 import { AuthGuard } from './_guards/auth.guard';
 
@@ -32,6 +36,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 import { NgUploaderModule } from 'ngx-uploader';
 
+
 export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
     declarations: [
@@ -61,6 +66,8 @@ export const sharedConfig: NgModule = {
         FormsModule,
         MultiselectDropdownModule,
         Ng2DatetimePickerModule,
-        NgUploaderModule
+        NgUploaderModule,
+        BrowserAnimationsModule,
+        MdButtonModule, MdCheckboxModule
     ]
 };

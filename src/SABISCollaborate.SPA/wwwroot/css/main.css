@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 .collaborate-button, .login-button {
-  background-color: #0099E6;
+  background-color: #2196F3;
   color: #F0F0F0;
-  font-size: 14px;
+  font-size: 0.88em;
   font-weight: 500;
   -webkit-border-radius: 2px;
   border-radius: 2px;
@@ -14,10 +14,10 @@
   border: none;
   padding: 7.5px 15px; }
   .collaborate-button:hover, .login-button:hover {
-    background-color: #4C93B7; }
+    background-color: #64B5F6; }
 
 body {
-  font-size: 14px;
+  font-size: 16px;
   color: #333333;
   font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
   background: url("../img/ppl Connection.jpg");
@@ -58,22 +58,22 @@ input:-webkit-autofill {
   .navbar-inverse .navbar-text {
     color: #F0F0F0; }
   .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
-    color: #C1ADC8;
+    color: #9575CD;
     background-color: transparent; }
   .navbar-inverse .navbar-nav > .open > a,
   .navbar-inverse .navbar-nav > .open > a:hover,
   .navbar-inverse .navbar-nav > .open > a:focus {
     color: #fff;
-    background-color: #7895A2; }
+    background-color: #90A4AE; }
 
 /* page-header */
 .page-header {
-  color: #00517A;
+  color: #1565C0;
   border: 0;
   margin-top: 20px; }
   .page-header .title {
     padding-bottom: 10px;
-    border-bottom: 3px solid #00517A; }
+    border-bottom: 3px solid #1565C0; }
 
 /* page content */
 .body-content {
@@ -102,8 +102,8 @@ input:-webkit-autofill {
     display: inline-block;
     margin: 0;
     padding-bottom: 10px;
-    border-bottom: 3px solid #00517A;
-    color: #00517A; }
+    border-bottom: 3px solid #1565C0;
+    color: #1565C0; }
 
 .profile-picture {
   width: 200px;
@@ -145,6 +145,10 @@ input:-webkit-autofill {
 .inner-addon {
   position: relative; }
 
+.text-danger {
+  color: #F44336;
+  font-size: 0.7em; }
+
 /* style glyph */
 .inner-addon .glyphicon {
   position: absolute;
@@ -160,9 +164,9 @@ input:-webkit-autofill {
     height: 32px;
     width: 100%;
     border: none;
-    border-bottom: 1px solid #435861;
-    color: #435861;
-    font-size: 18px;
+    border-bottom: 1px solid #37474F;
+    color: #37474F;
+    font-size: 1.12em;
     outline: none;
     background: transparent;
     padding: 0 40px; }
