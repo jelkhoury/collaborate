@@ -1,11 +1,23 @@
-﻿<h2>All Users</h2>
-<!--<ul class="list-group">
-    <li *ngFor="let user of users" class="list-group-item">
-        {{ user.username }}
-    </li>
-</ul>-->
+﻿
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 input-group" style="margin-left: -5.3%; padding-bottom: 1%;">
+            <h2>All Users</h2>
+            <div id="custom-search-input">
+                <div class="input-group col-md-12" >
+                    <input type="text" class="form-control input-lg" placeholder="Search..." [(ngModel)]="searchValue"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="col-sm-3" *ngFor="let user of users">
+<div class="col-sm-3" *ngFor="let user of (users | usersPipe:searchValue)">
     <div class="card">
         <div class="card-block">
             <h3 class="card-title">{{ user.username }}</h3>

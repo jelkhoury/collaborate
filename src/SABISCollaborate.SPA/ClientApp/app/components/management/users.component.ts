@@ -1,5 +1,6 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, Pipe, PipeTransform } from '@angular/core';
 import { RegistrationService, User } from '../../services/registration.service';
+
 
 @Component({
     selector: 'manage-users',
@@ -7,10 +8,10 @@ import { RegistrationService, User } from '../../services/registration.service';
     providers: [RegistrationService]
 })
 
+
 export class ManageUsersComponent {
     public users: User[];
     private _usersService: RegistrationService;
-
     constructor(usersService: RegistrationService) {
         this._usersService = usersService;
 
@@ -21,3 +22,25 @@ export class ManageUsersComponent {
         });
     }
 }
+
+
+@Pipe({
+    name: 'usersPipe'
+})
+
+export class usersPipe implements PipeTransform {
+    private searchValue: String;
+    transform(users: User[], searchValue: string) {
+        if (searchValue) {
+            searchValue = searchValue.toLowerCase();
+            return users.filter(user => (user.username.toLowerCase().indexOf(searchValue) !== -1
+                || user.profile.firstName.toLowerCase().indexOf(searchValue) !== -1
+                || user.profile.lastName.toLowerCase().indexOf(searchValue) !== -1));
+                
+            
+        } else {
+            return users;
+        }
+    }
+}
+
