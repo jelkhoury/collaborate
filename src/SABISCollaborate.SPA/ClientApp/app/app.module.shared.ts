@@ -31,7 +31,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { SystemService } from './services/system.service';
 
 import { AppRoutingModule } from './app-routing.module';
-import { usersPipe } from './components/management/users.component';
+import { UsersPipe } from './components/management/users.component';
 
 // 3rd party modules
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
@@ -55,7 +55,7 @@ export const sharedConfig: NgModule = {
         DropdownComponent,
         MultiDropdownComponent,
         DatepickerComponent,
-        usersPipe
+        UsersPipe
         
     ],
     providers: [
