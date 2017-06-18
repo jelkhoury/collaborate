@@ -1,7 +1,44 @@
-﻿<h2>Add Department</h2>
-<div><input type="text" name="department" value="" [(ngModel)]='departmentName'/>
-    <input type="button" name="addDepartment" value="Add" (click)="addDepartment()"/>
-           </div>
+﻿<!--<h2>Add Departments</h2>
+<div>
+    <input type="text" name="department" [(ngModel)]='departmentName' />
+    <input type="button" name="addDepartment" value="Add" (click)="addDepartment()" [disabled]="!isValidForm()" />
+</div>-->
+
+
+<!--<div class="container">
+    <div class="row">
+        <div class="col-md-6 input-group" style="margin-left: -5.3%; padding-bottom: 1%;">
+            <h2>Add Departments</h2>
+            <div class="input-group col-md-12">
+                <input type="text" class="form-control input-md" placeholder="Add..." [(ngModel)]='departmentName' />
+                <a href="#" class="btn btn-info btn-sm" style="margin-left: -5.3%;">
+                    <span name="addDepartment" (click)="addDepartment()" class="glyphicon glyphicon-plus" ></span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>-->
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 input-group" style="margin-left: -7.3%;">
+            <h2>Add Department</h2>
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-md" placeholder="Add..." [(ngModel)]='departmentName' (keyup.enter)="addDepartment()" />
+                    <span class="input-group-btn">
+                        <button name="addDepartment" (click)="addDepartment()"  class="btn btn-info btn-md" type="button" [disabled]="!isValidForm()">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <h2>All Departments</h2>

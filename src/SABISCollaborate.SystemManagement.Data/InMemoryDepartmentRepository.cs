@@ -2,6 +2,7 @@
 using System;
 using SABISCollaborate.SystemManagement.Core.Repositories;
 using SABISCollaborate.SystemManagement.Core.Model;
+using System.Linq;
 
 namespace SABISCollaborate.SystemManagement.Data
 {
@@ -28,7 +29,8 @@ namespace SABISCollaborate.SystemManagement.Data
         public Department AddDepartment(string DepartmentName)
         {
             Department newDept = new Department(DepartmentName);
-            if (!_departments.Contains(newDept))
+           
+            if (!_departments.Any(dep => dep.Title == DepartmentName))
             {
                 _departments.Add(newDept);
             }

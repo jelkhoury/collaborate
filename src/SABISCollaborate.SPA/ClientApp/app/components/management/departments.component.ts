@@ -32,6 +32,7 @@ export class ManagementDepartmentsComponent {
     }
 
     public addDepartment() {
+        if (!this.isValidForm()) return;
         this._departmentService.addDepartment(this.departmentName).subscribe(result => {
             this.getDepartments();
             this.departmentName = "";
@@ -42,6 +43,9 @@ export class ManagementDepartmentsComponent {
             this.departments = result.json() as Department[];
             console.log(this.departments);
         });
+    }
+    public isValidForm() {
+        return this.departmentName;
     }
     
 }

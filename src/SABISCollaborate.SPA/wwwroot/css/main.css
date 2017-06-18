@@ -16,6 +16,37 @@
   .collaborate-button:hover, .login-button:hover {
     background-color: #64B5F6; }
 
+.collaborate-search #custom-search-input {
+  padding: 3px;
+  border: solid 1px #E4E4E4;
+  border-radius: 6px;
+  background-color: #fff; }
+
+.collaborate-search #input-group {
+  margin-bottom: 1%;
+  margin-left: -6.5%; }
+
+.collaborate-search #custom-search-input input {
+  border: 0;
+  box-shadow: none; }
+
+.collaborate-search #custom-search-input button {
+  margin: 2px 0 0 0;
+  background: none;
+  box-shadow: none;
+  border: 0;
+  color: #666666;
+  padding: 0 8px 0 10px;
+  border-left: solid 1px #ccc; }
+
+.collaborate-search #custom-search-input button:hover {
+  border: 0;
+  box-shadow: none;
+  border-left: solid 1px #ccc; }
+
+.collaborate-search #custom-search-input .glyphicon-search {
+  font-size: 23px; }
+
 body {
   font-size: 16px;
   color: #333333;
