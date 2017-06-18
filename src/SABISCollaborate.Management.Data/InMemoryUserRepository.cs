@@ -21,17 +21,34 @@ namespace SABISCollaborate.Registration.Data
         public InMemoryUserRepository()
         {
             this._users = new List<User>();
-            //65124356-346e-40d8-a4aa-bde62c1f56b3
+
+            // Jek
             UserProfile profile = new UserProfile("jek", "Joseph", "El Khoury", DateTime.Now);
             profile.PictureId = "65124356-346e-40d8-a4aa-bde62c1f56b3";
             this.SaveUser(new User(1, "jek", "a+b=*1*b+a", "joseph.elkhoury@outlook.com", profile));
+
+            // Hri
+            profile = new UserProfile("hri", "Hiba", "Rizk", DateTime.Now);
+            profile.PictureId = "95124356-346e-40d8-a4aa-bde62c1f56b4";
             this.SaveUser(new User(2, "hri", "a+b=*1*b+a", "hrizk@outlook.com", new UserProfile("hri", "Hiba", "Rizk", DateTime.Now)));
-            this.SaveUser(new User(3, "egh", "a+b=*1*b+a", "eghazal@outlook.com", new UserProfile("egh", "Elie", "Ghazal", DateTime.Now)));
+
+            // Egh
+            profile = new UserProfile("egh", "Elie", "Ghazal", DateTime.Now);
+            profile.PictureId = "85124356-346e-40d8-a4aa-bde62c1f56b4";
+            this.SaveUser(new User(3, "egh", "a+b=*1*b+a", "eghazal@outlook.com", profile));
+
             this.SaveUser(new User(4, "rbr", "a+b=*1*b+a", "ralphbouraad@outlook.com", new UserProfile("rbr", "Ralph", "Bou Raad", DateTime.Now)));
             this.SaveUser(new User(5, "gma", "a+b=*1*b+a", "gmantoufeh@outlook.com", new UserProfile("manatifo", "Georges", "Mantoufeh", DateTime.Now)));
-            this.SaveUser(new User(6, "admin", "a+b=*admin*b+a", "karine.bedran@sabis.net", new UserProfile("karine", "Karine", "Bedran", DateTime.Now)));
 
-            this._profilePictures.Add("65124356-346e-40d8-a4aa-bde62c1f56b3", StaticProfilePictures.Karine);
+            // Karine
+            profile = new UserProfile("karine", "Karine", "Bedran", DateTime.Now);
+            profile.PictureId = "75124356-346e-40d8-a4aa-bde62c1f56b4";
+            this.SaveUser(new User(6, "admin", "a+b=*admin*b+a", "karine.bedran@sabis.net", profile));
+
+            this._profilePictures.Add("65124356-346e-40d8-a4aa-bde62c1f56b3", StaticProfilePictures.Jek);
+            this._profilePictures.Add("75124356-346e-40d8-a4aa-bde62c1f56b4", StaticProfilePictures.Karine);
+            this._profilePictures.Add("85124356-346e-40d8-a4aa-bde62c1f56b4", StaticProfilePictures.Egh);
+            this._profilePictures.Add("95124356-346e-40d8-a4aa-bde62c1f56b4", StaticProfilePictures.Hri);
         }
         #endregion
 

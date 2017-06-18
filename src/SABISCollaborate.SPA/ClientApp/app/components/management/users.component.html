@@ -20,7 +20,7 @@
         <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12 " *ngFor="let user of (users | usersPipe:searchValue)">
             <div class="card">
                 <div class="card-block">
-                    <img class="profile-picture" src="/img/user-avatar.jpg " /><!--[src]="'http://localhost:49506/api/management/profile/picture?fileId=' + user.profile.pictureId"-->
+                    <img class="profile-picture" [src]="getProfilePictureUrl(user.profile.pictureId)" />
                     <p class="card-title">{{ user.username }}</p>
                     <p class="card-text">{{ user.profile.firstName + ' ' + user.profile.lastName }}</p>
 

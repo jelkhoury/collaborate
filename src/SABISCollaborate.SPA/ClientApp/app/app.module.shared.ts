@@ -52,9 +52,8 @@ export const sharedConfig: NgModule = {
         DropdownComponent,
         MultiDropdownComponent,
         DatepickerComponent,
-        SearchResultComponent
+        SearchResultComponent,
         usersPipe
-        
     ],
     providers: [
         AuthGuard,
