@@ -9,7 +9,6 @@ body {
     font-size: $font-size-default;
     color: $color-grey-dark;
     font-family: $font-stack;
- 
 }
 
 .ng2-datetime-picker-wrapper {
@@ -18,7 +17,8 @@ body {
 
 .card {
     border: 1px solid lightgray;
-    border-radius: 3px;
+    border-radius: 5px;
+    margin-top:40px;
 }
 
 .card-block {
@@ -33,7 +33,7 @@ input:-webkit-autofill {
     @extend .collaborate-button;
     width: 100%;
     text-align: center;
-    margin:20px 0;
+    margin: 20px 0;
 }
 
 .inline {
@@ -45,7 +45,7 @@ input:-webkit-autofill {
 }
 // ************ END override bootstrap ************
 .navbar-inverse {
-    background-color: $color-teal;
+    background-color: $color-teal-dark;
     border: 0px;
 
     .navbar-brand,
@@ -54,10 +54,6 @@ input:-webkit-autofill {
         color: $color-white;
     }
 
-    .navbar-brand:hover, .navbar-brand:focus {
-        color: $color-purple-light;
-        background-color: transparent;
-    }
 
     .navbar-nav > .open > a,
     .navbar-nav > .open > a:hover,
@@ -121,10 +117,11 @@ input:-webkit-autofill {
 }
 
 .profile-picture {
-    width: 200px;
-    height: 200px;
-    padding: 0;
-    border: 0;
+    width: 100%;
+    border: 1px solid $color-silver;
+    margin-top: -30px;
+    box-shadow: 0px -5px 10px $color-silver;
+    border-radius: 5px;
 }
 
 .image-container {
@@ -155,7 +152,7 @@ input:-webkit-autofill {
 
     background-image: url('../img/collaborate-login.png');
     background-size: 100%;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     height: 400px;
     z-index: 50;
 }
@@ -184,13 +181,25 @@ input:-webkit-autofill {
 
     .login-text-input {
         height: 32px;
-        width:100%;
+        width: 100%;
         border: none;
         border-bottom: 1px solid $color-blue-grey-dark;
         color: $color-blue-grey-dark;
-        font-size: $font-size-large;
+        font-size: $font-size-normal;
         outline: none;
         background: transparent;
-        padding:0 40px;
+        padding: 0 40px;
     }
+}
+
+.page-title {
+    font-size: $font-size-extra-large;
+    color: $color-yellow-dark;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: $default-padding 0;
+}
+
+.search {
+    margin-bottom: $default-padding;
 }

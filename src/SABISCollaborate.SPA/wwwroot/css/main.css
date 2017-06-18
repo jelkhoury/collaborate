@@ -57,7 +57,8 @@ body {
 
 .card {
   border: 1px solid lightgray;
-  border-radius: 3px; }
+  border-radius: 5px;
+  margin-top: 40px; }
 
 .card-block {
   margin: 15px; }
@@ -77,15 +78,12 @@ input:-webkit-autofill {
   margin-bottom: 0px; }
 
 .navbar-inverse {
-  background-color: #009688;
+  background-color: #00695C;
   border: 0px; }
   .navbar-inverse .navbar-brand,
   .navbar-inverse .navbar-nav > li > a,
   .navbar-inverse .navbar-text {
     color: #F0F0F0; }
-  .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
-    color: #9575CD;
-    background-color: transparent; }
   .navbar-inverse .navbar-nav > .open > a,
   .navbar-inverse .navbar-nav > .open > a:hover,
   .navbar-inverse .navbar-nav > .open > a:focus {
@@ -132,10 +130,11 @@ input:-webkit-autofill {
     color: #1565C0; }
 
 .profile-picture {
-  width: 200px;
-  height: 200px;
-  padding: 0;
-  border: 0; }
+  width: 100%;
+  border: 1px solid #BBBBBB;
+  margin-top: -30px;
+  box-shadow: 0px -5px 10px #BBBBBB;
+  border-radius: 5px; }
 
 .image-container {
   display: inline-block; }
@@ -163,10 +162,6 @@ input:-webkit-autofill {
   .login-image-wrapper img {
     width: 100%; }
 
-.login-modal {
-  width: 600px;
-  height: auto; }
-
 /* enable absolute positioning */
 .inner-addon {
   position: relative; }
@@ -192,7 +187,17 @@ input:-webkit-autofill {
     border: none;
     border-bottom: 1px solid #37474F;
     color: #37474F;
-    font-size: 1.12em;
+    font-size: 0.88em;
     outline: none;
     background: transparent;
     padding: 0 40px; }
+
+.page-title {
+  font-size: 1.4em;
+  color: #F9A825;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 15px 0; }
+
+.search {
+  margin-bottom: 15px; }
