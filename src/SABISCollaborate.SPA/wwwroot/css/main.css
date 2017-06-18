@@ -58,10 +58,26 @@ body {
 .card {
   border: 1px solid lightgray;
   border-radius: 5px;
-  margin-top: 40px; }
+  margin-top: 30px;
+  height: 100%;
+  margin-bottom: 15px; }
 
 .card-block {
   margin: 15px; }
+
+.card-username {
+  font-size: 0.88em;
+  text-align: center;
+  font-weight: 600;
+  color: #333333;
+  margin: 15px 0; }
+
+.card-name {
+  font-size: 1.12em;
+  text-align: center;
+  font-weight: 300;
+  color: #2196F3;
+  margin: 0px; }
 
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px white inset; }
@@ -76,6 +92,12 @@ input:-webkit-autofill {
 
 .navbar {
   margin-bottom: 0px; }
+
+.btn-info {
+  background-color: #00695C;
+  border: 1px solid #464646; }
+  .btn-info:hover, .btn-info:active, .btn-info:focus {
+    background-color: #009688; }
 
 .navbar-inverse {
   background-color: #00695C;

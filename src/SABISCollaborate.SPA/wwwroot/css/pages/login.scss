@@ -1,0 +1,68 @@
+﻿@import "../helpers/_variables.scss";
+@import "../helpers/_mixins.scss";
+@import "../helpers/_functions.scss";
+@import "../components/_controls.scss";
+
+body {
+    background-image: url('../../img/ppl-connection.jpg');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.login-button {
+    @extend .collaborate-button;
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.login-image-wrapper {
+    img {
+        width: 100%;
+    }
+
+    background-image: url('../img/collaborate-login.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 400px;
+    z-index: 50;
+}
+
+.login-modal {
+    width: 600px;
+    height: auto;
+}
+
+/* enable absolute positioning */
+.inner-addon {
+    position: relative;
+}
+
+/* style glyph */
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+}
+
+.auth-form {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: -70px;
+    z-index: 100;
+
+    .login-text-input {
+        height: 32px;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid $color-blue-grey-dark;
+        color: $color-blue-grey-dark;
+        font-size: $font-size-large;
+        outline: none;
+        background: transparent;
+        padding: 0 40px;
+    }
+}
+
