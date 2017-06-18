@@ -41,6 +41,8 @@
     <Content Include="wwwroot\css\helpers\_mixins.scss" />
     <Content Include="wwwroot\css\helpers\_variables.scss" />
     <Content Include="wwwroot\css\main.scss" />
+    <Content Include="wwwroot\css\theme.css" />
+    <Content Include="wwwroot\css\theme.scss" />
     <Content Include="wwwroot\img\background.png" />
     <Content Include="wwwroot\img\Business-people-collaborate.jpg" />
     <Content Include="wwwroot\img\collaborate-login.png" />

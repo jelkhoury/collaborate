@@ -9,10 +9,7 @@ body {
     font-size: $font-size-default;
     color: $color-grey-dark;
     font-family: $font-stack;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+ 
 }
 
 .ng2-datetime-picker-wrapper {
@@ -48,7 +45,7 @@ input:-webkit-autofill {
 }
 // ************ END override bootstrap ************
 .navbar-inverse {
-    background-color: $color-grey;
+    background-color: $color-teal;
     border: 0px;
 
     .navbar-brand,
@@ -161,11 +158,6 @@ input:-webkit-autofill {
     background-repeat:no-repeat;
     height: 400px;
     z-index: 50;
-}
-
-.login-modal {
-    width: 600px;
-    height: auto;
 }
 
 /* enable absolute positioning */
