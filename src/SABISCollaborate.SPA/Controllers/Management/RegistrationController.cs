@@ -32,11 +32,21 @@ namespace SABISCollaborate_SPA.Controllers
             this._positionRepository = positionRepository;
         }
 
-        [Route("users")]
-        public IActionResult Users()
+
+        [HttpPost("user")]
+        public IActionResult GetUser([FromBody] CredentialsModel credentials)
         {
-            // get all users
-            List<User> users = this._userService.GetAllUser();
+            User user = this._userService.GetUser(credentials.Username, credentials.Password);
+
+            return Ok(user);
+        }
+
+        [Route("users")]
+        public IActionResult GetUsers(string filter = "")
+        {
+            List<User> users = String.IsNullOrWhiteSpace(filter)
+                ? this._userService.GetAllUsers()
+                : this._userService.GetUsers(filter);
 
             return Ok(users);
         }

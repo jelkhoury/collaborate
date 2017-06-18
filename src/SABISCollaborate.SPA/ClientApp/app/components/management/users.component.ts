@@ -1,5 +1,6 @@
 ﻿import { Component } from '@angular/core';
-import { RegistrationService, User } from '../../services/registration.service';
+import { RegistrationService } from '../../services/registration.service';
+import { User } from '../../shared/models';
 
 @Component({
     selector: 'manage-users',

@@ -1,7 +1,7 @@
 ﻿import { Inject, Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Gender, Department, MaritalStatus } from '../shared/models';
+import { Gender, Department, MaritalStatus, User } from '../shared/models';
 
 @Injectable()
 export class RegistrationService {
@@ -21,8 +21,13 @@ export class RegistrationService {
         return this.url + '/api/management/profile/picture/temp?fileId=' + tempId;
     }
 
-    getUsers(): Observable<Response> {
-        return this.http.get(this.url + '/api/management/users');
+    getUsers(filterText?: string): Observable<Response> {
+        var url = this.url + '/api/management/users';
+        if (filterText != null && filterText.trim().length > 0) {
+            url += '?filter=' + filterText
+        }
+
+        return this.http.get(url);
     }
 
     getInitRegistrationModel(): Observable<Response> {
@@ -66,15 +71,4 @@ export class RegistrationService {
             TempPictureId: tempPictureId
         });
     }
-}
-
-export interface User {
-    id: number,
-    username: string;
-    profile: UserProfile;
-}
-
-export interface UserProfile {
-    firstName: string;
-    lastName: string;
 }

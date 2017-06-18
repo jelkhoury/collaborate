@@ -24,11 +24,14 @@ namespace SABISCollaborate.Registration.Data
             //65124356-346e-40d8-a4aa-bde62c1f56b3
             UserProfile profile = new UserProfile("jek", "Joseph", "El Khoury", DateTime.Now);
             profile.PictureId = "65124356-346e-40d8-a4aa-bde62c1f56b3";
-            this.SaveUser(new User(1, "jek", "1", "joseph.elkhoury@outlook.com", profile));
-            this.SaveUser(new User(2, "hri", "1", "hrizk@outlook.com", new UserProfile("hri", "Hiba", "Rizk", DateTime.Now)));
-            this.SaveUser(new User(3, "egh", "1", "eghazal@outlook.com", new UserProfile("egh", "Elie", "Ghazal", DateTime.Now)));
-            this.SaveUser(new User(4, "rbr", "1", "ralphbouraad@outlook.com", new UserProfile("rbr", "Ralph", "Bou Raad", DateTime.Now)));
-            this.SaveUser(new User(5, "gma", "1", "gmantoufeh@outlook.com", new UserProfile("manatifo", "Georges", "Mantoufeh", DateTime.Now)));
+            this.SaveUser(new User(1, "jek", "a+b=*1*b+a", "joseph.elkhoury@outlook.com", profile));
+            this.SaveUser(new User(2, "hri", "a+b=*1*b+a", "hrizk@outlook.com", new UserProfile("hri", "Hiba", "Rizk", DateTime.Now)));
+            this.SaveUser(new User(3, "egh", "a+b=*1*b+a", "eghazal@outlook.com", new UserProfile("egh", "Elie", "Ghazal", DateTime.Now)));
+            this.SaveUser(new User(4, "rbr", "a+b=*1*b+a", "ralphbouraad@outlook.com", new UserProfile("rbr", "Ralph", "Bou Raad", DateTime.Now)));
+            this.SaveUser(new User(5, "gma", "a+b=*1*b+a", "gmantoufeh@outlook.com", new UserProfile("manatifo", "Georges", "Mantoufeh", DateTime.Now)));
+            this.SaveUser(new User(6, "admin", "a+b=*admin*b+a", "karine.bedran@sabis.net", new UserProfile("karine", "Karine", "Bedran", DateTime.Now)));
+
+            this._profilePictures.Add("65124356-346e-40d8-a4aa-bde62c1f56b3", StaticProfilePictures.Karine);
         }
         #endregion
 
@@ -98,10 +101,30 @@ namespace SABISCollaborate.Registration.Data
             return this._users.Find(u => u.Id == userId);
         }
 
+        public User GetUser(string username, string passwordHash)
+        {
+            return this._users.FirstOrDefault(u => u.Username.Trim().ToLower() == username.Trim().ToLower() && u.PasswordHash == passwordHash);
+        }
+
         public User GetUserByUsernameOrEmail(string username, string email)
         {
             return this._users.Find(u => String.Compare(u.Username, username, true) == 0
              || String.Compare(u.IdentifierEmail, email, true) == 0);
+        }
+
+        public List<User> GetUsers(string searchText)
+        {
+            string text = searchText.ToLower().Trim();
+
+            return this._users.Where(u =>
+            {
+                return u.IdentifierEmail.ToLower().Contains(text)
+                || u.IdentifierEmail.ToLower().Contains(text)
+                || u.Username.ToLower().Contains(text)
+                || u.Profile.FirstName.ToLower().Contains(text)
+                || u.Profile.LastName.ToLower().Contains(text)
+                || u.Profile.Nickname.ToLower().Contains(text);
+            }).ToList();
         }
 
         public void SaveTempProfilePicture(string id, byte[] bytes)

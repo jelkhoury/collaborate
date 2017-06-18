@@ -7,7 +7,11 @@ namespace SABISCollaborate.Registration.Core.Repositories
     {
         List<User> GetAll();
 
+        List<User> GetUsers(string searchText);
+
         User GetUser(int userId);
+
+        User GetUser(string username, string passwordHash);
 
         User GetUserByUsernameOrEmail(string username, string email);
 

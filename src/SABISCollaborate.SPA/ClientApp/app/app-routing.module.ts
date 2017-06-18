@@ -8,11 +8,13 @@ import { HomeComponent } from './components/home/home.component';
 import { ManageUsersComponent } from './components/management/users.component';
 import { RegistrationComponent } from './components/management/registration.component';
 import { ManagementDepartmentsComponent } from './components/management/departments.component';
+import { SearchResultComponent } from './components/search/search-result.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'search', component: SearchResultComponent, canActivate: [AuthGuard] },
     {
         path: 'management',
         children: [

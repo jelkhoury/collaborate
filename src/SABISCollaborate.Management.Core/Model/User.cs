@@ -25,19 +25,24 @@ namespace SABISCollaborate.Registration.Core.Model
         {
         }
 
-        public User(string username, string password, string email, UserProfile profile)
-            : this(default(int), username, password, email, profile)
+        public User(string username, string passwordHash, string email, UserProfile profile)
+            : this(default(int), username, passwordHash, email, profile)
         {
 
         }
 
-        public User(int id, string username, string password, string email, UserProfile profile)
+        public User(int id, string username, string passwordHash, string email, UserProfile profile)
         {
             this.Id = id;
 
             if (String.IsNullOrWhiteSpace(username))
             {
                 throw new ArgumentNullException("username");
+            }
+
+            if (String.IsNullOrWhiteSpace(passwordHash))
+            {
+                throw new ArgumentNullException("passwordHash");
             }
 
             if (String.IsNullOrWhiteSpace(email))
@@ -50,19 +55,19 @@ namespace SABISCollaborate.Registration.Core.Model
             this.Username = username;
             this.IdentifierEmail = email;
             this.CreatedDate = DateTime.Now;
-            this.SetPassword(password);
+            this.SetPassword(passwordHash);
         }
         #endregion
 
         #region Methods
-        public void SetPassword(string password)
+        public void SetPassword(string passwordHash)
         {
-            if (String.IsNullOrWhiteSpace(password))
+            if (String.IsNullOrWhiteSpace(passwordHash))
             {
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException("passwordHash");
             }
 
-            this.PasswordHash = $"a+b=*{password}*b+a";
+            this.PasswordHash = passwordHash;
         }
         #endregion
     }

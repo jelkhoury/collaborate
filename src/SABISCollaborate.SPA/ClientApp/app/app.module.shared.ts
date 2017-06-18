@@ -3,9 +3,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Material Modules
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
-
 import { AuthGuard } from './_guards/auth.guard';
 
 // component
@@ -22,6 +19,7 @@ import { MaritalStatusComponent } from './shared/components/marital-status.compo
 import { DropdownComponent } from './shared/components/dropdown.component';
 import { MultiDropdownComponent } from './shared/components/multi-dropdown.component';
 import { DatepickerComponent } from './shared/components/datepicker.component';
+import { SearchResultComponent } from './components/search/search-result.component';
 
 // services
 import { RegistrationService } from './services/registration.service';
@@ -35,7 +33,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 import { NgUploaderModule } from 'ngx-uploader';
-
 
 export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
@@ -52,7 +49,8 @@ export const sharedConfig: NgModule = {
         MaritalStatusComponent,
         DropdownComponent,
         MultiDropdownComponent,
-        DatepickerComponent
+        DatepickerComponent,
+        SearchResultComponent
     ],
     providers: [
         AuthGuard,
@@ -67,7 +65,6 @@ export const sharedConfig: NgModule = {
         MultiselectDropdownModule,
         Ng2DatetimePickerModule,
         NgUploaderModule,
-        BrowserAnimationsModule,
-        MdButtonModule, MdCheckboxModule
+        BrowserAnimationsModule
     ]
 };

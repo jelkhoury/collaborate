@@ -5,7 +5,11 @@ namespace SABISCollaborate.Registration.Core.Services
 {
     public interface IRegistrationService
     {
-        List<User> GetAllUser();
+        List<User> GetAllUsers();
+
+        User GetUser(string username, string passowrd);
+
+        List<User> GetUsers(string searchText);
 
         User Register(string username, string password, string email, UserProfile profile);
 

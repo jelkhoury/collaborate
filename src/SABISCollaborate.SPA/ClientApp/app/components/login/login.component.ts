@@ -12,6 +12,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class LoginComponent {
     model: any;
     isLoading: boolean;
+    invalidCredentials: boolean;
     formErrors = {
         username: '',
         password: ''
@@ -21,6 +22,7 @@ export class LoginComponent {
 
     constructor(private router: Router, private authService: AuthenticationService) {
         this.model = {};
+        this.invalidCredentials = false;
     }
 
     login(): void {
@@ -28,10 +30,16 @@ export class LoginComponent {
         if (this.currentForm.valid) {
             this.isLoading = true;
 
-            if (this.authService.login(this.model.username, this.model.password)) {
-                this.router.navigateByUrl('/home');
-            }
-            this.isLoading = false;
+            this.authService.login(this.model.username, this.model.password)
+                .subscribe(u => {
+                    this.isLoading = false;
+                    if (u) {
+                        this.router.navigateByUrl('/home');
+                    }
+                    else {
+                        this.invalidCredentials = true;
+                    }
+                });
         }
     }
 

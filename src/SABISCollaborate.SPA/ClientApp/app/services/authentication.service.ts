@@ -1,5 +1,9 @@
 ﻿import { Inject, Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { User } from '../shared/models';
+import 'rxjs/Rx';
 
 @Injectable()
 export class AuthenticationService {
@@ -11,12 +15,12 @@ export class AuthenticationService {
     userLoggedIn$ = this.userLoggedInSource.asObservable();
     userLoggedOut$ = this.userLoggedOutSource.asObservable();
 
+    constructor(private http: Http, @Inject('ORIGIN_URL') private originUrl: string) {
+
+    }
+
     isAuthenticated(): boolean {
-        if (localStorage.getItem('currentUser') && true) {
-            return true;
-        }
-        
-        return false;
+        return localStorage.getItem('currentUser') && true;
     }
 
     getCurrentUser(): string {
@@ -25,15 +29,21 @@ export class AuthenticationService {
         return username;
     }
 
-    login(username: string, password: string): boolean {
-        if (username == password) {
-            localStorage.setItem("currentUser", username);
-            this.userLoggedInSource.next(username);
+    login(username: string, password: string): Observable<User> {
+        var url = this.originUrl + '/api/management/user';
 
-            return true;
-        }
+        return Observable.create(observer => {
+            this.http.post(url, { Username: username, Password: password }).map(res => res.json() as User).subscribe(u => {
+                if (u) {
+                    localStorage.setItem("currentUser", username);
+                    this.userLoggedInSource.next(username);
+                }
 
-        return false;
+                observer.next(u);
+                //call complete if you want to close this stream (like a promise)
+                observer.complete();
+            });
+        });
     };
 
     logout(): void {

@@ -29,9 +29,14 @@ namespace SABISCollaborate.Registration.Core.Services
         /// Get all users and related profiles
         /// </summary>
         /// <returns></returns>
-        public List<User> GetAllUser()
+        public List<User> GetAllUsers()
         {
             return this._userRepository.GetAll();
+        }
+
+        public List<User> GetUsers(string searchText)
+        {
+            return this._userRepository.GetUsers(searchText);
         }
 
         public byte[] GetProfilePicture(string pictureId)
@@ -51,6 +56,9 @@ namespace SABISCollaborate.Registration.Core.Services
             {
                 throw new ValidationException(Constants.ExceptionCode.UsernameAlreadyInUse);
             }
+
+            // hash the password
+            string passwordHash = this.HashPassword(password);
 
             // create user model
             User user = new User(username, password, email, profile);
@@ -86,6 +94,18 @@ namespace SABISCollaborate.Registration.Core.Services
             bool result = this._userRepository.GetUserByUsernameOrEmail(username, email) == null;
 
             return result;
+        }
+
+        public User GetUser(string username, string passowrd)
+        {
+            string passwordHash = this.HashPassword(passowrd);
+
+            return this._userRepository.GetUser(username, passwordHash);
+        }
+
+        private string HashPassword(string password)
+        {
+            return $"a+b=*{password}*b+a";
         }
         #endregion
     }

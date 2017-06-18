@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 
 export class TopNavMenuComponent {
-    private model: any;
+    public model: ViewModel;
 
     constructor(private authService: AuthenticationService, private router: Router) {
         this.refreshModel();
@@ -28,11 +28,21 @@ export class TopNavMenuComponent {
         this.router.navigateByUrl('/login');
     }
 
+    globalSearch(): void {
+        this.router.navigateByUrl("/search?key=" + this.model.searchText);
+    }
+
     private refreshModel() {
         this.model = {
             username: this.authService.getCurrentUser(),
             isAdmin: this.authService.getCurrentUser() == "admin",
-            isLoggedIn: this.authService.isAuthenticated()
+            searchText: ""
         }
     }
+}
+
+class ViewModel {
+    isAdmin: boolean;
+    username: string;
+    searchText: string;
 }
