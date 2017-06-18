@@ -29,15 +29,15 @@ namespace SABISCollaborate.SystemManagement.Data
         public Department AddDepartment(string DepartmentName)
         {
             Department newDept = new Department(DepartmentName);
-           
-            if (!_departments.Any(dep => dep.Title == DepartmentName))
+
+            if (!_departments.Any(dep => string.Equals(dep.Title, DepartmentName, StringComparison.CurrentCultureIgnoreCase)))
             {
                 _departments.Add(newDept);
             }
             return newDept;
         }
 
-       
+
 
         public void Delete(int departmentId)
         {

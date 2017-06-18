@@ -29,10 +29,10 @@ export class ManageUsersComponent implements OnInit {
 
 
 @Pipe({
-    name: 'usersPipe'
+    name: 'UsersPipe'
 })
 
-export class usersPipe implements PipeTransform {
+export class UsersPipe implements PipeTransform {
     private searchValue: String;
     transform(users: User[], searchValue: string) {
         if (searchValue) {
