@@ -25,10 +25,10 @@ export class ManageUsersComponent {
 
 
 @Pipe({
-    name: 'usersPipe'
+    name: 'UsersPipe'
 })
 
-export class usersPipe implements PipeTransform {
+export class UsersPipe implements PipeTransform {
     private searchValue: String;
     transform(users: User[], searchValue: string) {
         if (searchValue) {
