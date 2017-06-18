@@ -19,11 +19,7 @@
 body {
   font-size: 16px;
   color: #333333;
-  font-family: "Open Sans", Arial, Helvetica, Sans-Serif;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; }
+  font-family: "Open Sans", Arial, Helvetica, Sans-Serif; }
 
 .ng2-datetime-picker-wrapper {
   display: inline; }
@@ -50,7 +46,7 @@ input:-webkit-autofill {
   margin-bottom: 0px; }
 
 .navbar-inverse {
-  background-color: #464646;
+  background-color: #009688;
   border: 0px; }
   .navbar-inverse .navbar-brand,
   .navbar-inverse .navbar-nav > li > a,
