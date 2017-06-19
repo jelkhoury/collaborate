@@ -13,7 +13,7 @@ gulp.task("sass", function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(src, ['build']);
+    gulp.watch(src, ['sass']);
 })
 
 //<link href=" ../node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css" rel="stylesheet">

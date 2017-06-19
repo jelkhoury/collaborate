@@ -106,7 +106,7 @@ export class RegistrationComponent {
             return 'Confirm Password is required and should match the Password';
         }
         else if (field == 'email') {
-            return 'Email is required';
+            return field ? 'Invalid Email' : 'Email is required';
         }
         else if (field == 'nickname') {
             return 'A Nickname is required';

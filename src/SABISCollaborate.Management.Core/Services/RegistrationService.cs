@@ -61,7 +61,7 @@ namespace SABISCollaborate.Registration.Core.Services
             string passwordHash = this.HashPassword(password);
 
             // create user model
-            User user = new User(username, password, email, profile);
+            User user = new User(username, passwordHash, email, profile);
             this._userRepository.SaveUser(user);
 
             // commit profile picture
