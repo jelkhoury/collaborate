@@ -7,22 +7,24 @@ namespace SABISCollaborate.Registration.Core.Services
     {
         List<User> GetAllUsers();
 
-        User GetUser(string username, string passowrd);
-
-        List<User> GetUsers(string searchText);
-
-        User Register(string username, string password, string email, UserProfile profile);
-
-        byte[] GetTempProfilePicture(string pictureId);
-
-        byte[] GetProfilePicture(string pictureId);
-
-        bool IsUsernameAvailable(string username);
+        User GetUser(string username);
 
         User GetUserByEmail(string email);
 
-        void SaveTempProfilePicture(string id, byte[] bytes);
+        //User GetUser(string username, string passowrd);
 
-        void CommitProfilePicture(string id);
+        //List<User> GetUsers(string searchText);
+
+        //byte[] GetTempProfilePicture(string pictureId);
+
+        //byte[] GetProfilePicture(string pictureId);
+
+        void Save(User user);
+
+        User Register(string username, string password, string email, UserProfile profile);
+
+        //void SaveTempProfilePicture(string id, byte[] bytes);
+
+        //void CommitProfilePicture(string id);
     }
 }
