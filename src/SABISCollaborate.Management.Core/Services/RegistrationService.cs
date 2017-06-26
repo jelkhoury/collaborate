@@ -20,33 +20,26 @@ namespace SABISCollaborate.Registration.Core.Services
         }
         #endregion
 
-        public void CommitProfilePicture(string id)
+        public User GetUser(string username)
         {
-            this._userRepository.CommitProfilePicture(id);
+            return this._userRepository.GetUserByUsernameOrEmail(username, String.Empty);
         }
 
-        /// <summary>
-        /// Get all users and related profiles
-        /// </summary>
-        /// <returns></returns>
-        public List<User> GetAllUsers()
+        public User GetUserByEmail(string email)
         {
-            return this._userRepository.GetAll();
+            return this._userRepository.GetUserByUsernameOrEmail(String.Empty, email);
         }
 
-        public List<User> GetUsers(string searchText)
+        public User GetUser(string username, string passowrd)
         {
-            return this._userRepository.GetUsers(searchText);
+            string passwordHash = this.HashPassword(passowrd);
+
+            return this._userRepository.GetUser(username, passwordHash);
         }
 
-        public byte[] GetProfilePicture(string pictureId)
+        public bool IsUsernameAvailable(string username)
         {
-            return this._userRepository.GetProfilePicture(pictureId);
-        }
-
-        public byte[] GetTempProfilePicture(string pictureId)
-        {
-            return this._userRepository.GetTempProfilePicture(pictureId);
+            return this.IsUsernameAndEmailUnique(username, String.Empty);
         }
 
         public User Register(string username, string password, string email, UserProfile profile)
@@ -62,30 +55,14 @@ namespace SABISCollaborate.Registration.Core.Services
 
             // create user model
             User user = new User(username, passwordHash, email, profile);
-            this._userRepository.SaveUser(user);
-
-            // commit profile picture
-            if (!String.IsNullOrWhiteSpace(user.Profile.PictureId))
-            {
-                this.CommitProfilePicture(user.Profile.PictureId);
-            }
+            this._userRepository.Save(user);
 
             return user;
         }
 
-        public void SaveTempProfilePicture(string id, byte[] bytes)
+        public void Save(User user)
         {
-            this._userRepository.SaveTempProfilePicture(id, bytes);
-        }
-
-        public bool IsUsernameAvailable(string username)
-        {
-            return this.IsUsernameAndEmailUnique(username, String.Empty);
-        }
-
-        public User GetUserByEmail(string email)
-        {
-            return this._userRepository.GetUserByUsernameOrEmail(String.Empty, email);
+            this._userRepository.Save(user);
         }
 
         #region Helpers
@@ -94,13 +71,6 @@ namespace SABISCollaborate.Registration.Core.Services
             bool result = this._userRepository.GetUserByUsernameOrEmail(username, email) == null;
 
             return result;
-        }
-
-        public User GetUser(string username, string passowrd)
-        {
-            string passwordHash = this.HashPassword(passowrd);
-
-            return this._userRepository.GetUser(username, passwordHash);
         }
 
         private string HashPassword(string password)

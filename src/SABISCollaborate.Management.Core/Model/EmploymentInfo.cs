@@ -1,87 +1,53 @@
-﻿using System;
+﻿using SABISCollaborate.SharedKernel.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SABISCollaborate.Registration.Core.Model
 {
-    public class EmploymentInfo
+    public class EmploymentInfo : ValueObject
     {
         #region Properties
-        public List<int> DepartmentIds { get; protected set; }
+        public ICollection<UserPosition> Positions { get; private set; }
 
-        public List<Department> Departments { get; private set; }
-
-        public int PositionId { get; protected set; }
-
-        public Position Position { get; private set; }
-
-        public DateTime EmploymentDate { get; set; }
+        public DateTime EmploymentDate { get; private set; }
         #endregion
 
         #region Constructors
-        private EmploymentInfo()
-        {
+        private EmploymentInfo() { }
 
-        }
-        
-        public EmploymentInfo(List<int> departmentsIds, int positionId, DateTime employmentDate)
+        public EmploymentInfo(DateTime employmentDate, ICollection<UserPosition> positions)
         {
-            this.DepartmentIds = new List<int>();
-
-            if (departmentsIds == null)
+            if (positions == null)
             {
-                throw new ArgumentNullException("departmentsIds");
+                throw new ArgumentNullException("positions");
             }
-            if (departmentsIds.Count == 0)
+            if (positions.Count == 0)
             {
                 throw new ArgumentOutOfRangeException("A user cannot exists without department");
             }
-            this.AddDepartments(departmentsIds.ToArray());
 
-            if (positionId == default(int))
-            {
-                throw new ArgumentNullException("positionId");
-            }
-            this.PositionId = positionId;
+            //user is already in department {newId}
+
+            this.Positions = positions;
             this.EmploymentDate = employmentDate;
         }
         #endregion
 
         #region Methods
-        public void AddDepartments(params int[] ids)
+        public EmploymentInfo WithEmploymentDate(DateTime employmentDate)
         {
-            if (ids == null)
-            {
-                throw new ArgumentNullException("ids");
-            }
-
-            foreach (int newId in ids)
-            {
-                if (this.DepartmentIds.Contains(newId))
-                {
-                    throw new ArgumentException($"user is already in department {newId}");
-                }
-                this.DepartmentIds.Add(newId);
-            }
+            return new EmploymentInfo(employmentDate, this.Positions);
         }
 
-        //public void AddDepartments(params Department[] departments)
-        //{
-        //    if (departments == null)
-        //    {
-        //        throw new ArgumentNullException("departments");
-        //    }
-
-        //    foreach (Department department in Departments)
-        //    {
-        //        if (this.Departments.Find(d => d.Id == department.Id) != null)
-        //        {
-        //            throw new ArgumentException($"user is already in department {department.Title}");
-        //        }
-        //        this.Departments.Add(department);
-        //        this.DepartmentIds.Add(department.Id);
-        //    }
-        //} 
+        public void Enroll(UserPosition position)
+        {
+            if (position == null)
+            {
+                throw new ArgumentNullException("position");
+            }
+            this.Positions.Add(position);
+        }
         #endregion
     }
 }

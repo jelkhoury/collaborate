@@ -1,14 +1,14 @@
 ﻿using SABISCollaborate.SharedKernel;
 
-namespace SABISCollaborate.SystemManagement.Core.Model
+namespace SABISCollaborate.System.Core.Model
 {
     public class Department : Entity
     {
-        public int Id { get; set; }
+        public int Id { get; protected set; }
 
         public string Title { get; set; }
 
-        public Department()
+        private Department()
         {
 
         }

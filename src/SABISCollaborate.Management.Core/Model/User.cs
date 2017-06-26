@@ -15,6 +15,10 @@ namespace SABISCollaborate.Registration.Core.Model
 
         public string IdentifierEmail { get; set; }
 
+        public bool IsActive { get; protected set; }
+
+        public int UserProfileId { get; protected set; }
+
         public UserProfile Profile { get; protected set; }
 
         public DateTime CreatedDate { get; protected set; }
@@ -31,7 +35,7 @@ namespace SABISCollaborate.Registration.Core.Model
 
         }
 
-        public User(int id, string username, string passwordHash, string email, UserProfile profile)
+        public User(int id, string username, string passwordHash, string email, UserProfile profile) : this()
         {
             this.Id = id;
 
@@ -50,6 +54,7 @@ namespace SABISCollaborate.Registration.Core.Model
                 throw new ArgumentNullException("email");
             }
 
+            this.IsActive = true;
             this.Profile = profile ?? throw new ArgumentNullException("profile");
 
             this.Username = username;

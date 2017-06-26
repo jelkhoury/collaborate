@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SABISCollaborate.Registration.Core.Model
+namespace SABISCollaborate.SharedKernel.Core.Model
 {
     /// <summary>
     /// Read-only Position, in the registration context we can only consume a Position.

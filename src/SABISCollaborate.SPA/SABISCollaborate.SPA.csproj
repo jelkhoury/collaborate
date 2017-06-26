@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
@@ -55,8 +55,8 @@
   <ItemGroup>
     <ProjectReference Include="..\SABISCollaborate.Management.Core\SABISCollaborate.Registration.Core.csproj" />
     <ProjectReference Include="..\SABISCollaborate.Management.Data\SABISCollaborate.Registration.Data.csproj" />
-    <ProjectReference Include="..\SABISCollaborate.SystemManagement.Core\SABISCollaborate.SystemManagement.Core.csproj" />
-    <ProjectReference Include="..\SABISCollaborate.SystemManagement.Data\SABISCollaborate.SystemManagement.Data.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SystemManagement.Core\SABISCollaborate.System.Core.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SystemManagement.Data\SABISCollaborate.System.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\css\layout\" />

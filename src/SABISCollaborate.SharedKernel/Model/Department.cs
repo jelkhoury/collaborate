@@ -1,13 +1,12 @@
 ﻿using SABISCollaborate.SharedKernel;
 
-namespace SABISCollaborate.Registration.Core.Model
+namespace SABISCollaborate.SharedKernel.Core.Model
 {
     /// <summary>
     /// Read-only Department, in the registration context we can only consume a department.
     /// </summary>
     public class Department : Entity
     {
-
         public int Id { get; protected set; }
 
         public string Title { get; protected set; }
@@ -16,7 +15,5 @@ namespace SABISCollaborate.Registration.Core.Model
             this.Id = id;
             this.Title = title;
         }
-
-        
     }
 }

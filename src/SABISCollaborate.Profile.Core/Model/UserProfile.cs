@@ -1,11 +1,14 @@
-﻿using SABISCollaborate.SharedKernel;
-using SABISCollaborate.SharedKernel.Enums;
+﻿using SABISCollaborate.SharedKernel.Enums;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SABISCollaborate.Registration.Core.Model
+namespace SABISCollaborate.Profile.Core.Model
 {
-    public class UserProfile : Entity
+    /// <summary>
+    /// Represents a User Profile
+    /// </summary>
+    public class UserProfile
     {
         #region Fields
         private string _nickName;
@@ -59,9 +62,7 @@ namespace SABISCollaborate.Registration.Core.Model
 
         public MaritalStatus MaritalStatus { get; set; }
 
-        public DateTime? BirthDate { get; set; }
-
-        public int? EmploymentInfoId { get; set; }
+        public DateTime BirthDate { get; set; }
 
         public EmploymentInfo EmploymentInfo { get; set; }
 
@@ -82,7 +83,6 @@ namespace SABISCollaborate.Registration.Core.Model
             this.MaritalStatus = MaritalStatus.Unspecified;
 
             this.EmploymentInfo = null;
-            this.EmploymentInfoId = null;
         }
         #endregion
     }

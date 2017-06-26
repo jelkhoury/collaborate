@@ -1,4 +1,4 @@
-﻿using SABISCollaborate.SystemManagement.Core.Model;
+﻿using SABISCollaborate.System.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

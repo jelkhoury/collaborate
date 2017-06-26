@@ -5,14 +5,14 @@ using SABISCollaborate.Registration.Core.Services;
 using SABISCollaborate.SharedKernel.Enums;
 using SABISCollaborate.SharedKernel.Exceptions;
 using SABISCollaborate.SPA.Models;
-using SABISCollaborate.SystemManagement.Core.Repositories;
+using SABISCollaborate.System.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using S = SABISCollaborate.SystemManagement.Core;
+using S = SABISCollaborate.System.Core;
 
 namespace SABISCollaborate_SPA.Controllers
 {
@@ -44,9 +44,9 @@ namespace SABISCollaborate_SPA.Controllers
         [Route("users")]
         public IActionResult GetUsers(string filter = "")
         {
-            List<User> users = String.IsNullOrWhiteSpace(filter)
-                ? this._userService.GetAllUsers()
-                : this._userService.GetUsers(filter);
+            List<User> users = null;// String.IsNullOrWhiteSpace(filter)
+                //? this._userService.GetAllUsers()
+                //: this._userService.GetUsers(filter);
 
             return Ok(users);
         }
@@ -100,7 +100,7 @@ namespace SABISCollaborate_SPA.Controllers
                 using (var stream = new MemoryStream())
                 {
                     await file.CopyToAsync(stream);
-                    this._userService.SaveTempProfilePicture(fileId.ToString(), stream.ToArray());
+                    //this._userService.SaveTempProfilePicture(fileId.ToString(), stream.ToArray());
                 }
             }
 
@@ -110,7 +110,7 @@ namespace SABISCollaborate_SPA.Controllers
         [HttpGet("profile/picture/temp")]
         public IActionResult GetTempProfileImage(Guid fileId)
         {
-            byte[] imageBytes = this._userService.GetTempProfilePicture(fileId.ToString());
+            byte[] imageBytes = null;// this._userService.GetTempProfilePicture(fileId.ToString());
             if (imageBytes != null)
             {
                 return File(imageBytes, "image/jpeg");
@@ -124,7 +124,7 @@ namespace SABISCollaborate_SPA.Controllers
         [HttpGet("profile/picture")]
         public IActionResult GetProfileImage(Guid fileId)
         {
-            byte[] imageBytes = this._userService.GetProfilePicture(fileId.ToString());
+            byte[] imageBytes = null;// = this._userService.GetProfilePicture(fileId.ToString());
             if (imageBytes != null)
             {
                 return File(imageBytes, "image/jpeg");

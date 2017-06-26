@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SABISCollaborate.SystemManagement.Core.Model
+namespace SABISCollaborate.System.Core.Model
 {
     public class Position : Entity
     {
-        public int Id { get; set; }
+        public int Id { get; protected set; }
 
         public string Title { get; set; }
 
-        public Position()
+        private Position()
         {
 
         }

@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SABISCollaborate.Registration.Core.Repositories;
 using SABISCollaborate.Registration.Core.Services;
 using SABISCollaborate.Registration.Data;
-using S = SABISCollaborate.SystemManagement.Core;
-using SD = SABISCollaborate.SystemManagement.Data;
+using S = SABISCollaborate.System.Core;
+using SD = SABISCollaborate.System.Data;
 
 namespace SABISCollaborate_SPA
 {
@@ -30,9 +31,14 @@ namespace SABISCollaborate_SPA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IUserRepository, InMemoryUserRepository>();
-            services.AddSingleton<S.Repositories.IDepartmentRepository, SD.InMemoryDepartmentRepository>(); 
-            services.AddSingleton<S.Repositories.IPositionRepository, SD.InMemoryPositionRepository>(); 
+            services.AddSingleton<S.Repositories.IDepartmentRepository, SD.InMemoryDepartmentRepository>();
+            services.AddSingleton<S.Repositories.IPositionRepository, SD.InMemoryPositionRepository>();
             services.AddScoped<IRegistrationService, RegistrationService>();
+
+            services.AddDbContext<RegistrationDbContext>(o =>
+            {
+                o.UseSqlServer(@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO");
+            });
 
             // Add framework services.
             services.AddMvc();
@@ -47,7 +53,8 @@ namespace SABISCollaborate_SPA
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
                     HotModuleReplacement = true
                 });
             }
