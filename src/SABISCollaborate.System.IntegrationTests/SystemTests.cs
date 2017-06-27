@@ -21,7 +21,7 @@ namespace SABISCollaborate.System.IntegrationTests
 
             using (SystemDbContext db = new SystemDbContext(dbContextOptions))
             {
-                IGenericRepository<Department> departments = new DepartmentRepository(db);
+                IGenericRepository<Department> departments = new EFDepartmentRepository(db);
                 Department department = new Department("Software Development");
                 departments.Add(department);
                 departments.Save();
@@ -39,7 +39,7 @@ namespace SABISCollaborate.System.IntegrationTests
 
             using (SystemDbContext db = new SystemDbContext(dbContextOptions))
             {
-                IGenericRepository<Position> positions = new PositionRepository(db);
+                IGenericRepository<Position> positions = new EFPositionRepository(db);
                 Position position = new Position("Director");
                 positions.Add(position);
                 positions.Save();

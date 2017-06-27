@@ -33,6 +33,11 @@ namespace SABISCollaborate_SPA.Controllers
         }
 
 
+        /// <summary>
+        /// Get user by username and password
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
         [HttpPost("user")]
         public IActionResult GetUser([FromBody] CredentialsModel credentials)
         {
@@ -51,30 +56,40 @@ namespace SABISCollaborate_SPA.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// Get registration model for Registration Screen
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [Route("registration")]
         public IActionResult GetInitRegistrationModel(int? userId)
         {
             InitRegistrationModel result = new InitRegistrationModel
             {
-                Departments = this._departmentRepository.GetAll(),
-                Positions = this._positionRepository.GetAll()
+                Departments = this._departmentRepository.GetAll().ToList(),
+                Positions = this._positionRepository.GetAll().ToList()
             };
 
             return Ok(result);
         }
 
+        /// <summary>
+        /// Register user using Registration Screen
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost("registration")]
         public IActionResult Regiter([FromBody] RegisterUserModel user)
         {
             try
             {
-                EmploymentInfo employmentInfo = new EmploymentInfo(user.DepartmentsIds, user.PositionId, user.EmploymentDate);
+                //EmploymentInfo employmentInfo = new EmploymentInfo(user.DepartmentsIds, user.PositionId, user.EmploymentDate);
 
                 UserProfile profile = new UserProfile(user.Nickname, user.FirstName, user.LastName, user.BirthDate);
                 profile.Gender = user.Gender;
                 profile.MaritalStatus = user.MaritalStatus;
-                profile.EmploymentInfo = employmentInfo;
-                profile.PictureId = user.TempPictureId;
+                //profile.EmploymentInfo = employmentInfo;
+                //profile.PictureId = user.TempPictureId;
 
                 User result = this._userService.Register(user.Username, user.Password, user.Email, profile);
 

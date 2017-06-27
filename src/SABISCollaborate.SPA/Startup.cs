@@ -8,8 +8,8 @@ using Microsoft.Extensions.Logging;
 using SABISCollaborate.Registration.Core.Repositories;
 using SABISCollaborate.Registration.Core.Services;
 using SABISCollaborate.Registration.Data;
-using S = SABISCollaborate.System.Core;
-using SD = SABISCollaborate.System.Data;
+using SCSystem = SABISCollaborate.System.Core;
+using SCSystemData = SABISCollaborate.System.Data;
 
 namespace SABISCollaborate_SPA
 {
@@ -30,14 +30,22 @@ namespace SABISCollaborate_SPA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IUserRepository, InMemoryUserRepository>();
-            services.AddSingleton<S.Repositories.IDepartmentRepository, SD.InMemoryDepartmentRepository>();
-            services.AddSingleton<S.Repositories.IPositionRepository, SD.InMemoryPositionRepository>();
-            services.AddScoped<IRegistrationService, RegistrationService>();
+            string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO";
 
+            // System Context
+            services.AddSingleton<SCSystem.Repositories.IDepartmentRepository, SCSystemData.EFDepartmentRepository>();
+            services.AddSingleton<SCSystem.Repositories.IPositionRepository, SCSystemData.EFPositionRepository>();
+            services.AddDbContext<SCSystemData.SystemDbContext>(o =>
+            {
+                o.UseSqlServer(connectionString);
+            });
+
+            // Registration Context
+            services.AddSingleton<IUserRepository, EFUserRepository>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddDbContext<RegistrationDbContext>(o =>
             {
-                o.UseSqlServer(@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO");
+                o.UseSqlServer(connectionString);
             });
 
             // Add framework services.

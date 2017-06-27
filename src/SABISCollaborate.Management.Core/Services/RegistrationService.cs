@@ -1,5 +1,4 @@
-﻿using SABISCollaborate.Registration.Core.Exceptions;
-using SABISCollaborate.Registration.Core.Model;
+﻿using SABISCollaborate.Registration.Core.Model;
 using SABISCollaborate.Registration.Core.Repositories;
 using SABISCollaborate.SharedKernel.Exceptions;
 using System.Collections.Generic;
@@ -47,7 +46,7 @@ namespace SABISCollaborate.Registration.Core.Services
             // validate username is unique + email is unique
             if (!this.IsUsernameAndEmailUnique(username, email))
             {
-                throw new ValidationException(Constants.ExceptionCode.UsernameAlreadyInUse);
+                throw new ValidationException(Constants.ExceptionCode.UsernameOrEmailAlreadyInUse);
             }
 
             // hash the password

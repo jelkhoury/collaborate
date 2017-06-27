@@ -6,16 +6,16 @@ namespace SABISCollaborate.System.Core.Model
     {
         public int Id { get; protected set; }
 
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         private Department()
         {
 
         }
 
-        public Department(string title) : this()
+        public Department(string name) : this()
         {
-            this.Title = title;
+            this.Name = name;
         }
     }
 }

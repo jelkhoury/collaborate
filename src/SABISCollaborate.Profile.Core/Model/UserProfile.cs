@@ -58,11 +58,17 @@ namespace SABISCollaborate.Profile.Core.Model
             }
         }
 
+        public string Quote { get; set; }
+
+        public string Status { get; set; }
+
         public Gender Gender { get; set; }
 
         public MaritalStatus MaritalStatus { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        protected int? EmploymentInfoId { get; set; }
 
         public EmploymentInfo EmploymentInfo { get; set; }
 
@@ -82,6 +88,7 @@ namespace SABISCollaborate.Profile.Core.Model
             this.Gender = Gender.Unspecified;
             this.MaritalStatus = MaritalStatus.Unspecified;
 
+            this.EmploymentInfoId = null;
             this.EmploymentInfo = null;
         }
         #endregion

@@ -4,7 +4,7 @@ import { RegistrationService } from '../../services/registration.service';
 import { Gender, MaritalStatus, Position, Department } from '../../shared/models';
 import { DropdownOption, DropdownComponent } from '../../shared/components/dropdown.component';
 import { MultiDropdownOption, MultiDropdownComponent } from '../../shared/components/multi-dropdown.component';
-import { UploadOutput, UploadInput, UploadFile } from 'ngx-uploader';
+//import { UploadOutput, UploadInput, UploadFile } from 'ngx-uploader';
 
 @Component({
     selector: 'registration',
@@ -30,8 +30,8 @@ export class RegistrationComponent {
     @ViewChild('f') newForm: NgForm;
     private initModel: InitRegistrationModel;
     private registrationService: RegistrationService;
-    uploadInput: EventEmitter<UploadInput> = new EventEmitter<UploadInput>()
-    file: UploadFile;
+    //uploadInput: EventEmitter<UploadInput> = new EventEmitter<UploadInput>()
+    //file: UploadFile;
 
     constructor(registrationService: RegistrationService, private formBuilder: FormBuilder) {
         this.registrationService = registrationService;
@@ -118,28 +118,28 @@ export class RegistrationComponent {
             return 'Last Name is required';
         }
     }
-    // upload temp profile picture to the server
-    uploadTempPicture(): void {  // manually start uploading
-        const event: UploadInput = {
-            type: 'uploadAll',
-            url: this.registrationService.tempUploadProfileImageUrl(),
-            method: 'POST',
-            //data: { foo: 'bar' },
-            concurrency: 1 // set sequential uploading of files with concurrency 1
-        }
-        setTimeout(() => {
-            this.uploadInput.emit(event);
-        }, 0);
-    }
-    // receive upload events from the upload control
-    onUploadOutput(output: UploadOutput): void {
-        if (output.type === 'done') {
-            this.file = output.file;
+    //// upload temp profile picture to the server
+    //uploadTempPicture(): void {  // manually start uploading
+    //    const event: UploadInput = {
+    //        type: 'uploadAll',
+    //        url: this.registrationService.tempUploadProfileImageUrl(),
+    //        method: 'POST',
+    //        //data: { foo: 'bar' },
+    //        concurrency: 1 // set sequential uploading of files with concurrency 1
+    //    }
+    //    setTimeout(() => {
+    //        this.uploadInput.emit(event);
+    //    }, 0);
+    //}
+    //// receive upload events from the upload control
+    //onUploadOutput(output: UploadOutput): void {
+    //    if (output.type === 'done') {
+    //        this.file = output.file;
             
-            // set view url
-            this.model.profilePictureUrl = this.registrationService.getTempProfilePictureUrl(this.file.response);
-        }
-    }
+    //        // set view url
+    //        this.model.profilePictureUrl = this.registrationService.getTempProfilePictureUrl(this.file.response);
+    //    }
+    //}
     // register click
     onRegister(): void {
         this.model.isSubmitting = true;
@@ -167,9 +167,9 @@ export class RegistrationComponent {
 
         var user = this.model;
 
-        var tempPictureId = this.file != null ? this.file.response : "";
+        //var tempPictureId = this.file != null ? this.file.response : "";
         // register the user and redirect to all users
-        this.registrationService.register(user.username, user.password, user.email, user.nickname, user.firstName, user.lastName, user.maritalStatus, user.gender, user.birthDate, user.departmentIds, user.positionId, user.employmentDate, tempPictureId)
+        this.registrationService.register(user.username, user.password, user.email, user.nickname, user.firstName, user.lastName, user.maritalStatus, user.gender, user.birthDate, user.departmentIds, user.positionId, user.employmentDate)
             .subscribe(r => {
                 alert('Account registered successfully');
             }, e => {

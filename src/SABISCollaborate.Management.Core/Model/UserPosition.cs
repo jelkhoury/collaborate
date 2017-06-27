@@ -1,7 +1,4 @@
-﻿using SABISCollaborate.SharedKernel.Core.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SABISCollaborate.SharedKernel;
 
 namespace SABISCollaborate.Registration.Core.Model
 {

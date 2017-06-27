@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SABISCollaborate.Registration.Core
+namespace SABISCollaborate.SharedKernel
 {
     public abstract class ValueObject
     {

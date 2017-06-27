@@ -4,16 +4,16 @@ using System.Text;
 
 namespace SABISCollaborate.SharedKernel.Exceptions
 {
-    public abstract class BaseException : Exception
+    public abstract class ExceptionBase : Exception
     {
         public abstract int Code { get; }
 
-        public BaseException() : this("")
+        public ExceptionBase() : this("")
         {
 
         }
 
-        public BaseException(string message) : base(message)
+        public ExceptionBase(string message) : base(message)
         {
 
         }

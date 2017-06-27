@@ -3,6 +3,7 @@ using SABISCollaborate.System.Core.Model;
 using SABISCollaborate.System.Core.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SABISCollaborate_SPA.Controllers
 {
@@ -19,15 +20,17 @@ namespace SABISCollaborate_SPA.Controllers
         [HttpGet("departments")]
         public IActionResult Departments()
         {
-            List<Department> department = this._departmentRepository.GetAll();
+            List<Department> departments = this._departmentRepository.GetAll().ToList();
 
-            return Ok(department);
+            return Ok(departments);
         }
 
         [HttpPost("department")]
         public IActionResult AddDepartment(string departmentName)
         {
-            Department department = this._departmentRepository.AddDepartment(departmentName);
+            Department department = new Department(departmentName);
+            this._departmentRepository.Add(department);
+            this._departmentRepository.Save();
 
             return Ok(department);
         }

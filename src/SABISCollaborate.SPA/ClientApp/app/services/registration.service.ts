@@ -53,8 +53,7 @@ export class RegistrationService {
         birthDate: Date,
         departmentsIds: number[],
         positionId: number,
-        employmentDate: Date,
-        tempPictureId: string): Observable<Response> {
+        employmentDate: Date): Observable<Response> {
         return this.http.post(this.url + '/api/management/registration', {
             Username: username,
             Password: password,
@@ -67,8 +66,7 @@ export class RegistrationService {
             BirthDate: birthDate,
             DepartmentsIds: departmentsIds,
             PositionId: positionId,
-            EmploymentDate: employmentDate,
-            TempPictureId: tempPictureId
+            EmploymentDate: employmentDate
         });
     }
 }
