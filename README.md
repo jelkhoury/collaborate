@@ -44,3 +44,6 @@ https://colorlib.com/wp/angular-2-components/
 
 - User should be able to create a post (Question, event, )
 - Try mobile app
+
+
+- https://www.scottbrady91.com/Identity-Server/Getting-Started-with-IdentityServer-4
