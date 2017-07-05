@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SABISCollaborate.API.Chat.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace SABISCollaborate.API.Chat
             }
         }
 
-        public ChatMessage Message { get; set; }
+        public ClientMessage Message { get; set; }
 
         public List<string> GetPendingConnections()
         {
@@ -56,7 +57,7 @@ namespace SABISCollaborate.API.Chat
             this.DispatchedInstances = new List<MessageDispatchInstance>();
         }
 
-        public MessageQueueItem(List<string> connectionsToPush, ChatMessage chatMessage) : this()
+        public MessageQueueItem(List<string> connectionsToPush, ClientMessage chatMessage) : this()
         {
             //this.AllReceivers = allReceivers;
             this.ConnectionsToPush = connectionsToPush;

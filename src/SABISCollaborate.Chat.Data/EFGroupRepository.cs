@@ -1,14 +1,9 @@
-﻿using SABISCollaborate.SharedKernel;
-using SABISCollaborate.System.Core.Model.Chat;
-using SABISCollaborate.System.Core.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using SABISCollaborate.Chat.Core.Model;
+using SABISCollaborate.Chat.Core.Repositories;
+using SABISCollaborate.SharedKernel;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using SABISCollaborate.SharedKernel.Interfaces;
-using SABISCollaborate.System.Core.Model;
-using System.Linq;
-using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
 
 namespace SABISCollaborate.System.Data
 {

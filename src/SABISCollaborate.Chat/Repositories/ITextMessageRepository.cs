@@ -1,10 +1,8 @@
-﻿using SABISCollaborate.SharedKernel.Interfaces;
-using SABISCollaborate.System.Core.Model.Chat;
-using System;
+﻿using SABISCollaborate.Chat.Core.Model;
+using SABISCollaborate.SharedKernel.Interfaces;
 using System.Collections.Generic;
-using System.Text;
 
-namespace SABISCollaborate.System.Core.Repositories
+namespace SABISCollaborate.Chat.Core.Repositories
 {
     public interface ITextMessageRepository : IGenericRepository<TextMessage>
     {

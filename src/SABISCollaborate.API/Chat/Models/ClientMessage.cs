@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SABISCollaborate.Chat.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,11 +35,7 @@ namespace SABISCollaborate.API.Chat.Models
                 SenderUserId = senderId,
                 Text = this.Body,
                 SenderDate = this.ClientSentDate,
-                Destination = new MessageDestination
-                {
-                    DestinationId = this.DestinationId,
-                    DestinationType = 1
-                }
+                Destination = new MessageDestination(this.DestinationId, DestinationType.Group)
             };
 
             return result;

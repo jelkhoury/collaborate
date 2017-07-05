@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SABISCollaborate.System.Core.Model.Chat
+namespace SABISCollaborate.Chat.Core.Model
 {
     public class TextMessage : Message
     {

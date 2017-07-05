@@ -1,7 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SABISCollaborate.Chat\SABISCollaborate.Chat.Core.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SharedKernel\SABISCollaborate.SharedKernel.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SystemManagement.Data\SABISCollaborate.System.Data.csproj" />
+  </ItemGroup>
 
 </Project>

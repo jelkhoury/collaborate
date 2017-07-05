@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using SABISCollaborate.API.Chat;
+using SABISCollaborate.API.Chat.Models;
+using SABISCollaborate.Chat.Core.Model;
+using SABISCollaborate.Chat.Core.Repositories;
 using System.Threading.Tasks;
 
 namespace SABISCollaborate.API.Hubs
@@ -34,12 +35,12 @@ namespace SABISCollaborate.API.Hubs
             this._messageDispatcher.Ack(ackMessage);
         }
 
-        public void SendMessage(ChatMessage message)
+        public void SendMessage(ClientMessage message)
         {
             // add message to destination history
-            //Group destination = this._groupRepository.GetById(message.DestinationId);
-            //TextMessage textMessage = message.CreateTextMessage(message.UserId, destination.Members);
-            //this._messageRepository.Add(textMessage);
+            Group destination = this._groupRepository.GetSingle(message.DestinationId);
+            TextMessage textMessage = message.CreateTextMessage(message.UserId, destination.Members);
+            this._messageRepository.Add(textMessage);
 
             message.SenderConnectionId = this.Context.ConnectionId;
             // dispatch message to connected users

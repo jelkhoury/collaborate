@@ -33,15 +33,15 @@ namespace SABISCollaborate_SPA
             string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO";
 
             // System Context
-            services.AddSingleton<SCSystem.Repositories.IGroupRepository, SCSystemData.EFDepartmentRepository>();
-            services.AddSingleton<SCSystem.Repositories.IPositionRepository, SCSystemData.EFPositionRepository>();
+            services.AddScoped<SCSystem.Repositories.IDepartmentRepository, SCSystemData.EFDepartmentRepository>();
+            services.AddScoped<SCSystem.Repositories.IPositionRepository, SCSystemData.EFPositionRepository>();
             services.AddDbContext<SCSystemData.SystemDbContext>(o =>
             {
                 o.UseSqlServer(connectionString);
             });
 
             // Registration Context
-            services.AddSingleton<IUserRepository, EFUserRepository>();
+            services.AddScoped<IUserRepository, EFUserRepository>();
             services.AddScoped<IRegistrationService, RegistrationService>();
             services.AddDbContext<RegistrationDbContext>(o =>
             {

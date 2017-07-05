@@ -12,14 +12,15 @@
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Server" Version="0.2.0-preview2-22683" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SABISCollaborate.SystemManagement.Core\SABISCollaborate.System.Core.csproj" />
-    <ProjectReference Include="..\SABISCollaborate.SystemManagement.Data\SABISCollaborate.System.Data.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.Chat.Data\SABISCollaborate.Chat.Data.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.Chat\SABISCollaborate.Chat.Core.csproj" />
   </ItemGroup>
 
 </Project>
