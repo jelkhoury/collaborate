@@ -13,7 +13,7 @@ namespace SABISCollaborate.System.Data
 
         public SystemDbContext(DbContextOptions options) : base(options)
         {
-
+            this.Database.EnsureCreated();
         }
     }
 }

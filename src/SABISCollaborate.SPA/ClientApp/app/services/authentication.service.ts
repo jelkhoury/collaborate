@@ -54,6 +54,8 @@ export class AuthenticationService {
     }
 
     isAuthenticated(): boolean {
+        this.userManager.signinRedirect();
+
         return localStorage.getItem('currentUser') && true;
     }
 
