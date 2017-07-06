@@ -31,6 +31,7 @@ namespace SABISCollaborate.Identity
             // Add framework services.
             services.AddMvc();
 
+            // Add identity server setup
             services.AddIdentityServer()
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryIdentityResources(Resources.GetIdentityResources())
@@ -74,6 +75,18 @@ namespace SABISCollaborate.Identity
                 ClientSecrets = new List<Secret> {
                     new Secret("superSecretPassword".Sha256())},
                 AllowedScopes = new List<string> {"customAPI.read"}
+            },
+             new Client {
+                ClientId = "sabiscollaborate.js",
+                ClientName = "SABIS Collaborate",
+                AllowedGrantTypes = GrantTypes.Implicit,
+                RedirectUris = new List<string>{
+                    "http://localhost:56668/signin-popup.html"
+                },
+                ClientSecrets = new List<Secret> {
+                    new Secret("superSecretPassword".Sha256())
+                },
+                AllowedScopes = new List<string> {"customAPI.read"}
             }
         };
         }
@@ -101,6 +114,17 @@ namespace SABISCollaborate.Identity
                 Name = "customAPI",
                 DisplayName = "Custom API",
                 Description = "Custom API Access",
+                UserClaims = new List<string> {"role"},
+                ApiSecrets = new List<Secret> {new Secret("scopeSecret".Sha256())},
+                Scopes = new List<Scope> {
+                    new Scope("customAPI.read"),
+                    new Scope("customAPI.write")
+                }
+            },
+            new ApiResource {
+                Name = "sabiscollaborate.api",
+                DisplayName = "SABIS Collaborate API",
+                Description = "SABIS Collaborate API",
                 UserClaims = new List<string> {"role"},
                 ApiSecrets = new List<Secret> {new Secret("scopeSecret".Sha256())},
                 Scopes = new List<Scope> {

@@ -10,9 +10,9 @@ namespace SABISCollaborate_SPA.Controllers
     [Route("api/system")]
     public class SystemController : Controller
     {
-        private IGroupRepository _departmentRepository;
+        private IDepartmentRepository _departmentRepository;
 
-        public SystemController(IGroupRepository departmentRepository)
+        public SystemController(IDepartmentRepository departmentRepository)
         {
             this._departmentRepository = departmentRepository;
         }
