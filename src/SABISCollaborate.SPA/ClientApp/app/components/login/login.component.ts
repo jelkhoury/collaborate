@@ -30,16 +30,16 @@ export class LoginComponent {
         if (this.currentForm.valid) {
             this.isLoading = true;
 
-            this.authService.login(this.model.username, this.model.password)
-                .subscribe(u => {
-                    this.isLoading = false;
-                    if (u) {
-                        this.router.navigateByUrl('/home');
-                    }
-                    else {
-                        this.invalidCredentials = true;
-                    }
-                });
+            //this.authService.login(this.model.username, this.model.password)
+            //    .subscribe(u => {
+            //        this.isLoading = false;
+            //        if (u) {
+            //            this.router.navigateByUrl('/home');
+            //        }
+            //        else {
+            //            this.invalidCredentials = true;
+            //        }
+            //    });
         }
     }
 

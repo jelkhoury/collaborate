@@ -14,7 +14,8 @@ import { sharedConfig } from './app.module.shared';
         ...sharedConfig.imports
     ],
     providers: [
-        { provide: 'ORIGIN_URL', useValue: location.origin }
+        { provide: 'ORIGIN_URL', useValue: location.origin },
+        { provide: 'API_URL', useValue: "http://localhost:5559" }
     ]
 })
 export class AppModule {

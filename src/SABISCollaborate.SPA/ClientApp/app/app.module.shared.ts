@@ -7,11 +7,13 @@ import { AuthGuard } from './_guards/auth.guard';
 
 // component
 import { AppComponent } from './components/app/app.component'
-import { LoginComponent } from './components/login/login.component'
+//import { LoginComponent } from './components/login/login.component'
+import { SigninCallbackComponent } from './components/login/signin-callback.component'
 import { HomeComponent } from './components/home/home.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { TopNavMenuComponent } from './components/navmenu/top-navmenu.component';
 import { ManageUsersComponent } from './components/management/users.component';
+import { ChatGroupsComponent } from './components/chat/chat-groups.component';
 
 import { ManagementDepartmentsComponent } from './components/management/departments.component';
 import { RegistrationComponent } from './components/management/registration.component';
@@ -27,6 +29,7 @@ import { RegistrationService } from './services/registration.service';
 import { LocalizationService } from './services/localization.service';
 import { AuthenticationService } from './services/authentication.service';
 import { SystemService } from './services/system.service';
+import { ChatService } from './services/chat.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { UsersPipe } from './components/management/users.component';
@@ -40,7 +43,8 @@ export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
     declarations: [
         AppComponent,
-        LoginComponent,
+        //LoginComponent,
+        SigninCallbackComponent,
         HomeComponent,
         NavMenuComponent,
         TopNavMenuComponent,
@@ -53,6 +57,7 @@ export const sharedConfig: NgModule = {
         MultiDropdownComponent,
         DatepickerComponent,
         SearchResultComponent,
+        ChatGroupsComponent,
         UsersPipe
     ],
     providers: [
@@ -60,7 +65,8 @@ export const sharedConfig: NgModule = {
         RegistrationService,
         LocalizationService,
         AuthenticationService,
-        SystemService
+        SystemService,
+        ChatService
     ],
     imports: [
         AppRoutingModule,

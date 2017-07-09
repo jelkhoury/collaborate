@@ -25,17 +25,15 @@ export class TopNavMenuComponent {
 
     logout() {
         this.authService.logout();
-        this.router.navigateByUrl('/login');
+        //this.router.navigateByUrl('/login');
     }
-
     globalSearch(): void {
         this.router.navigateByUrl("/search?key=" + this.model.searchText);
     }
-
     private refreshModel() {
         this.model = {
-            username: this.authService.getCurrentUser(),
-            isAdmin: this.authService.getCurrentUser() == "admin",
+            username: this.authService.getName(),
+            isAdmin: this.authService.getCurrentUser() != null,
             searchText: ""
         }
     }

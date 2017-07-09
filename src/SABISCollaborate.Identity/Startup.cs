@@ -1,4 +1,5 @@
 ﻿using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 using Microsoft.AspNetCore.Builder;
@@ -55,11 +56,10 @@ namespace SABISCollaborate.Identity
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseIdentityServer();
 
             app.UseStaticFiles();
-
             app.UseMvcWithDefaultRoute();
-            app.UseIdentityServer();
         }
     }
 
@@ -68,27 +68,29 @@ namespace SABISCollaborate.Identity
         public static IEnumerable<Client> Get()
         {
             return new List<Client> {
-            new Client {
-                ClientId = "oauthClient",
-                ClientName = "Example Client Credentials Client Application",
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
-                ClientSecrets = new List<Secret> {
-                    new Secret("superSecretPassword".Sha256())},
-                AllowedScopes = new List<string> {"customAPI.read"}
-            },
-             new Client {
-                ClientId = "sabiscollaborate.js",
-                ClientName = "SABIS Collaborate",
-                AllowedGrantTypes = GrantTypes.Implicit,
-                RedirectUris = new List<string>{
-                    "http://localhost:56668/signin-popup.html"
-                },
-                ClientSecrets = new List<Secret> {
-                    new Secret("superSecretPassword".Sha256())
-                },
-                AllowedScopes = new List<string> {"customAPI.read"}
-            }
-        };
+                new Client {
+                    ClientId = "sc.js",
+                    ClientName = "SABIS Collaborate",
+                    AccessTokenType = AccessTokenType.Jwt,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = new List<string>
+                    {
+                        "http://localhost:5555/signin-callback"
+                    },
+                    AllowedCorsOrigins = new List<string>
+                    {
+                        "http://localhost:5555/"
+                    },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "token",
+                        "scapi"
+                    },
+                }
+            };
         }
     }
 
@@ -97,42 +99,35 @@ namespace SABISCollaborate.Identity
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
             return new List<IdentityResource> {
-            new IdentityResources.OpenId(),
-            new IdentityResources.Profile(),
-            new IdentityResources.Email(),
-            new IdentityResource {
-                Name = "role",
-                UserClaims = new List<string> {"role"}
-            }
-        };
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+                new IdentityResources.Email(),
+                new IdentityResource {
+                    Name = "role",
+                    UserClaims = new List<string> {"role"}
+                }
+            };
         }
 
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource> {
-            new ApiResource {
-                Name = "customAPI",
-                DisplayName = "Custom API",
-                Description = "Custom API Access",
-                UserClaims = new List<string> {"role"},
-                ApiSecrets = new List<Secret> {new Secret("scopeSecret".Sha256())},
-                Scopes = new List<Scope> {
-                    new Scope("customAPI.read"),
-                    new Scope("customAPI.write")
+                new ApiResource {
+                    Name = "sc.api",
+                    DisplayName = "SABIS Collaborate API",
+                    Description = "SABIS Collaborate API",
+                    UserClaims = new List<string> {
+                        JwtClaimTypes.Id,
+                        JwtClaimTypes.PreferredUserName
+                    },
+                    ApiSecrets = new List<Secret> {
+                        new Secret("scopeSecret".Sha256())
+                    },
+                    Scopes = new List<Scope> {
+                        new Scope("scapi"),
+                    }
                 }
-            },
-            new ApiResource {
-                Name = "sabiscollaborate.api",
-                DisplayName = "SABIS Collaborate API",
-                Description = "SABIS Collaborate API",
-                UserClaims = new List<string> {"role"},
-                ApiSecrets = new List<Secret> {new Secret("scopeSecret".Sha256())},
-                Scopes = new List<Scope> {
-                    new Scope("customAPI.read"),
-                    new Scope("customAPI.write")
-                }
-            }
-        };
+            };
         }
     }
 
@@ -141,16 +136,20 @@ namespace SABISCollaborate.Identity
         public static List<TestUser> Get()
         {
             return new List<TestUser> {
-            new TestUser {
-                SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
-                Username = "a",
-                Password = "1",
-                Claims = new List<Claim> {
-                    new Claim(JwtClaimTypes.Email, "scott@scottbrady91.com"),
-                    new Claim(JwtClaimTypes.Role, "admin")
+                new TestUser {
+                    SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
+                    Username = "a",
+                    Password = "1",
+                    Claims = new List<Claim> {
+                        new Claim(JwtClaimTypes.Email, "scott@scottbrady91.com"),
+                        new Claim(JwtClaimTypes.Role, "admin"),
+                        new Claim(JwtClaimTypes.Id, "1"),
+                        new Claim("username", "jek"),
+                        new Claim(JwtClaimTypes.PreferredUserName, "jek"),
+                        new Claim(JwtClaimTypes.Name, "Joseph El Khoury")
+                    }
                 }
-            }
-        };
+            };
         }
     }
 }

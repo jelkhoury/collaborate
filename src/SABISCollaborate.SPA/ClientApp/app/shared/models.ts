@@ -30,3 +30,29 @@ export interface UserProfile {
     lastName: string;
     nickname: string;
 }
+
+// chat
+export interface ChatGroupSummary {
+    id: number;
+    name: string;
+    unreadMessagesCount: number;
+}
+
+export interface ChatGroupTextMessage {
+    id: number;
+    /*
+     sender username
+    */
+    sender: string;
+    text: string;
+    isRead?: boolean;
+    dateSent?: Date;
+    dateReceived?: Date;
+}
+
+export interface ChatGroupHistory {
+    id: number;
+    name: string;
+    members: string[];
+    messages: ChatGroupTextMessage[];
+}

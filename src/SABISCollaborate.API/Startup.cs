@@ -15,8 +15,15 @@ namespace SABISCollaborate.API
 {
     public class Startup
     {
+        #region Fields
         private MessageDispatcher _dispatcher;
+        #endregion
 
+        #region Properties
+        public IConfigurationRoot Configuration { get; }
+        #endregion
+
+        #region Constructors
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -25,15 +32,14 @@ namespace SABISCollaborate.API
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-        }
-
-        public IConfigurationRoot Configuration { get; }
+        } 
+        #endregion
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO";
-            string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=.\mssqlserver2012";
+            string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO";
+            //string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=.\mssqlserver2012";
 
             services.AddSingleton<IGroupRepository, EFGroupRepository>();
             services.AddSingleton<ITextMessageRepository, EFTextMessageRepository>();
@@ -58,11 +64,33 @@ namespace SABISCollaborate.API
         {
             this._dispatcher = new MessageDispatcher(serviceProvider.GetService<IConnectionManager>());
 
+            // cors
+            app.UseCors((b) =>
+            {
+                b.AllowAnyOrigin();
+                b.AllowAnyHeader();
+                b.AllowAnyMethod();
+                b.AllowCredentials();
+            });
+
+            // logger
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            {
+                Authority = "http://localhost:5557",
+                RequireHttpsMetadata = false,
 
+                EnableCaching = true,
+
+                ApiName = "sc.api"
+            });
+
+            // mvc/api
+            app.UseMvc();
+            
+            // signalr
             app.UseSignalR();
         }
     }

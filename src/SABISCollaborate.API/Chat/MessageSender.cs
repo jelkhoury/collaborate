@@ -31,8 +31,8 @@ namespace SABISCollaborate.API.Chat
             this._connectedUsers = connectedUsers;
             this._chatHub = chatHub;
 
-            IGroupRepository groupRepository = new InMemoryGroupRepository();
-            this._group = groupRepository.GetById(this.DestinationId);
+            //IGroupRepository groupRepository = new InMemoryGroupRepository();
+            //this._group = groupRepository.GetById(this.DestinationId);
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.SendPendingMessages), this._cancellableToken.Token);
         }
@@ -101,7 +101,7 @@ namespace SABISCollaborate.API.Chat
                             ConnectedUser connection = this._connectedUsers.FirstOrDefault(u => u.ConnectionId == c);
                             if (connection != null)
                             {
-                                this._chatHub.Clients.Client(connection.ConnectionId).onMessageReceived(m.Message);
+                                this._chatHub.Clients.Client(connection.ConnectionId).messageReceived(m.Message);
                                 m.DispatchedInstances.Add(new MessageDispatchInstance(c));
                             }
                             else

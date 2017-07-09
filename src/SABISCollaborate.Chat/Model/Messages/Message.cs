@@ -12,10 +12,12 @@ namespace SABISCollaborate.Chat.Core.Model
 
         public DateTime SenderDate { get; set; }
 
-        public MessageDestination Destination { get; set; }
+        public int DestinationId { get; set; }
 
-        public List<int> Receivers { get; set; }
+        public DestinationType DestinationType { get; set; }
 
-        public List<int> Readers { get; set; }
+        //public ICollection<int> Receivers { get; set; }
+
+        //public ICollection<int> Readers { get; set; }
     }
 }

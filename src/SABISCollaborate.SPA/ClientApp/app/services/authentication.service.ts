@@ -1,89 +1,71 @@
 ﻿import { Inject, Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import { User } from '../shared/models';
 import { UserManager } from 'oidc-client';
-import 'rxjs/Rx';
 
 @Injectable()
 export class AuthenticationService {
+    private isLoggedIn: boolean = false;
     private userManager: UserManager;
+    private user: Oidc.User;
 
-    // Observable string sources
+    // Observable sources
     private userLoggedInSource = new Subject<string>();
     private userLoggedOutSource = new Subject();
-
-    // Observable string streams
+    // Observable streams
     userLoggedIn$ = this.userLoggedInSource.asObservable();
     userLoggedOut$ = this.userLoggedOutSource.asObservable();
 
-    constructor(private http: Http, @Inject('ORIGIN_URL') private originUrl: string) {
-        var settings = {
-            // URL of your OpenID Connect server.
-            // The library uses it to access the metadata document
-            authority: 'http://localhost:12279/',
-
-            client_id: 'sabiscollaborate.js',
-
-            popup_redirect_uri: 'http://localhost:56668/popup.html',
-            //silent_redirect_uri: 'http://localhost:56668/silent-renew.html',
-            //post_logout_redirect_uri: 'http://localhost:56668/index.html',
-
-            // What you expect back from The IdP.
-            // In that case, like for all JS-based applications, an identity token
-            // and an access token
-            response_type: 'id_token',
-
-            // Scopes requested during the authorization request
-            scope: 'openid profile',
-
-            //// Number of seconds before the token expires to trigger
-            //// the `tokenExpiring` event
-            //accessTokenExpiringNotificationTime: 4,
-
-            //// Do we want to renew the access token automatically when it's
-            //// about to expire?
-            //automaticSilentRenew: true,
-
-            // Do we want to filter OIDC protocal-specific claims from the response?
-            filterProtocolClaims: true
+    constructor(private router: Router, @Inject('ORIGIN_URL') private originUrl: string) {
+        var config = {
+            authority: "http://localhost:5557",
+            client_id: "sc.js",
+            redirect_uri: "http://localhost:5555/signin-callback",
+            response_type: "id_token token",
+            scope: "openid profile scapi",
+            //post_logout_redirect_uri: "http://localhost:5553/index.html",
         };
 
-        this.userManager = new UserManager(settings);
+        this.userManager = new UserManager(config);
     }
 
     isAuthenticated(): boolean {
-        this.userManager.signinRedirect();
+        // request login if not loggedin
+        if (!this.isLoggedIn) {
+            this.login();
+        }
 
-        return localStorage.getItem('currentUser') && true;
+        return this.isLoggedIn;
     }
+    continueSignin() {
+        var current = this;
 
-    getCurrentUser(): string {
-        var username = localStorage.getItem('currentUser');
-
-        return username;
-    }
-
-    login(username: string, password: string): Observable<User> {
-        var url = this.originUrl + '/api/management/user';
-
-        return Observable.create(observer => {
-            this.http.post(url, { Username: username, Password: password }).map(res => res.json() as User).subscribe(u => {
-                if (u) {
-                    localStorage.setItem("currentUser", username);
-                    this.userLoggedInSource.next(username);
-                }
-
-                observer.next(u);
-                //call complete if you want to close this stream (like a promise)
-                observer.complete();
+        this.userManager.signinRedirectCallback().then(function () {
+            current.userManager.getUser().then(function (user) {
+                current.user = user;
+                current.isLoggedIn = true;
+                current.userLoggedInSource.next();
+                // move to app
+                current.router.navigateByUrl('home');
             });
+        }).catch(function (e) {
+            console.error(e);
         });
-    };
-
+    }
+    login() {
+        this.userManager.signinRedirect();
+    }
     logout(): void {
-        localStorage.removeItem("currentUser");
+        this.userManager.signoutRedirect();
         this.userLoggedOutSource.next();
+    }
+    getCurrentUser(): Oidc.User {
+        return this.user;
+    }
+    getName(): string {
+        return this.user && this.user.profile ? this.user.profile.name : "";
+    }
+    getAccessToken(): string {
+        return this.user.access_token;
     }
 }

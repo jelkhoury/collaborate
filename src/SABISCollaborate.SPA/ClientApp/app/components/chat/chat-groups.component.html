@@ -1,0 +1,31 @@
+<div class="col-md-3">
+    <!-- name list of all groups -->
+    <h3>Groups</h3>
+    <div class="list-group">
+        <a class="list-group-item" *ngFor="let group of model.groups" (click)="selectGroup(group.id)" href="javascript:void(0)">
+            {{group.name}}
+        </a>
+    </div>
+</div>
+<div class="col-md-9">
+    <h3>Group History</h3>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <!-- group messages history -->
+            <ul>
+                <li *ngFor="let message of model.selectedGroup?.messages">
+                    {{message.text}}
+                </li>
+            </ul>
+            <!-- send message button -->
+            <div class="input-group">
+                <input id="messageText" type="text" [ngModel]="model.textMessage" (keypress)="onMessageChanged($event)" class="form-control" name="message" placeholder="Message">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <i class="glyphicon glyphicon-send"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

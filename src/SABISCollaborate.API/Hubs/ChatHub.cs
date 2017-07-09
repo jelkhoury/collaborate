@@ -3,10 +3,12 @@ using SABISCollaborate.API.Chat;
 using SABISCollaborate.API.Chat.Models;
 using SABISCollaborate.Chat.Core.Model;
 using SABISCollaborate.Chat.Core.Repositories;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SABISCollaborate.API.Hubs
 {
+    [Authorize]
     public class ChatHub : Hub
     {
         #region Fields
@@ -24,8 +26,11 @@ namespace SABISCollaborate.API.Hubs
         }
         #endregion
 
-        public void Register(string username, int userId)
+        public void Register()
         {
+            string username = (this.Context.User.Identity as ClaimsPrincipal).FindFirst("preferred_username").Value;
+            int userId = int.Parse((this.Context.User.Identity as ClaimsPrincipal).FindFirst("id").Value);
+
             this._messageDispatcher.RegisterConnection(username, userId, this.Context.ConnectionId);
         }
 

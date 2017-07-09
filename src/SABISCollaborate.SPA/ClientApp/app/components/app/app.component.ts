@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-//import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
     selector: 'app',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+    constructor(private authService: AuthenticationService, private chatService: ChatService) {
+        this.authService.userLoggedIn$.subscribe(u => {
+            this.chatService.start().subscribe(s => {
+                this.chatService.register();
+            });
+        });
+
+        this.authService.userLoggedOut$.subscribe(() => {
+            this.chatService.stop();
+        });
+    }
 }

@@ -21,15 +21,20 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
+    <None Remove="ClientApp\boot-client.ts" />
+    <None Remove="ClientApp\boot-server.ts" />
     <None Remove="yarn.lock" />
+    <Compile Remove="ClientApp\dist\**" />
     <Compile Remove="ClientApp\test\**" />
     <Compile Remove="node_modules\**" />
 
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
     <Content Remove="node_modules\**" />
+    <EmbeddedResource Remove="ClientApp\dist\**" />
     <EmbeddedResource Remove="ClientApp\test\**" />
     <EmbeddedResource Remove="node_modules\**" />
+    <None Remove="ClientApp\dist\**" />
     <None Remove="ClientApp\test\**" />
     <None Remove="node_modules\**" />
   </ItemGroup>
