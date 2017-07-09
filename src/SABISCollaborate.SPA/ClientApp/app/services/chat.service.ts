@@ -17,9 +17,11 @@ export class ChatService {
 
     // events sources
     private connectionStartedSource = new Subject<string>();
+    private messageReceivedSource = new Subject<string>();
     //private onErrorSource = new Subject<any>();
     // events
     public connectionStarted$ = this.connectionStartedSource.asObservable();
+    public messageReceived$ = this.messageReceivedSource.asObservable();
     //public onError$ = this.onErrorSource.asObservable();
 
     constructor(private authenticationService: AuthenticationService, @Inject('API_URL') private apiUrl: string, private http: Http) {
@@ -51,8 +53,11 @@ export class ChatService {
         // TODO : stop the connection
     }
     register(): Observable<void> {
+        var self = this;
         this.chatHub.on('messageReceived', function (message) {
             console.log(message);
+            self.messageReceivedSource.next(message);
+            // TODO : send ack message
         });
 
         return Observable.create(observer => {

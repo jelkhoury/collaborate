@@ -13,6 +13,7 @@ export class AppComponent {
         this.authService.userLoggedIn$.subscribe(u => {
             this.chatService.start().subscribe(s => {
                 this.chatService.register();
+                // TODO : get unread messages count
             });
         });
 
