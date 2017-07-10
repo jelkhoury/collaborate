@@ -38,7 +38,7 @@ namespace SABISCollaborate.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO";
+            string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate1;Data Source=JOSEPH-LENOVO";
             //string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=.\mssqlserver2012";
 
             services.AddSingleton<IGroupRepository, EFGroupRepository>();
@@ -62,7 +62,7 @@ namespace SABISCollaborate.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
-            this._dispatcher = new MessageDispatcher(serviceProvider.GetService<IConnectionManager>());
+            this._dispatcher = new MessageDispatcher(serviceProvider.GetService<IConnectionManager>(), serviceProvider.GetService<IGroupRepository>());
 
             // cors
             app.UseCors((b) =>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SABISCollaborate.Chat.Core.Model.Messages;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,8 +17,8 @@ namespace SABISCollaborate.Chat.Core.Model
 
         public DestinationType DestinationType { get; set; }
 
-        //public ICollection<int> Receivers { get; set; }
+        public ICollection<ReadReceipt> ReadReceipts { get; set; }
 
-        //public ICollection<int> Readers { get; set; }
+        public ICollection<DeliveryReceipt> DeliveryReceipts { get; set; }
     }
 }

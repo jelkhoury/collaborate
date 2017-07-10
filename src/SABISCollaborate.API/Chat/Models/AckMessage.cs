@@ -11,6 +11,6 @@ namespace SABISCollaborate.API.Chat.Models
 
         public int DestinationId { get; set; }
 
-        public string MessageId { get; set; }
+        public int MessageId { get; set; }
     }
 }

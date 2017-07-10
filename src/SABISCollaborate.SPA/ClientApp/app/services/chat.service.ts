@@ -24,18 +24,7 @@ export class ChatService {
 
     constructor(private authenticationService: AuthenticationService, @Inject('API_URL') private apiUrl: string, private http: Http) {
         this.connection = $.hubConnection(this.apiUrl);
-        $.signalR.ajaxDefaults.headers = { Authorization: "Bearer " + this.authenticationService.getAccessToken() };
-        this.chatHub = this.connection.createHubProxy('ChatHub');
         this.connection.logging = true;
-
-        var self = this;
-        this.chatHub.on('messageReceived', function (message) {
-            console.log(message);
-            self.messageReceivedSource.next(message);
-            // TODO : send ack message
-        });
-
-
         this.connection.connectionSlow(function () {
             console.log("connectionSlow");
         });
@@ -58,9 +47,17 @@ export class ChatService {
      */
     start(): Observable<string> {
         var self = this;
+        $.signalR.ajaxDefaults.headers = { Authorization: "Bearer " + this.authenticationService.getAccessToken() };
+        this.chatHub = this.connection.createHubProxy('ChatHub');
+        this.chatHub.on('messageReceived', function (message) {
+            console.log(message);
+            self.messageReceivedSource.next(message);
+            // TODO : send ack message
+        });
 
-        return Observable.create(observer => {
-            if ($.signalR.connectionState == SignalRConnectionState.disconnected) {
+        var result: Observable<string> = Observable.create(observer => {
+            console.log($.signalR.connectionState);
+            //if ($.signalR.connectionState == SignalRConnectionState.disconnected) {
                 this.connection.start()
                     .done(function () {
                         observer.next(self.connection.id);
@@ -70,10 +67,33 @@ export class ChatService {
                     .fail(function (e) {
                         observer.error(e);
                         observer.complete();
+                        console.log(e);
                         self.connectionStartedSource.error(e);
                     });
-            }
+            //}
         });
+
+        return result;
+    }
+    register(): Observable<void> {
+        var self = this;
+        console.log('-register');
+
+        var result: Observable<void> = Observable.create(observer => {
+            this.chatHub.invoke('register')
+                .done(function () {
+                    observer.next(self.connection.id);
+                    observer.complete();
+                    console.log('register');
+                })
+                .fail(function (e) {
+                    observer.error(e);
+                    observer.complete();
+                    console.log(e);
+                });
+        });
+
+        return result;
     }
     /**
      * stop the connection to the SignalR server

@@ -24,10 +24,10 @@ export class ChatGroupsComponent implements OnInit {
             this.onMessageReceived(m);
         });
 
-        // get groups
-        this.chatService.getGroupsWithSummary().subscribe(groups => {
-            this.model.groups = groups;
-        });
+        //// get groups
+        //this.chatService.getGroupsWithSummary().subscribe(groups => {
+        //    this.model.groups = groups;
+        //});
     }
 
     onMessageReceived(message: any) {

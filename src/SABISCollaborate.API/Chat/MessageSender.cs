@@ -19,20 +19,23 @@ namespace SABISCollaborate.API.Chat
         #endregion
 
         #region Properties
-        public int DestinationId { get; private set; }
+        public int DestinationId
+        {
+            get
+            {
+                return this._group.Id;
+            }
+        }
         #endregion
 
         #region Constructors
-        public MessageSender(int destinationId, List<ConnectedUser> connectedUsers, IHubContext chatHub)
+        public MessageSender(Group group, List<ConnectedUser> connectedUsers, IHubContext chatHub)
         {
-            this.DestinationId = destinationId;
+            this._group = group;
             this._cancellableToken = new CancellationTokenSource();
             this._pendingMessages = new List<MessageQueueItem>();
             this._connectedUsers = connectedUsers;
             this._chatHub = chatHub;
-
-            //IGroupRepository groupRepository = new InMemoryGroupRepository();
-            //this._group = groupRepository.GetById(this.DestinationId);
 
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.SendPendingMessages), this._cancellableToken.Token);
         }
@@ -49,7 +52,6 @@ namespace SABISCollaborate.API.Chat
             connectedReceivers.Remove(message.SenderConnectionId);
 
             // create message queue item
-            //MessageQueueItem queueItem = new MessageQueueItem(this._group.Members, connectedReceivers, message);
             MessageQueueItem queueItem = new MessageQueueItem(connectedReceivers, message);
 
             lock (this._pendingMessages)
@@ -69,10 +71,10 @@ namespace SABISCollaborate.API.Chat
             if (message != null)
             {
                 // add acknowledged receiver
-                message.AcknowledgedConnections.Add(ackMessage.ConnectionId);
+                message.ConnectionsToPush.Remove(ackMessage.ConnectionId);
 
                 // remove message from queue if needed (>= in case 2 ack were received from the same connection)
-                if (message.AcknowledgedConnections.Count >= message.ConnectionsToPush.Count)
+                if (message.GetPendingConnections().Count == 0)
                 {
                     lock (this._pendingMessages)
                     {
@@ -119,5 +121,13 @@ namespace SABISCollaborate.API.Chat
             this._cancellableToken.Cancel();
         }
         #endregion
+    }
+
+    public static class Extensions
+    {
+        public static bool Contains(this ICollection<GroupMember> members, int userId)
+        {
+            return members.FirstOrDefault(m => m.UserId == userId) != null;
+        }
     }
 }

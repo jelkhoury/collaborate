@@ -1,14 +1,10 @@
-﻿using SABISCollaborate.Chat.Core.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace SABISCollaborate.API.Chat.Models
 {
     public class ClientMessage
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public int DestinationId { get; set; }
 
@@ -19,26 +15,13 @@ namespace SABISCollaborate.API.Chat.Models
         /// <summary>
         /// Delete later (get the user id from his claims)
         /// </summary>
-        public int UserId { get; set; }
+        public int UserId { get; internal set; }
 
         /// <summary>
         /// Gets or sets the sender username
         /// </summary>
-        public string Sender { get; set; }
+        public string Sender { get; internal set; }
 
         public DateTime ClientSentDate { get; set; }
-
-        public TextMessage CreateTextMessage(int senderId, List<int> receivers)
-        {
-            TextMessage result = new TextMessage
-            {
-                SenderUserId = senderId,
-                Text = this.Body,
-                SenderDate = this.ClientSentDate,
-                Destination = new MessageDestination(this.DestinationId, DestinationType.Group)
-            };
-
-            return result;
-        }
     }
 }
