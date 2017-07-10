@@ -18,41 +18,16 @@ export class ChatService {
     // events sources
     private connectionStartedSource = new Subject<string>();
     private messageReceivedSource = new Subject<string>();
-    //private onErrorSource = new Subject<any>();
     // events
     public connectionStarted$ = this.connectionStartedSource.asObservable();
     public messageReceived$ = this.messageReceivedSource.asObservable();
-    //public onError$ = this.onErrorSource.asObservable();
 
     constructor(private authenticationService: AuthenticationService, @Inject('API_URL') private apiUrl: string, private http: Http) {
         this.connection = $.hubConnection(this.apiUrl);
         $.signalR.ajaxDefaults.headers = { Authorization: "Bearer " + this.authenticationService.getAccessToken() };
         this.chatHub = this.connection.createHubProxy('ChatHub');
         this.connection.logging = true;
-    }
 
-    // chat Hub operations
-    start(): Observable<string> {
-        var self = this;
-        return Observable.create(observer => {
-            // TODO : check if not started
-            this.connection.start()
-                .done(function () {
-                    observer.next(self.connection.id);
-                    observer.complete();
-                    self.connectionStartedSource.next(self.connection.id);
-                })
-                .fail(function (e) {
-                    observer.error(e);
-                    observer.complete();
-                    self.connectionStartedSource.error(e);
-                });
-        });
-    }
-    stop() {
-        // TODO : stop the connection
-    }
-    register(): Observable<void> {
         var self = this;
         this.chatHub.on('messageReceived', function (message) {
             console.log(message);
@@ -60,20 +35,57 @@ export class ChatService {
             // TODO : send ack message
         });
 
-        return Observable.create(observer => {
-            this.chatHub.invoke('register')
-                .done(() => {
-                    console.log('registered');
-                    observer.next();
-                    observer.complete();
-                })
-                .fail(e => {
-                    console.log(e);
-                    observer.error(e);
-                    observer.complete();
-                });
+
+        this.connection.connectionSlow(function () {
+            console.log("connectionSlow");
+        });
+
+        this.connection.reconnecting(function () {
+            console.log("reconnecting");
+        });
+
+        this.connection.reconnected(function () {
+            console.log("reconnected");
+        });
+
+        this.connection.disconnected(function () {
+            console.log("disconnected");
         });
     }
+
+    /**
+     * start connection and return connection id
+     */
+    start(): Observable<string> {
+        var self = this;
+
+        return Observable.create(observer => {
+            if ($.signalR.connectionState == SignalRConnectionState.disconnected) {
+                this.connection.start()
+                    .done(function () {
+                        observer.next(self.connection.id);
+                        observer.complete();
+                        self.connectionStartedSource.next(self.connection.id);
+                    })
+                    .fail(function (e) {
+                        observer.error(e);
+                        observer.complete();
+                        self.connectionStartedSource.error(e);
+                    });
+            }
+        });
+    }
+    /**
+     * stop the connection to the SignalR server
+     */
+    stop() {
+        // TODO : stop the connection
+    }
+    /**
+     * send text message to destination (Group for now)
+     * @param destinationId : group id
+     * @param message : the message content
+     */
     sendTextMessage(destinationId: number, message: string) {
         var clientMessage = {
             destinationId: destinationId,
@@ -86,7 +98,6 @@ export class ChatService {
 
             });
     }
-    // end chat Hub operations
     /**
      * get all groups with number of unread messages (unread by the current user)
      */
@@ -100,7 +111,10 @@ export class ChatService {
             });
         });
     }
-
+    /**
+     * Get group name and history for the last 2 days
+     * @param groupId : id of the group
+     */
     getGroupHistory(groupId: number): Observable<ChatGroupHistory> {
         return Observable.create(observer => {
             //    this.http.post(url, { Username: username, Password: password }).map(res => res.json() as User).subscribe(u => {
@@ -127,4 +141,11 @@ export class ChatService {
             //    });
         });
     }
+}
+
+enum SignalRConnectionState {
+    connecting = 0,
+    connected = 1,
+    reconnecting = 2,
+    disconnected = 4
 }

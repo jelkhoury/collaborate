@@ -11,10 +11,7 @@ export class AppComponent {
 
     constructor(private authService: AuthenticationService, private chatService: ChatService) {
         this.authService.userLoggedIn$.subscribe(u => {
-            this.chatService.start().subscribe(s => {
-                this.chatService.register();
-                // TODO : get unread messages count
-            });
+            this.chatService.start();
         });
 
         this.authService.userLoggedOut$.subscribe(() => {

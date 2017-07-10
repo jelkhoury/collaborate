@@ -26,7 +26,13 @@ namespace SABISCollaborate.API.Hubs
         }
         #endregion
 
-        public void Register()
+        public override Task OnConnected()
+        {
+            this.Register();
+            return base.OnConnected();
+        }
+
+        private void Register()
         {
             string username = (this.Context.User.Identity as ClaimsPrincipal).FindFirst("preferred_username").Value;
             int userId = int.Parse((this.Context.User.Identity as ClaimsPrincipal).FindFirst("id").Value);
