@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
-import { ChatGroupSummary, ChatGroupHistory } from '../../shared/models';
+import { ChatGroupSummary, ChatGroupHistory, ChatGroupTextMessage } from '../../shared/models';
 
 // TODO : in the next phase we can cache the received messages when the group is not selected
 @Component({
     selector: 'chat-groups',
-    templateUrl: './chat-groups.component.html',
-    providers: [ChatService]
+    templateUrl: './chat-groups.component.html'
 })
 export class ChatGroupsComponent implements OnInit {
     private model: ViewModel = {
@@ -24,14 +23,24 @@ export class ChatGroupsComponent implements OnInit {
             this.onMessageReceived(m);
         });
 
-        //// get groups
-        //this.chatService.getGroupsWithSummary().subscribe(groups => {
-        //    this.model.groups = groups;
-        //});
+        // get groups
+        this.chatService.getGroupsWithSummary().subscribe(groups => {
+            this.model.groups = groups;
+            console.log(this.model.groups);
+        });
     }
 
     onMessageReceived(message: any) {
-        // TODO : add to current group or add to unread of other groups
+        this.chatService.sendAck(message.destinationId, message.id);
+
+        var messageHistory: ChatGroupTextMessage = {
+            id: message.id,
+            sender: message.sender,
+            text: message.body,
+            isRead: true,
+            dateSent: message.clientSentDate
+        }
+        this.model.selectedGroup.messages.push(messageHistory);
     }
     selectGroup(groupId: number) {
         this.chatService.getGroupHistory(groupId).subscribe(h => {
@@ -43,7 +52,18 @@ export class ChatGroupsComponent implements OnInit {
         if ($event.charCode == 13) {
             // TODO : send only when the server has received the previous message (to maintain messages order)
             this.chatService.sendTextMessage(this.model.selectedGroup.id, this.model.textMessage);
+            var messageHistory: ChatGroupTextMessage = {
+                id: 0,
+                sender: "",
+                text: this.model.textMessage,
+                isRead: true,
+                dateSent: new Date()
+            }
+            this.model.selectedGroup.messages.push(messageHistory);
+
+            this.model.textMessage = "";
         }
+        return true;
     }
 }
 

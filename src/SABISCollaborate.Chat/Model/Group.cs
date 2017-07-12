@@ -10,7 +10,7 @@ namespace SABISCollaborate.Chat.Core.Model
 
         public string Name { get; set; }
 
-        public ICollection<GroupMember> Members { get; set; }
+        public virtual ICollection<GroupMember> GroupMembers { get; set; }
 
         public int CreatedByUserId { get; set; }
 

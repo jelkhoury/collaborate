@@ -7,6 +7,7 @@ using SABISCollaborate.Chat.Core.Repositories;
 using SABISCollaborate.Chat.Core.Model;
 using SABISCollaborate.API.Models;
 using Microsoft.AspNetCore.Authorization;
+using SABISCollaborate.API.Chat;
 
 namespace SABISCollaborate.API.Controllers
 {
@@ -33,16 +34,21 @@ namespace SABISCollaborate.API.Controllers
         public IActionResult ReadMessage(int messageId, int userId)
         {
             TextMessage message = this._messageRepository.GetSingle(messageId);
-            //if (message == null)
-            //{
-            //    return BadRequest("Message not found");
-            //}
+            if (message == null)
+            {
+                return BadRequest("Message not found");
+            }
 
-            //if (!message.Readers.Contains(userId))
-            //{
-            //    message.Readers.Add(userId);
-            //    this._messageRepository.Update(message);
-            //}
+            if (!message.ReadReceipts.Contains(userId))
+            {
+                message.ReadReceipts.Add(new SABISCollaborate.Chat.Core.Model.Messages.ReadReceipt
+                {
+                    MessageId = messageId,
+                    ReadDate = DateTime.Now,
+                    UserId = userId
+                });
+                //this._messageRepository.Update(message);
+            }
 
             return Ok(message.Id);
         }

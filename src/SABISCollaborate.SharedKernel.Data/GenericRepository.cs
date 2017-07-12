@@ -12,6 +12,14 @@ namespace SABISCollaborate.SharedKernel
     {
         private DbContext _context;
 
+        protected DbContext DbContext
+        {
+            get
+            {
+                return this._context;
+            }
+        }
+
         public GenericRepository(DbContext context)
         {
             this._context = context;
@@ -22,12 +30,12 @@ namespace SABISCollaborate.SharedKernel
             IQueryable<T> query = this._context.Set<T>();
             return query;
         }
-        public T GetSingle(int id)
+        public virtual T GetSingle(int id)
         {
             T entity = this._context.Set<T>().Find(id);
             return entity;
         }
-        public IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
             IQueryable<T> query = this._context.Set<T>().Where(predicate);
             return query;

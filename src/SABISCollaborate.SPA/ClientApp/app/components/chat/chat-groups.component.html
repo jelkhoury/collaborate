@@ -3,7 +3,7 @@
     <h3>Groups</h3>
     <div class="list-group">
         <a class="list-group-item" *ngFor="let group of model.groups" (click)="selectGroup(group.id)" href="javascript:void(0)">
-            {{group.name}}
+            {{group.destinationName}}
         </a>
     </div>
 </div>
@@ -19,7 +19,7 @@
             </ul>
             <!-- send message button -->
             <div class="input-group">
-                <input id="messageText" type="text" [ngModel]="model.textMessage" (keypress)="onMessageChanged($event)" class="form-control" name="message" placeholder="Message">
+                <input id="messageText" type="text" [(ngModel)]="model.textMessage" (keypress)="onMessageChanged($event)" class="form-control" name="message" placeholder="Message">
                 <div class="input-group-btn">
                     <button class="btn btn-default" type="button">
                         <i class="glyphicon glyphicon-send"></i>

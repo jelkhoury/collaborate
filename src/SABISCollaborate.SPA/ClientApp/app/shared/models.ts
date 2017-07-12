@@ -33,8 +33,8 @@ export interface UserProfile {
 
 // chat
 export interface ChatGroupSummary {
-    id: number;
-    name: string;
+    destinationId: number;
+    destinationName: string;
     unreadMessagesCount: number;
 }
 

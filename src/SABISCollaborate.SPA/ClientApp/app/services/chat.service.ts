@@ -2,7 +2,7 @@
 import { Subject } from 'rxjs/Subject';
 import { ChatGroupSummary, ChatGroupHistory } from '../shared/models';
 import { Observable } from 'rxjs/Observable';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { AuthenticationService } from '../services/authentication.service';
 import 'expose-loader?jQuery!jquery';
 import 'expose-loader?$!jquery';
@@ -23,8 +23,19 @@ export class ChatService {
     public messageReceived$ = this.messageReceivedSource.asObservable();
 
     constructor(private authenticationService: AuthenticationService, @Inject('API_URL') private apiUrl: string, private http: Http) {
+        console.log('constructor');
         this.connection = $.hubConnection(this.apiUrl);
         this.connection.logging = true;
+
+        var self = this;
+        this.chatHub = this.connection.createHubProxy('ChatHub');
+        this.chatHub.on('messageReceived', function (message) {
+            console.log(message);
+            self.messageReceivedSource.next(message);
+            // TODO : send ack message
+        });
+
+
         this.connection.connectionSlow(function () {
             console.log("connectionSlow");
         });
@@ -48,12 +59,6 @@ export class ChatService {
     start(): Observable<string> {
         var self = this;
         $.signalR.ajaxDefaults.headers = { Authorization: "Bearer " + this.authenticationService.getAccessToken() };
-        this.chatHub = this.connection.createHubProxy('ChatHub');
-        this.chatHub.on('messageReceived', function (message) {
-            console.log(message);
-            self.messageReceivedSource.next(message);
-            // TODO : send ack message
-        });
 
         var result: Observable<string> = Observable.create(observer => {
             console.log($.signalR.connectionState);
@@ -77,14 +82,13 @@ export class ChatService {
     }
     register(): Observable<void> {
         var self = this;
-        console.log('-register');
 
         var result: Observable<void> = Observable.create(observer => {
             this.chatHub.invoke('register')
                 .done(function () {
                     observer.next(self.connection.id);
                     observer.complete();
-                    console.log('register');
+                    console.log('registered');
                 })
                 .fail(function (e) {
                     observer.error(e);
@@ -118,14 +122,29 @@ export class ChatService {
 
             });
     }
+    sendAck(destinationId: number, messageId: number) {
+        var ackMessage = {
+            destinationId: destinationId,
+            messageId: messageId,
+        };
+
+        this.chatHub.invoke('ackMessage', ackMessage)
+            .done(r => {
+
+            });
+    }
     /**
      * get all groups with number of unread messages (unread by the current user)
      */
     getGroupsWithSummary(): Observable<ChatGroupSummary[]> {
         var url = this.apiUrl + '/api/chat/groups/summary';
 
+        var requestArgs = {
+            headers: new Headers()
+        };
+        requestArgs.headers.append("Authorization", "Bearer " + this.authenticationService.getAccessToken());
         return Observable.create(observer => {
-            this.http.get(url).map(g => g.json() as ChatGroupSummary[]).subscribe(g => {
+            this.http.get(url, requestArgs).map(g => g.json() as ChatGroupSummary[]).subscribe(g => {
                 observer.next(g);
                 observer.complete();
             });
@@ -145,7 +164,7 @@ export class ChatService {
 
             observer.next(
                 {
-                    id: 1,
+                    id: 2,
                     name: 'SABIS IT',
                     members: ['jek', 'hri', 'egh'],
                     messages: [

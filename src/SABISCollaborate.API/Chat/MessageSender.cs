@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SABISCollaborate.API.Chat.Models;
 using SABISCollaborate.Chat.Core.Model;
+using SABISCollaborate.Chat.Core.Model.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace SABISCollaborate.API.Chat
         {
             // get connected members
             List<string> connectedReceivers = this._connectedUsers
-                    .FindAll(u => this._group.Members.Contains(u.UserId))
+                    .FindAll(u => this._group.GroupMembers.Contains(u.UserId))
                     .Select(cu => cu.ConnectionId)
                     .ToList();
             connectedReceivers.Remove(message.SenderConnectionId);
@@ -128,6 +129,11 @@ namespace SABISCollaborate.API.Chat
         public static bool Contains(this ICollection<GroupMember> members, int userId)
         {
             return members.FirstOrDefault(m => m.UserId == userId) != null;
+        }
+
+        public static bool Contains(this ICollection<ReadReceipt> receipts, int userId)
+        {
+            return receipts.FirstOrDefault(r => r.UserId == userId) != null;
         }
     }
 }
