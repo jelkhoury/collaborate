@@ -62,6 +62,10 @@ export class AuthenticationService {
     getCurrentUser(): Oidc.User {
         return this.user;
     }
+    getCurrentUserId(): number {
+        console.log(this.user);
+        return this.user.profile.id;
+    }
     getName(): string {
         return this.user && this.user.profile ? this.user.profile.name : "";
     }

@@ -87,13 +87,14 @@ export class ChatService {
             this.chatHub.invoke('register')
                 .done(function () {
                     observer.next(self.connection.id);
-                    observer.complete();
                     console.log('registered');
                 })
                 .fail(function (e) {
                     observer.error(e);
-                    observer.complete();
                     console.log(e);
+                })
+                .then(() => {
+                    observer.complete();
                 });
         });
 
@@ -111,6 +112,7 @@ export class ChatService {
      * @param message : the message content
      */
     sendTextMessage(destinationId: number, message: string) {
+        // TODO : return message id
         var clientMessage = {
             destinationId: destinationId,
             body: message,
@@ -164,7 +166,7 @@ export class ChatService {
 
             observer.next(
                 {
-                    id: 2,
+                    id: groupId,
                     name: 'SABIS IT',
                     members: ['jek', 'hri', 'egh'],
                     messages: [

@@ -2,7 +2,7 @@
     <!-- name list of all groups -->
     <h3>Groups</h3>
     <div class="list-group">
-        <a class="list-group-item" *ngFor="let group of model.groups" (click)="selectGroup(group.id)" href="javascript:void(0)">
+        <a class="list-group-item" *ngFor="let group of model.groups" (click)="selectGroup(group.destinationId)" href="javascript:void(0)">
             {{group.destinationName}}
         </a>
     </div>
@@ -14,7 +14,8 @@
             <!-- group messages history -->
             <ul>
                 <li *ngFor="let message of model.selectedGroup?.messages">
-                    {{message.text}}
+                    <div *ngIf="model.currentUsername == message.sender">Me</div>
+                    {{message.sender + ' : ' + message.text}}
                 </li>
             </ul>
             <!-- send message button -->

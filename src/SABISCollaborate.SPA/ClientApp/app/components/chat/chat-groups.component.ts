@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { ChatGroupSummary, ChatGroupHistory, ChatGroupTextMessage } from '../../shared/models';
 
 // TODO : in the next phase we can cache the received messages when the group is not selected
@@ -11,10 +12,11 @@ export class ChatGroupsComponent implements OnInit {
     private model: ViewModel = {
         groups: null,
         textMessage: "",
-        selectedGroup: undefined
+        selectedGroup: undefined,
+        currentUsername: this.authService.getCurrentUser().profile.preferred_username
     };
 
-    constructor(private chatService: ChatService) {
+    constructor(private chatService: ChatService, private authService: AuthenticationService) {
 
     }
     ngOnInit() {
@@ -26,19 +28,19 @@ export class ChatGroupsComponent implements OnInit {
         // get groups
         this.chatService.getGroupsWithSummary().subscribe(groups => {
             this.model.groups = groups;
-            console.log(this.model.groups);
         });
     }
 
     onMessageReceived(message: any) {
-        this.chatService.sendAck(message.destinationId, message.id);
+        this.chatService.sendAck(message.DestinationId, message.Id);
 
         var messageHistory: ChatGroupTextMessage = {
-            id: message.id,
-            sender: message.sender,
-            text: message.body,
+            id: message.Id,
+            senderUserId: message.UserId,
+            sender: message.Sender,
+            text: message.Body,
             isRead: true,
-            dateSent: message.clientSentDate
+            dateSent: message.ClientSentDate
         }
         this.model.selectedGroup.messages.push(messageHistory);
     }
@@ -71,4 +73,5 @@ interface ViewModel {
     groups: ChatGroupSummary[];
     textMessage: string;
     selectedGroup: ChatGroupHistory;
+    currentUsername: string;
 }

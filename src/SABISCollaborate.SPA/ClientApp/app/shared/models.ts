@@ -44,10 +44,12 @@ export interface ChatGroupTextMessage {
      sender username
     */
     sender: string;
+    senderUserId?: number;
     text: string;
     isRead?: boolean;
     dateSent?: Date;
     dateReceived?: Date;
+    isFromMe?: false;
 }
 
 export interface ChatGroupHistory {
