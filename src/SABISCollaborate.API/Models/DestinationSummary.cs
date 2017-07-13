@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SABISCollaborate.API.Models
 {
-    public class DestinationUnreadSummary
+    public class DestinationSummary
     {
         public int DestinationId { get; set; }
 

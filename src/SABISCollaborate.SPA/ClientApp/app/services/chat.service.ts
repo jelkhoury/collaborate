@@ -138,7 +138,7 @@ export class ChatService {
     /**
      * get all groups with number of unread messages (unread by the current user)
      */
-    getGroupsWithSummary(): Observable<ChatGroupSummary[]> {
+    getGroupsSummary(): Observable<ChatGroupSummary[]> {
         var url = this.apiUrl + '/api/chat/groups/summary';
 
         var requestArgs = {

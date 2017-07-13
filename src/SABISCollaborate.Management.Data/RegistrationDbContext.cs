@@ -10,7 +10,7 @@ namespace SABISCollaborate.Registration.Data
     {
         public DbSet<User> User { get; set; }
 
-        public RegistrationDbContext(DbContextOptions options) : base(options)
+        public RegistrationDbContext(DbContextOptions<RegistrationDbContext> options) : base(options)
         {
             this.Database.EnsureCreated();
         }

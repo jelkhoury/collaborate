@@ -7,7 +7,6 @@ import { AuthGuard } from './_guards/auth.guard';
 
 // component
 import { AppComponent } from './components/app/app.component'
-//import { LoginComponent } from './components/login/login.component'
 import { SigninCallbackComponent } from './components/login/signin-callback.component'
 import { HomeComponent } from './components/home/home.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -15,7 +14,7 @@ import { TopNavMenuComponent } from './components/navmenu/top-navmenu.component'
 import { ManageUsersComponent } from './components/management/users.component';
 import { ChatGroupsComponent } from './components/chat/chat-groups.component';
 
-import { ManagementDepartmentsComponent } from './components/management/departments.component';
+import { ManageDepartmentsComponent } from './components/management/departments.component';
 import { RegistrationComponent } from './components/management/registration.component';
 import { GenderComponent } from './shared/components/gender.component';
 import { MaritalStatusComponent } from './shared/components/marital-status.component';
@@ -49,7 +48,7 @@ export const sharedConfig: NgModule = {
         NavMenuComponent,
         TopNavMenuComponent,
         ManageUsersComponent,
-        ManagementDepartmentsComponent,
+        ManageDepartmentsComponent,
         RegistrationComponent,
         GenderComponent,
         MaritalStatusComponent,

@@ -12,7 +12,7 @@ namespace SABISCollaborate.Chat.Data
 
         public DbSet<TextMessage> TextMessage { get; set; }
 
-        public ChatDbContext(DbContextOptions options) : base(options)
+        public ChatDbContext(DbContextOptions<ChatDbContext> options) : base(options)
         {
             this.Database.EnsureCreated();
         }

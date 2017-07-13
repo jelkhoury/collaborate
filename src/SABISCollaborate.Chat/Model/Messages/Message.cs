@@ -17,6 +17,8 @@ namespace SABISCollaborate.Chat.Core.Model
 
         public DestinationType DestinationType { get; set; }
 
+        public virtual ICollection<MessageReceiver> MessageReceivers { get; set; }
+
         public virtual ICollection<ReadReceipt> ReadReceipts { get; set; }
 
         public virtual ICollection<DeliveryReceipt> DeliveryReceipts { get; set; }

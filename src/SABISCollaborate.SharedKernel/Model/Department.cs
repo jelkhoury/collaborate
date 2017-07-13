@@ -9,11 +9,9 @@ namespace SABISCollaborate.SharedKernel.Core.Model
     {
         public int Id { get; protected set; }
 
-        public string Title { get; protected set; }
+        public string Name { get; protected set; }
 
-        public Department(int id, string title) {
-            this.Id = id;
-            this.Title = title;
+        private Department() {
         }
     }
 }

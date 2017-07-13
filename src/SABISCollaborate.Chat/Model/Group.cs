@@ -14,7 +14,7 @@ namespace SABISCollaborate.Chat.Core.Model
 
         public int CreatedByUserId { get; set; }
 
-        public int CurrentOwnerUserId { get; set; }
+        //public int CurrentOwnerUserId { get; set; }
 
         public DateTime CreatedDate { get; set; }
     }

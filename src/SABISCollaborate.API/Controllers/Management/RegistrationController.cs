@@ -20,30 +20,16 @@ namespace SABISCollaborate_SPA.Controllers
     public class RegistrationController : Controller
     {
         #region Fields
-        private readonly IRegistrationService _userService;
+        private readonly IRegistrationService _registrationService;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IPositionRepository _positionRepository;
         #endregion
 
-        public RegistrationController(IRegistrationService userService, IDepartmentRepository departmentRepository, IPositionRepository positionRepository)
+        public RegistrationController(IRegistrationService registrationService, IDepartmentRepository departmentRepository, IPositionRepository positionRepository)
         {
-            this._userService = userService;
+            this._registrationService = registrationService;
             this._departmentRepository = departmentRepository;
             this._positionRepository = positionRepository;
-        }
-
-
-        /// <summary>
-        /// Get user by username and password
-        /// </summary>
-        /// <param name="credentials"></param>
-        /// <returns></returns>
-        [HttpPost("user")]
-        public IActionResult GetUser([FromBody] CredentialsModel credentials)
-        {
-            User user = this._userService.GetUser(credentials.Username, credentials.Password);
-
-            return Ok(user);
         }
 
         [Route("users")]
@@ -83,15 +69,16 @@ namespace SABISCollaborate_SPA.Controllers
         {
             try
             {
-                //EmploymentInfo employmentInfo = new EmploymentInfo(user.DepartmentsIds, user.PositionId, user.EmploymentDate);
+                List<UserPosition> positions = new List<UserPosition>();
+                positions.Add(new UserPosition(user.DepartmentsIds.First(), user.PositionId));
+                EmploymentInfo employmentInfo = new EmploymentInfo(user.EmploymentDate, positions);
 
                 UserProfile profile = new UserProfile(user.Nickname, user.FirstName, user.LastName, user.BirthDate);
                 profile.Gender = user.Gender;
                 profile.MaritalStatus = user.MaritalStatus;
-                //profile.EmploymentInfo = employmentInfo;
-                //profile.PictureId = user.TempPictureId;
+                profile.EmploymentInfo = employmentInfo;
 
-                User result = this._userService.Register(user.Username, user.Password, user.Email, profile);
+                User result = this._registrationService.Register(user.Username, user.Password, user.Email, profile);
 
                 return Ok(result);
             }
@@ -153,15 +140,15 @@ namespace SABISCollaborate_SPA.Controllers
         [HttpGet("username/available")]
         public IActionResult IsUsernameAvailable(string username)
         {
-            bool isInUse = this._userService.IsUsernameAvailable(username);
+            bool isInUse = this._registrationService.IsUsernameAvailable(username);
 
             return Ok(isInUse);
         }
 
         [HttpGet("email/owner")]
-        public IActionResult GetEmailOwner(string email)
+        public IActionResult GetUserByEmail(string email)
         {
-            User user = this._userService.GetUserByEmail(email);
+            User user = this._registrationService.GetUserByEmail(email);
 
             return Ok(user);
         }

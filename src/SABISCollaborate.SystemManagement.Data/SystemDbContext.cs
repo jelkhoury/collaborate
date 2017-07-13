@@ -11,7 +11,7 @@ namespace SABISCollaborate.System.Data
         public DbSet<Department> Department { get; set; }
         public DbSet<Position> Position { get; set; }
 
-        public SystemDbContext(DbContextOptions options) : base(options)
+        public SystemDbContext(DbContextOptions<SystemDbContext> options) : base(options)
         {
             this.Database.EnsureCreated();
         }

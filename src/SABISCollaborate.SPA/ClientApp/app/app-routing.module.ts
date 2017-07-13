@@ -8,7 +8,7 @@ import { SigninCallbackComponent } from './components/login/signin-callback.comp
 import { HomeComponent } from './components/home/home.component';
 import { ManageUsersComponent } from './components/management/users.component';
 import { RegistrationComponent } from './components/management/registration.component';
-import { ManagementDepartmentsComponent } from './components/management/departments.component';
+import { ManageDepartmentsComponent } from './components/management/departments.component';
 import { SearchResultComponent } from './components/search/search-result.component';
 
 const appRoutes: Routes = [
@@ -22,7 +22,7 @@ const appRoutes: Routes = [
         children: [
             { path: 'users', component: ManageUsersComponent, canActivate: [AuthGuard] },
             { path: 'registration', component: RegistrationComponent, canActivate: [AuthGuard] },
-            { path: 'departments', component: ManagementDepartmentsComponent, canActivate: [AuthGuard] }
+            { path: 'departments', component: ManageDepartmentsComponent, canActivate: [AuthGuard] }
         ]
     },
     // otherwise redirect to home

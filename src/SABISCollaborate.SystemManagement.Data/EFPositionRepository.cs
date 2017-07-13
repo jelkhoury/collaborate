@@ -7,7 +7,7 @@ namespace SABISCollaborate.System.Data
 {
     public class EFPositionRepository : GenericRepository<Position>, IPositionRepository
     {
-        public EFPositionRepository(DbContext context) : base(context)
+        public EFPositionRepository(SystemDbContext context) : base(context)
         {
         }
     }

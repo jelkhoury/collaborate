@@ -10,10 +10,10 @@ import { ChatGroupSummary, ChatGroupHistory, ChatGroupTextMessage } from '../../
 })
 export class ChatGroupsComponent implements OnInit {
     private model: ViewModel = {
-        groups: null,
-        textMessage: "",
-        selectedGroup: undefined,
-        currentUsername: this.authService.getCurrentUser().profile.preferred_username
+        groupsSummary: null,
+        pendingTextMessage: "",
+        selectedGroupHistory: undefined
+        //currentUsername: this.authService.getCurrentUser().profile.preferred_username
     };
 
     constructor(private chatService: ChatService, private authService: AuthenticationService) {
@@ -25,9 +25,9 @@ export class ChatGroupsComponent implements OnInit {
             this.onMessageReceived(m);
         });
 
-        // get groups
-        this.chatService.getGroupsWithSummary().subscribe(groups => {
-            this.model.groups = groups;
+        // get groups summary
+        this.chatService.getGroupsSummary().subscribe(groupsSummary => {
+            this.model.groupsSummary = groupsSummary;
         });
     }
 
@@ -42,36 +42,35 @@ export class ChatGroupsComponent implements OnInit {
             isRead: true,
             dateSent: message.ClientSentDate
         }
-        this.model.selectedGroup.messages.push(messageHistory);
+        this.model.selectedGroupHistory.messages.push(messageHistory);
     }
     selectGroup(groupId: number) {
         this.chatService.getGroupHistory(groupId).subscribe(h => {
-            this.model.selectedGroup = h;
+            this.model.selectedGroupHistory = h;
         });
     }
     onMessageChanged($event) {
         // 13 === enter
         if ($event.charCode == 13) {
             // TODO : send only when the server has received the previous message (to maintain messages order)
-            this.chatService.sendTextMessage(this.model.selectedGroup.id, this.model.textMessage);
+            this.chatService.sendTextMessage(this.model.selectedGroupHistory.id, this.model.pendingTextMessage);
             var messageHistory: ChatGroupTextMessage = {
                 id: 0,
                 sender: "",
-                text: this.model.textMessage,
+                text: this.model.pendingTextMessage,
                 isRead: true,
                 dateSent: new Date()
             }
-            this.model.selectedGroup.messages.push(messageHistory);
+            this.model.selectedGroupHistory.messages.push(messageHistory);
 
-            this.model.textMessage = "";
+            this.model.pendingTextMessage = "";
         }
         return true;
     }
 }
 
 interface ViewModel {
-    groups: ChatGroupSummary[];
-    textMessage: string;
-    selectedGroup: ChatGroupHistory;
-    currentUsername: string;
+    groupsSummary: ChatGroupSummary[];
+    pendingTextMessage: string;
+    selectedGroupHistory: ChatGroupHistory;
 }

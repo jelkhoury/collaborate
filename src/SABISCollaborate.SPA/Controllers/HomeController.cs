@@ -9,9 +9,9 @@ namespace SABISCollaborate_SPA.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController(RegistrationDbContext rdb)
+        public HomeController()
         {
-            var users = rdb.User.ToList();
+            
         }
 
         public IActionResult Index()

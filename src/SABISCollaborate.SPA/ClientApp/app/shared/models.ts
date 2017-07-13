@@ -11,7 +11,7 @@ export enum MaritalStatus {
 
 export interface Department {
     id: number;
-    title: string;
+    name: string;
 }
 
 export interface Position {

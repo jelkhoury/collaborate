@@ -65,6 +65,7 @@
     <ProjectReference Include="..\SABISCollaborate.SystemManagement.Data\SABISCollaborate.System.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="wwwroot\css\layout\" />
     <Folder Include="wwwroot\css\pages\" />
   </ItemGroup>

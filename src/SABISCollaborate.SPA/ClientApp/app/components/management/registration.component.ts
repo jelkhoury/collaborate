@@ -29,12 +29,8 @@ export class RegistrationComponent {
     private currentForm: NgForm;
     @ViewChild('f') newForm: NgForm;
     private initModel: InitRegistrationModel;
-    private registrationService: RegistrationService;
-    //uploadInput: EventEmitter<UploadInput> = new EventEmitter<UploadInput>()
-    //file: UploadFile;
 
-    constructor(registrationService: RegistrationService, private formBuilder: FormBuilder) {
-        this.registrationService = registrationService;
+    constructor(private registrationService: RegistrationService, private formBuilder: FormBuilder) {
         this.loadModel();
     }
 
@@ -48,7 +44,7 @@ export class RegistrationComponent {
             this.initModel.departments.forEach(d => {
                 this.model.departmentsOptions.push({
                     id: d.id,
-                    name: d.title
+                    name: d.name
                 });
             });
 
@@ -118,28 +114,6 @@ export class RegistrationComponent {
             return 'Last Name is required';
         }
     }
-    //// upload temp profile picture to the server
-    //uploadTempPicture(): void {  // manually start uploading
-    //    const event: UploadInput = {
-    //        type: 'uploadAll',
-    //        url: this.registrationService.tempUploadProfileImageUrl(),
-    //        method: 'POST',
-    //        //data: { foo: 'bar' },
-    //        concurrency: 1 // set sequential uploading of files with concurrency 1
-    //    }
-    //    setTimeout(() => {
-    //        this.uploadInput.emit(event);
-    //    }, 0);
-    //}
-    //// receive upload events from the upload control
-    //onUploadOutput(output: UploadOutput): void {
-    //    if (output.type === 'done') {
-    //        this.file = output.file;
-            
-    //        // set view url
-    //        this.model.profilePictureUrl = this.registrationService.getTempProfilePictureUrl(this.file.response);
-    //    }
-    //}
     // register click
     onRegister(): void {
         this.model.isSubmitting = true;

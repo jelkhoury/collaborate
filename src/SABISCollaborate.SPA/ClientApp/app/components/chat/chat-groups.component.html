@@ -2,7 +2,7 @@
     <!-- name list of all groups -->
     <h3>Groups</h3>
     <div class="list-group">
-        <a class="list-group-item" *ngFor="let group of model.groups" (click)="selectGroup(group.destinationId)" href="javascript:void(0)">
+        <a class="list-group-item" *ngFor="let group of model.groupsSummary" (click)="selectGroup(group.destinationId)" href="javascript:void(0)">
             {{group.destinationName}}
         </a>
     </div>
@@ -13,14 +13,13 @@
         <div class="panel-body">
             <!-- group messages history -->
             <ul>
-                <li *ngFor="let message of model.selectedGroup?.messages">
-                    <div *ngIf="model.currentUsername == message.sender">Me</div>
+                <li *ngFor="let message of model.selectedGroupHistory?.messages">
                     {{message.sender + ' : ' + message.text}}
                 </li>
             </ul>
             <!-- send message button -->
             <div class="input-group">
-                <input id="messageText" type="text" [(ngModel)]="model.textMessage" (keypress)="onMessageChanged($event)" class="form-control" name="message" placeholder="Message">
+                <input id="messageText" type="text" [(ngModel)]="model.pendingTextMessage" (keypress)="onMessageChanged($event)" class="form-control" name="message" placeholder="Message">
                 <div class="input-group-btn">
                     <button class="btn btn-default" type="button">
                         <i class="glyphicon glyphicon-send"></i>

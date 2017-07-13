@@ -34,7 +34,7 @@ namespace SABISCollaborate.API.Models
             {
                 if (String.IsNullOrWhiteSpace(this._username))
                 {
-                    this._username = this._claims.FindFirst("preferred_username").Value;
+                    this._username = this._claims.FindFirst("username").Value;
                 }
                 return this._username;
             }

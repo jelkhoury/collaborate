@@ -8,8 +8,13 @@ using Microsoft.Extensions.Logging;
 using SABISCollaborate.API.Chat;
 using SABISCollaborate.Chat.Core.Repositories;
 using SABISCollaborate.Chat.Data;
+using SABISCollaborate.Registration.Core.Repositories;
+using SABISCollaborate.Registration.Core.Services;
+using SABISCollaborate.Registration.Data;
 using SABISCollaborate.System.Data;
 using System;
+using SCSystem = SABISCollaborate.System.Core;
+using SCSystemData = SABISCollaborate.System.Data;
 
 namespace SABISCollaborate.API
 {
@@ -38,11 +43,27 @@ namespace SABISCollaborate.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO";
-            string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=.\mssqlserver2012";
+            string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO";
+            //string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=.\mssqlserver2012";
 
-            services.AddSingleton<IGroupRepository, EFGroupRepository>();
-            services.AddSingleton<ITextMessageRepository, EFTextMessageRepository>();
+            // System Context
+            services.AddScoped<SCSystem.Repositories.IDepartmentRepository, SCSystemData.EFDepartmentRepository>();
+            services.AddScoped<SCSystem.Repositories.IPositionRepository, SCSystemData.EFPositionRepository>();
+            services.AddDbContext<SCSystemData.SystemDbContext>(o =>
+            {
+                o.UseSqlServer(connectionString);
+            });
+
+            // Registration Context
+            services.AddScoped<IUserRepository, EFUserRepository>();
+            services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddDbContext<RegistrationDbContext>(o =>
+            {
+                o.UseSqlServer(connectionString);
+            });
+
+            services.AddScoped<IGroupRepository, EFGroupRepository>();
+            services.AddScoped<ITextMessageRepository, EFTextMessageRepository>();
             services.AddDbContext<ChatDbContext>(o =>
             {
                 o.UseSqlServer(connectionString);

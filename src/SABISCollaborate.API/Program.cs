@@ -17,12 +17,10 @@ namespace SABISCollaborate.API
 
             var host = new WebHostBuilder()
                 .UseKestrel()
-                //.UseConfiguration(config)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
-                .UseUrls("http://localhost:5559")
                 .Build();
 
             host.Run();

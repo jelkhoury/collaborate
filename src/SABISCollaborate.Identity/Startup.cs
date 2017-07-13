@@ -86,6 +86,7 @@ namespace SABISCollaborate.Identity
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        "username",
                         "token",
                         "scapi"
                     },
@@ -104,7 +105,11 @@ namespace SABISCollaborate.Identity
                 new IdentityResources.Email(),
                 new IdentityResource {
                     Name = "role",
-                    UserClaims = new List<string> {"role"}
+                    UserClaims = new List<string> { "role" }
+                },
+                new IdentityResource {
+                    Name = "username",
+                    UserClaims = new List<string> { "username" }
                 }
             };
         }
@@ -118,7 +123,7 @@ namespace SABISCollaborate.Identity
                     Description = "SABIS Collaborate API",
                     UserClaims = new List<string> {
                         JwtClaimTypes.Id,
-                        JwtClaimTypes.PreferredUserName
+                        "username"
                     },
                     ApiSecrets = new List<Secret> {
                         new Secret("scopeSecret".Sha256())
@@ -138,15 +143,28 @@ namespace SABISCollaborate.Identity
             return new List<TestUser> {
                 new TestUser {
                     SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
-                    Username = "a",
+                    Username = "jek",
                     Password = "1",
                     Claims = new List<Claim> {
-                        new Claim(JwtClaimTypes.Email, "scott@scottbrady91.com"),
+                        new Claim(JwtClaimTypes.Email, "joseph.elkhoury@outlook.com"),
                         new Claim(JwtClaimTypes.Role, "admin"),
-                        new Claim(JwtClaimTypes.Id, "1"),
+                        new Claim(JwtClaimTypes.Id, "4"),
                         new Claim("username", "jek"),
-                        new Claim(JwtClaimTypes.PreferredUserName, "jek"),
+                        new Claim(JwtClaimTypes.NickName, "jek"),
                         new Claim(JwtClaimTypes.Name, "Joseph El Khoury")
+                    }
+                },
+                new TestUser {
+                    SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABF",
+                    Username = "egh",
+                    Password = "1",
+                    Claims = new List<Claim> {
+                        new Claim(JwtClaimTypes.Email, "eghazal@sabis.net"),
+                        new Claim(JwtClaimTypes.Role, "admin"),
+                        new Claim(JwtClaimTypes.Id, "5"),
+                        new Claim("username", "egh"),
+                        new Claim(JwtClaimTypes.NickName, "egh"),
+                        new Claim(JwtClaimTypes.Name, "Elias El Ghazal")
                     }
                 }
             };

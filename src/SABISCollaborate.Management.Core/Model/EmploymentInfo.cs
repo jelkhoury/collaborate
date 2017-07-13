@@ -7,7 +7,7 @@ namespace SABISCollaborate.Registration.Core.Model
     public class EmploymentInfo : ValueObject
     {
         #region Properties
-        public ICollection<UserPosition> Positions { get; private set; }
+        public virtual ICollection<UserPosition> Positions { get; private set; }
 
         public DateTime EmploymentDate { get; private set; }
         #endregion

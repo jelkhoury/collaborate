@@ -18,12 +18,16 @@ namespace SABISCollaborate.System.Data
         public override Group GetSingle(int id)
         {
             Group entity = this.DbContext.Set<Group>().Include(g => g.GroupMembers).FirstOrDefault(g => g.Id == id);
+
             return entity;
         }
 
         public List<Group> GetUserGroups(int userId)
         {
-            throw new NotImplementedException();
+            List<Group> result = this.DbContext.Set<Group>().Where(g => g.GroupMembers.FirstOrDefault(m => m.UserId == userId) != null)
+                .ToList();
+
+            return result;
         }
     }
 }

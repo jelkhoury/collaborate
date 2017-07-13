@@ -13,7 +13,7 @@ namespace SABISCollaborate.API.Controllers
 {
     [Authorize]
     [Route("api/chat")]
-    public class ChatController : Controller
+    public class ChatController : ControllerBase
     {
         private readonly ITextMessageRepository _messageRepository;
         private readonly IGroupRepository _groupRepository;
@@ -24,10 +24,29 @@ namespace SABISCollaborate.API.Controllers
             this._groupRepository = groupRepository;
         }
 
+        /// <summary>
+        /// Get groups of the current user with the number of unread messages in each group
+        /// </summary>
+        /// <returns>List of groups summary</returns>
         [HttpGet("groups/summary")]
         public IActionResult GetGroupsWithSummary()
         {
-            return this.GetUnreadMessages(0);
+            List<DestinationSummary> result = new List<DestinationSummary>();
+            int userId = base.CurrentUser.UserId;
+
+            // get unread messages
+            List<TextMessage> unreadMessages = this._messageRepository.GetUnread(userId);
+            List<Group> groups = this._groupRepository.GetUserGroups(userId);
+            groups.ForEach(g =>
+            {
+                result.Add(new DestinationSummary
+                {
+                    DestinationId = g.Id,
+                    DestinationName = g.Name,
+                    UnreadMessagesCount = unreadMessages.Count(m => m.DestinationId == g.Id)
+                });
+            });
+            return Ok(result);
         }
 
         [Route("read")]
@@ -76,13 +95,13 @@ namespace SABISCollaborate.API.Controllers
         [Route("unread")]
         public IActionResult GetUnreadMessages(int userId)
         {
-            List<DestinationUnreadSummary> result = new List<DestinationUnreadSummary>();
+            List<DestinationSummary> result = new List<DestinationSummary>();
 
             List<Group> groups = this._groupRepository.GetAll().ToList();//.GetUserGroups(userId);
             List<TextMessage> unreadMessages = this._messageRepository.GetUnreadByGroup(userId, groups.Select(g => g.Id).ToList());
             groups.ForEach(g =>
             {
-                result.Add(new DestinationUnreadSummary
+                result.Add(new DestinationSummary
                 {
                     DestinationId = g.Id,
                     DestinationName = g.Name,

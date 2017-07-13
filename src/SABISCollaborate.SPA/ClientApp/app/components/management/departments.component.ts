@@ -2,46 +2,33 @@
 import { Http } from '@angular/http';
 import { SystemService, Department } from '../../services/system.service';
 
-
-
 @Component({
-    selector: 'department',
+    selector: 'manage-departments',
     templateUrl: './departments.component.html',
     providers: [SystemService]
 })
 
-export class ManagementDepartmentsComponent {
+export class ManageDepartmentsComponent {
     public departments: Department[];
-    private _departmentService: SystemService;
 
     public departmentName;
     public valid = false;
 
-    constructor(SystemService: SystemService) {
-        this._departmentService = SystemService;
-
+    constructor(private systemService: SystemService) {
         this.getDepartments();
-
-        //this._departmentService.addDepartment(this.departmentName).subscribe(result => {
-        //    this.departments = result.json() as Department[];
-        //    console.log(this.departments);
-        //});
-
-        
-
     }
 
     public addDepartment() {
         if (!this.isValidForm()) return;
-        this._departmentService.addDepartment(this.departmentName).subscribe(result => {
+        this.systemService.addDepartment(this.departmentName).subscribe(result => {
             this.getDepartments();
             this.departmentName = "";
         });
     }
+
     public getDepartments() {
-        this._departmentService.getDepartment().subscribe(result => {
+        this.systemService.getDepartments().subscribe(result => {
             this.departments = result.json() as Department[];
-            console.log(this.departments);
         });
     }
     public isValidForm() {

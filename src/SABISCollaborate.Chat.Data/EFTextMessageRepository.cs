@@ -23,12 +23,13 @@ namespace SABISCollaborate.System.Data
         {
         }
 
-        //public List<TextMessage> GetUnread(int userId)
-        //{
-        //    var result= this.FindBy(m => m.ReadReceipts.Contains())
+        public List<TextMessage> GetUnread(int userId)
+        {
+            var result = this.FindBy(tm => tm.MessageReceivers.FirstOrDefault(mr => mr.UserId == userId && mr.IsRead == false) != null)
+                .ToList();
 
-        //        return result;
-        //}
+            return result;
+        }
 
         public List<TextMessage> GetUnreadByGroup(int userId, List<int> groupsIds)
         {

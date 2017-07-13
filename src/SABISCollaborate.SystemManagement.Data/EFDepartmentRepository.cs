@@ -7,7 +7,7 @@ namespace SABISCollaborate.System.Data
 {
     public class EFDepartmentRepository : GenericRepository<Department>, IDepartmentRepository
     {
-        public EFDepartmentRepository(DbContext context) : base(context)
+        public EFDepartmentRepository(SystemDbContext context) : base(context)
         {
         }
     }

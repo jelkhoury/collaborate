@@ -7,12 +7,12 @@ export class SystemService {
     private url: string;
     private http: Http;
 
-    constructor(http: Http, @Inject('ORIGIN_URL') originUrl: string) {
+    constructor(http: Http, @Inject('API_URL') originUrl: string) {
         this.url = originUrl;
         this.http = http;
     }
 
-    getDepartment(): Observable<Response> {
+    getDepartments(): Observable<Response> {
         return this.http.get(this.url + '/api/system/departments');
     }
 
