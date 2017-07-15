@@ -8,6 +8,9 @@ using SABISCollaborate.Chat.Core.Model;
 using SABISCollaborate.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using SABISCollaborate.API.Chat;
+using SABISCollaborate.API.Models.Chat;
+using SABISCollaborate.Profile.Core.Services;
+using SABISCollaborate.Profile.Core.Model;
 
 namespace SABISCollaborate.API.Controllers
 {
@@ -17,11 +20,13 @@ namespace SABISCollaborate.API.Controllers
     {
         private readonly ITextMessageRepository _messageRepository;
         private readonly IGroupRepository _groupRepository;
+        private readonly IProfileService _profileService;
 
-        public ChatController(ITextMessageRepository messageRepository, IGroupRepository groupRepository)
+        public ChatController(ITextMessageRepository messageRepository, IGroupRepository groupRepository, IProfileService profileService)
         {
             this._messageRepository = messageRepository;
             this._groupRepository = groupRepository;
+            this._profileService = profileService;
         }
 
         /// <summary>
@@ -49,6 +54,25 @@ namespace SABISCollaborate.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("group/history")]
+        public IActionResult GetGroupHistory(int groupId)
+        {
+            DestinationChatHistory result = new DestinationChatHistory();
+
+            Group group = this._groupRepository.GetSingle(groupId);
+            List<User> members = this._profileService.GetByIds(group.GroupMembers.Select(gm => gm.UserId).ToList());
+            // last 30 message
+            List<TextMessage> messages = this._messageRepository.FindBy(m => m.DestinationId == groupId)
+                .Where(m => m.MessageReceivers.ContainsUser(this.CurrentUser.UserId))
+                .OrderByDescending(m => m.SenderDate)
+                .Take(30)
+                .ToList();
+
+
+
+            return Ok(result);
+        }
+
         [Route("read")]
         public IActionResult ReadMessage(int messageId, int userId)
         {
@@ -71,27 +95,7 @@ namespace SABISCollaborate.API.Controllers
 
             return Ok(message.Id);
         }
-
-        //[Route("unreadSummary")]
-        //public IActionResult GetUnreadMessagesSummary(int userId)
-        //{
-        //    List<DestinationSummary> result = new List<DestinationSummary>();
-        //    this._messageRepository.GetUnread(userId)
-        //        .GroupBy(m => m.Destination.DestinationId)
-        //        .ToList()
-        //        .ForEach(g =>
-        //        {
-        //            result.Add(new DestinationSummary
-        //            {
-        //                DestinationId = g.First().Destination.DestinationId,
-        //                DestinationName = g.First().Destination.DestinationId.ToString(),
-        //                UnreadMessagesCount = g.Count()
-        //            });
-        //        });
-
-        //    return Ok(result);
-        //}
-
+        
         [Route("unread")]
         public IActionResult GetUnreadMessages(int userId)
         {

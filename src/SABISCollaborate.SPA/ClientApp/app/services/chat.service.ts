@@ -61,18 +61,18 @@ export class ChatService {
         var result: Observable<string> = Observable.create(observer => {
             console.log($.signalR.connectionState);
             //if ($.signalR.connectionState == SignalRConnectionState.disconnected) {
-                this.connection.start()
-                    .done(function () {
-                        observer.next(self.connection.id);
-                        observer.complete();
-                        self.connectionStartedSource.next(self.connection.id);
-                    })
-                    .fail(function (e) {
-                        observer.error(e);
-                        observer.complete();
-                        console.log(e);
-                        self.connectionStartedSource.error(e);
-                    });
+            this.connection.start()
+                .done(function () {
+                    observer.next(self.connection.id);
+                    observer.complete();
+                    self.connectionStartedSource.next(self.connection.id);
+                })
+                .fail(function (e) {
+                    observer.error(e);
+                    observer.complete();
+                    console.log(e);
+                    self.connectionStartedSource.error(e);
+                });
             //}
         });
 
@@ -155,29 +155,17 @@ export class ChatService {
      * @param groupId : id of the group
      */
     getGroupHistory(groupId: number): Observable<ChatGroupHistory> {
-        return Observable.create(observer => {
-            //    this.http.post(url, { Username: username, Password: password }).map(res => res.json() as User).subscribe(u => {
-            //        if (u) {
-            //            localStorage.setItem("currentUser", username);
-            //            this.userLoggedInSource.next(username);
-            //        }
+        let url = this.apiUrl + '/api/group/history?groupId=' + groupId;
 
-            observer.next(
-                {
-                    id: groupId,
-                    name: 'SABIS IT',
-                    members: ['jek', 'hri', 'egh'],
-                    messages: [
-                        {
-                            id: 1,
-                            sender: 'jek',
-                            text: 'Welcome to lebanon',
-                            dateSent: new Date()
-                        }]
-                });
-            //call complete if you want to close this stream (like a promise)
-            observer.complete();
-            //    });
+        var requestArgs = {
+            headers: new Headers()
+        };
+        requestArgs.headers.append("Authorization", "Bearer " + this.authenticationService.getAccessToken());
+        return Observable.create(observer => {
+            this.http.get(url, requestArgs).map(res => res.json() as ChatGroupHistory[]).subscribe(gh => {
+                observer.next(gh);
+                observer.complete();
+            });
         });
     }
 }

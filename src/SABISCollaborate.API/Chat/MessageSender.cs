@@ -135,5 +135,10 @@ namespace SABISCollaborate.API.Chat
         {
             return receipts.FirstOrDefault(r => r.UserId == userId) != null;
         }
+
+        public static bool ContainsUser(this ICollection<MessageReceiver> receivers, int userId)
+        {
+            return receivers.FirstOrDefault(r => r.UserId == userId) != null;
+        }
     }
 }

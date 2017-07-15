@@ -9,6 +9,8 @@ namespace SABISCollaborate.Profile.Core.Services
     {
         List<User> GetUsers();
 
+        List<User> GetByIds(List<int> usersIds);
+
         List<User> GetUsers(string searchText);
 
         byte[] GetProfilePicture(string pictureId);
