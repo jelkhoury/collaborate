@@ -12,7 +12,6 @@ namespace SABISCollaborate.Registration.Data
 
         public RegistrationDbContext(DbContextOptions<RegistrationDbContext> options) : base(options)
         {
-            this.Database.EnsureCreated();
         }
     }
 }

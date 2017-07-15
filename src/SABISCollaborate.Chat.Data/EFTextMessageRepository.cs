@@ -25,7 +25,7 @@ namespace SABISCollaborate.System.Data
 
         public List<TextMessage> GetUnread(int userId)
         {
-            var result = this.FindBy(tm => tm.MessageReceivers.FirstOrDefault(mr => mr.UserId == userId && mr.IsRead == false) != null)
+            var result = this.Context.TextMessage.Include(tm => tm.MessageReceivers).Where(tm => tm.MessageReceivers.FirstOrDefault(mr => mr.UserId == userId && mr.IsRead == false) != null)
                 .ToList();
 
             return result;

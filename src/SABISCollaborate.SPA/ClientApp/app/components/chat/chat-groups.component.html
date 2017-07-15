@@ -3,7 +3,7 @@
     <h3>Groups</h3>
     <div class="list-group">
         <a class="list-group-item" *ngFor="let group of model.groupsSummary" (click)="selectGroup(group.destinationId)" href="javascript:void(0)">
-            {{group.destinationName}}
+            {{group.destinationName}} - <span style="color:red">{{group.unreadMessagesCount}}</span>
         </a>
     </div>
 </div>

@@ -14,7 +14,7 @@ namespace SABISCollaborate.Chat.Data
 
         public ChatDbContext(DbContextOptions<ChatDbContext> options) : base(options)
         {
-            this.Database.EnsureCreated();
+            
         }
     }
 }

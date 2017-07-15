@@ -30,11 +30,9 @@ export class ChatService {
         var self = this;
         this.chatHub = this.connection.createHubProxy('ChatHub');
         this.chatHub.on('messageReceived', function (message) {
-            console.log(message);
+            this.sendAck(message.DestinationId, message.Id);
             self.messageReceivedSource.next(message);
-            // TODO : send ack message
         });
-
 
         this.connection.connectionSlow(function () {
             console.log("connectionSlow");

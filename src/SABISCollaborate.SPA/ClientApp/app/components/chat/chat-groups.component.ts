@@ -32,8 +32,6 @@ export class ChatGroupsComponent implements OnInit {
     }
 
     onMessageReceived(message: any) {
-        this.chatService.sendAck(message.DestinationId, message.Id);
-
         var messageHistory: ChatGroupTextMessage = {
             id: message.Id,
             senderUserId: message.UserId,

@@ -13,6 +13,7 @@ using SABISCollaborate.Registration.Core.Services;
 using SABISCollaborate.Registration.Data;
 using SABISCollaborate.System.Data;
 using System;
+using System.Diagnostics;
 using SCSystem = SABISCollaborate.System.Core;
 using SCSystemData = SABISCollaborate.System.Data;
 
@@ -43,8 +44,7 @@ namespace SABISCollaborate.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=JOSEPH-LENOVO";
-            //string connectionString = @"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=SABISCollaborate;Data Source=.\mssqlserver2012";
+            string connectionString = this.Configuration.GetConnectionString("SABISCollaborate");
 
             // System Context
             services.AddScoped<SCSystem.Repositories.IDepartmentRepository, SCSystemData.EFDepartmentRepository>();
@@ -110,7 +110,7 @@ namespace SABISCollaborate.API
 
             // mvc/api
             app.UseMvc();
-            
+
             // signalr
             app.UseSignalR();
         }

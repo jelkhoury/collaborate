@@ -5,6 +5,7 @@ using SABISCollaborate.API.Chat.Models;
 using SABISCollaborate.API.Models;
 using SABISCollaborate.Chat.Core.Model;
 using SABISCollaborate.Chat.Core.Repositories;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -48,14 +49,9 @@ namespace SABISCollaborate.API.Hubs
 
             // add message to destination history
             Group destination = this._groupRepository.GetSingle(message.DestinationId);
-            TextMessage textMessage = new TextMessage
-            {
-                SenderUserId = message.UserId,
-                Text = message.Body,
-                SenderDate = message.ClientSentDate,
-                DestinationId = message.DestinationId,
-                DestinationType = DestinationType.Group
-            };
+            TextMessage textMessage = new TextMessage(message.UserId, message.Body, message.ClientSentDate, destination.GroupMembers.Select(m => m.UserId).ToList(), message.DestinationId, DestinationType.Group);
+            textMessage.ReadByReceiver(this._user.UserId);
+
             this._messageRepository.Add(textMessage);
             this._messageRepository.Save();
 
