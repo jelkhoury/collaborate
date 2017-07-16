@@ -30,7 +30,7 @@ export class ChatService {
         var self = this;
         this.chatHub = this.connection.createHubProxy('ChatHub');
         this.chatHub.on('messageReceived', function (message) {
-            this.sendAck(message.DestinationId, message.Id);
+            self.sendAck(message.DestinationId, message.Id);
             self.messageReceivedSource.next(message);
         });
 
@@ -155,7 +155,7 @@ export class ChatService {
      * @param groupId : id of the group
      */
     getGroupHistory(groupId: number): Observable<ChatGroupHistory> {
-        let url = this.apiUrl + '/api/group/history?groupId=' + groupId;
+        let url = this.apiUrl + '/api/chat/group/history?groupId=' + groupId;
 
         var requestArgs = {
             headers: new Headers()

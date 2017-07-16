@@ -22,7 +22,7 @@ export class AuthenticationService {
             client_id: "sc.js",
             redirect_uri: location.origin + "/signin-callback",
             response_type: "id_token token",
-            scope: "openid profile scapi",
+            scope: "openid profile scapi id",
             //post_logout_redirect_uri: "http://localhost:5553/index.html",
         };
 

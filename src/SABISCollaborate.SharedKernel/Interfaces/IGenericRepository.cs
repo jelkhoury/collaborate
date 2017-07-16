@@ -12,6 +12,7 @@ namespace SABISCollaborate.SharedKernel.Interfaces
         IQueryable<T> GetAll();
         T GetSingle(int id);
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
+        IQueryable<T> FindBy(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] navigationPropertyPath);
         void Add(T entity);
         void Delete(T entity);
         void Edit(T entity);

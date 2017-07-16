@@ -1,6 +1,7 @@
 ﻿using SABISCollaborate.SharedKernel.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SABISCollaborate.Profile.Core.Model
@@ -58,8 +59,10 @@ namespace SABISCollaborate.Profile.Core.Model
             }
         }
 
+        [NotMapped]
         public string Quote { get; set; }
 
+        [NotMapped]
         public string Status { get; set; }
 
         public Gender Gender { get; set; }
@@ -68,7 +71,7 @@ namespace SABISCollaborate.Profile.Core.Model
 
         public DateTime BirthDate { get; set; }
 
-        protected int? EmploymentInfoId { get; set; }
+        public int? EmploymentInfoId { get; set; }
 
         public EmploymentInfo EmploymentInfo { get; set; }
 

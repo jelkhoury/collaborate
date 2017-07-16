@@ -86,6 +86,7 @@ namespace SABISCollaborate.Identity
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        "id",
                         "username",
                         "token",
                         "scapi"
@@ -110,6 +111,10 @@ namespace SABISCollaborate.Identity
                 new IdentityResource {
                     Name = "username",
                     UserClaims = new List<string> { "username" }
+                },
+                new IdentityResource {
+                    Name = "id",
+                    UserClaims = new List<string> { "id" }
                 }
             };
         }

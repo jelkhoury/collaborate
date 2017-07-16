@@ -2,6 +2,7 @@
 using SABISCollaborate.Profile.Core.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SABISCollaborate.Profile.Core.Services
@@ -26,7 +27,14 @@ namespace SABISCollaborate.Profile.Core.Services
         /// <returns></returns>
         public List<User> GetUsers()
         {
-            return this._userRepository.GetAll();
+            return this._userRepository.GetAll().ToList();
+        }
+
+        public List<User> GetByIds(List<int> usersIds)
+        {
+            List<User> result = this._userRepository.FindBy(u => usersIds.Contains(u.Id), u => u.Profile).ToList();
+
+            return result;
         }
 
         public List<User> GetUsers(string searchText)

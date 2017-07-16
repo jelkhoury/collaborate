@@ -49,7 +49,7 @@ export interface ChatGroupTextMessage {
     isRead?: boolean;
     dateSent?: Date;
     dateReceived?: Date;
-    isFromMe?: false;
+    isFromMe?: boolean;
 }
 
 export interface ChatGroupHistory {

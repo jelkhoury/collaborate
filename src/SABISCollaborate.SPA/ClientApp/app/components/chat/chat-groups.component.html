@@ -12,9 +12,14 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <!-- group messages history -->
-            <ul>
-                <li *ngFor="let message of model.selectedGroupHistory?.messages">
-                    {{message.sender + ' : ' + message.text}}
+            <ul class="messages">
+                <li class="message appeared" [ngClass]="{ 'right' : message.isFromMe, 'left' : !message.isFromMe }" *ngFor="let message of model.selectedGroupHistory?.messages">
+                    <div class="avatar">{{message.sender}}</div>
+                    <div class="text-wrapper">
+                        <div class="text">
+                            {{message.text}}
+                        </div>
+                    </div>
                 </li>
             </ul>
             <!-- send message button -->
@@ -22,7 +27,8 @@
                 <input id="messageText" type="text" [(ngModel)]="model.pendingTextMessage" (keypress)="onMessageChanged($event)" class="form-control" name="message" placeholder="Message">
                 <div class="input-group-btn">
                     <button class="btn btn-default" type="button">
-                        <i class="glyphicon glyphicon-send"></i>
+                        <!--<i class="glyphicon glyphicon-send"></i>-->
+                        <span>Send</span>
                     </button>
                 </div>
             </div>

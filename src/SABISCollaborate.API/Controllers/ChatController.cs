@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SABISCollaborate.API.Chat;
+using SABISCollaborate.API.Models;
+using SABISCollaborate.API.Models.Chat;
+using SABISCollaborate.Chat.Core.Model;
+using SABISCollaborate.Chat.Core.Model.Messages;
+using SABISCollaborate.Chat.Core.Repositories;
+using SABISCollaborate.Profile.Core.Model;
+using SABISCollaborate.Profile.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using SABISCollaborate.Chat.Core.Repositories;
-using SABISCollaborate.Chat.Core.Model;
-using SABISCollaborate.API.Models;
-using Microsoft.AspNetCore.Authorization;
-using SABISCollaborate.API.Chat;
-using SABISCollaborate.API.Models.Chat;
-using SABISCollaborate.Profile.Core.Services;
-using SABISCollaborate.Profile.Core.Model;
 
 namespace SABISCollaborate.API.Controllers
 {
@@ -57,18 +57,36 @@ namespace SABISCollaborate.API.Controllers
         [HttpGet("group/history")]
         public IActionResult GetGroupHistory(int groupId)
         {
-            DestinationChatHistory result = new DestinationChatHistory();
-
             Group group = this._groupRepository.GetSingle(groupId);
             List<User> members = this._profileService.GetByIds(group.GroupMembers.Select(gm => gm.UserId).ToList());
-            // last 30 message
-            List<TextMessage> messages = this._messageRepository.FindBy(m => m.DestinationId == groupId)
-                .Where(m => m.MessageReceivers.ContainsUser(this.CurrentUser.UserId))
+            // last 30 message + read receipts
+            List<TextMessage> messages = this._messageRepository.FindBy(m => m.DestinationId == groupId && m.MessageReceivers.FirstOrDefault(mr => mr.UserId == this.CurrentUser.UserId) != null, m => m.MessageReceivers, m => m.ReadReceipts)
                 .OrderByDescending(m => m.SenderDate)
                 .Take(30)
                 .ToList();
 
+            // senders info
+            List<User> senders = this._profileService.GetByIds(messages.Select(m => m.SenderUserId).ToList());
 
+            DestinationChatHistory result = new DestinationChatHistory(group, members.Select(m => m.Profile.Nickname).ToList());
+            messages.ForEach(m =>
+            {
+                ReadReceipt readReceipt = m.ReadReceipts.FirstOrDefault(r => r.UserId == this.CurrentUser.UserId);
+                User sender = senders.FirstOrDefault(s => s.Id == m.SenderUserId);
+                TextMessageHistory history = new TextMessageHistory
+                {
+                    Id = m.Id,
+                    Text = m.Text,
+                    DateReceived = readReceipt != null ? readReceipt.ReadDate : DateTime.Now,
+                    DateSent = m.SenderDate,
+                    SenderUserId = m.SenderUserId,
+                    Sender = sender?.Profile?.Nickname,
+                    IsRead = readReceipt != null
+                };
+                result.Messages.Add(history);
+            });
+
+            result.Messages = result.Messages.OrderBy(m => m.DateSent).ToList();
 
             return Ok(result);
         }
@@ -86,7 +104,7 @@ namespace SABISCollaborate.API.Controllers
             {
                 message.ReadReceipts.Add(new SABISCollaborate.Chat.Core.Model.Messages.ReadReceipt
                 {
-                    MessageId = messageId,
+                    TextMessageId = messageId,
                     ReadDate = DateTime.Now,
                     UserId = userId
                 });
@@ -95,7 +113,7 @@ namespace SABISCollaborate.API.Controllers
 
             return Ok(message.Id);
         }
-        
+
         [Route("unread")]
         public IActionResult GetUnreadMessages(int userId)
         {

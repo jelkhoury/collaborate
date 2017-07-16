@@ -8,12 +8,13 @@ using Microsoft.Extensions.Logging;
 using SABISCollaborate.API.Chat;
 using SABISCollaborate.Chat.Core.Repositories;
 using SABISCollaborate.Chat.Data;
+using SABISCollaborate.Profile.Core.Services;
+using SABISCollaborate.Profile.Data;
 using SABISCollaborate.Registration.Core.Repositories;
 using SABISCollaborate.Registration.Core.Services;
 using SABISCollaborate.Registration.Data;
 using SABISCollaborate.System.Data;
 using System;
-using System.Diagnostics;
 using SCSystem = SABISCollaborate.System.Core;
 using SCSystemData = SABISCollaborate.System.Data;
 
@@ -62,6 +63,15 @@ namespace SABISCollaborate.API
                 o.UseSqlServer(connectionString);
             });
 
+            // Profile context
+            services.AddScoped<Profile.Core.Repositories.IUserRepository, Profile.Data.UserRepository>();
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddDbContext<ProfileDbContext>(o =>
+            {
+                o.UseSqlServer(connectionString);
+            });
+
+            // Chat context
             services.AddScoped<IGroupRepository, EFGroupRepository>();
             services.AddScoped<ITextMessageRepository, EFTextMessageRepository>();
             services.AddDbContext<ChatDbContext>(o =>

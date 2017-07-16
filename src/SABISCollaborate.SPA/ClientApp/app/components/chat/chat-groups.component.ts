@@ -6,9 +6,11 @@ import { ChatGroupSummary, ChatGroupHistory, ChatGroupTextMessage } from '../../
 // TODO : in the next phase we can cache the received messages when the group is not selected
 @Component({
     selector: 'chat-groups',
-    templateUrl: './chat-groups.component.html'
+    templateUrl: './chat-groups.component.html',
+    styleUrls: ['./chat-groups.component.css']
 })
 export class ChatGroupsComponent implements OnInit {
+    private currentUserId: number;
     private model: ViewModel = {
         groupsSummary: null,
         pendingTextMessage: "",
@@ -20,6 +22,8 @@ export class ChatGroupsComponent implements OnInit {
 
     }
     ngOnInit() {
+        this.currentUserId = this.authService.getCurrentUserId();
+
         // listen to messages
         this.chatService.messageReceived$.subscribe(m => {
             this.onMessageReceived(m);
@@ -38,12 +42,16 @@ export class ChatGroupsComponent implements OnInit {
             sender: message.Sender,
             text: message.Body,
             isRead: true,
-            dateSent: message.ClientSentDate
+            dateSent: message.ClientSentDate,
+            isFromMe: (message.senderUserId == this.currentUserId)
         }
         this.model.selectedGroupHistory.messages.push(messageHistory);
+        // send message read
     }
     selectGroup(groupId: number) {
         this.chatService.getGroupHistory(groupId).subscribe(h => {
+            console.log(this.currentUserId);
+            h.messages.forEach(m => m.isFromMe = (m.senderUserId == this.currentUserId));
             this.model.selectedGroupHistory = h;
         });
     }
@@ -57,7 +65,8 @@ export class ChatGroupsComponent implements OnInit {
                 sender: "",
                 text: this.model.pendingTextMessage,
                 isRead: true,
-                dateSent: new Date()
+                dateSent: new Date(),
+                isFromMe: true
             }
             this.model.selectedGroupHistory.messages.push(messageHistory);
 
