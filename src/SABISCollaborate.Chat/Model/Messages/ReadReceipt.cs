@@ -13,5 +13,17 @@ namespace SABISCollaborate.Chat.Core.Model.Messages
         public int UserId { get; set; }
 
         public DateTime ReadDate { get; set; }
+
+        private ReadReceipt()
+        {
+
+        }
+
+        public ReadReceipt(int messageId, int userId) : this()
+        {
+            this.TextMessageId = messageId;
+            this.UserId = userId;
+            this.ReadDate = DateTime.Now;
+        }
     }
 }

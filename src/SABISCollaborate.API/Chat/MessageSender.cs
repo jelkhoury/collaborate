@@ -91,7 +91,7 @@ namespace SABISCollaborate.API.Chat
 
             while (token.IsCancellationRequested == false)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(100);
                 lock (this._pendingMessages)
                 {
                     // loop on messages

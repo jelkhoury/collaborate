@@ -30,9 +30,9 @@ namespace SABISCollaborate.API.Chat
 
         public List<string> GetPendingConnections()
         {
-            TimeSpan ellapsed = new TimeSpan(0, 0, 3);
+            TimeSpan ellapsed = new TimeSpan(0, 0, 5);
 
-            // not ack and (not dispatched or dispatched but not longer than 3 sec)
+            // not ack and (not dispatched or dispatched but not longer than 5 sec)
             List<string> result = this.ConnectionsToPush.FindAll(c => 
                 // not dispatched or dispatched but still valid
                 this.DispatchedInstances.FirstOrDefault(di => di.ConnectionId == c && (DateTime.Now - di.SentDate <= ellapsed)) == null);

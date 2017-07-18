@@ -78,6 +78,9 @@ export class ChatService {
 
         return result;
     }
+    /**
+     * Register the current connection to receive push messages
+     */
     register(): Observable<void> {
         var self = this;
 
@@ -122,6 +125,11 @@ export class ChatService {
 
             });
     }
+    /**
+     * Send confirmation that a message was successfully received
+     * @param destinationId
+     * @param messageId
+     */
     sendAck(destinationId: number, messageId: number) {
         var ackMessage = {
             destinationId: destinationId,
@@ -132,6 +140,24 @@ export class ChatService {
             .done(r => {
 
             });
+    }
+    /**
+     * Set a message as read by the current logged in user
+     * @param messageId
+     */
+    setMessageAsRead(messageId: number) {
+        let url = this.apiUrl + "/api/chat/read?messageId=" + messageId;
+
+        this.http.post(url, {}).subscribe(r => { });
+    }
+    /**
+     * Set messages as read by the current logged in user
+     * @param messagesIds
+     */
+    setMessagesAsRead(messagesIds: number[]) {
+        let url = this.apiUrl + "/api/chat/read";
+
+        this.http.post(url, messagesIds).subscribe(r => { });
     }
     /**
      * get all groups with number of unread messages (unread by the current user)

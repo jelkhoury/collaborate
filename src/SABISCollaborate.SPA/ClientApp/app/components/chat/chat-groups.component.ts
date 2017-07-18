@@ -46,13 +46,20 @@ export class ChatGroupsComponent implements OnInit {
             isFromMe: (message.senderUserId == this.currentUserId)
         }
         this.model.selectedGroupHistory.messages.push(messageHistory);
-        // send message read
+        this.chatService.setMessageAsRead(message.Id);
     }
     selectGroup(groupId: number) {
         this.chatService.getGroupHistory(groupId).subscribe(h => {
-            console.log(this.currentUserId);
             h.messages.forEach(m => m.isFromMe = (m.senderUserId == this.currentUserId));
             this.model.selectedGroupHistory = h;
+            // set unread messages as read
+            let messagesIds: number[];
+            h.messages.forEach(m => {
+                if (m.isRead == false) {
+                    messagesIds.push(m.id);
+                }
+            });
+            this.chatService.setMessagesAsRead(messagesIds);
         });
     }
     onMessageChanged($event) {
