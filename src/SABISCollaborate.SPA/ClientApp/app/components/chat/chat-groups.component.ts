@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ChatGroupSummary, ChatGroupHistory, ChatGroupTextMessage } from '../../shared/models';
@@ -17,6 +17,7 @@ export class ChatGroupsComponent implements OnInit {
         selectedGroupHistory: undefined
         //currentUsername: this.authService.getCurrentUser().profile.preferred_username
     };
+    @ViewChild('messagesList') private messagesList: ElementRef;
 
     constructor(private chatService: ChatService, private authService: AuthenticationService) {
 
@@ -47,19 +48,23 @@ export class ChatGroupsComponent implements OnInit {
         }
         this.model.selectedGroupHistory.messages.push(messageHistory);
         this.chatService.setMessageAsRead(message.Id);
+        this.scrollToEnd();
+        this.blinkTitle();
     }
     selectGroup(groupId: number) {
         this.chatService.getGroupHistory(groupId).subscribe(h => {
             h.messages.forEach(m => m.isFromMe = (m.senderUserId == this.currentUserId));
             this.model.selectedGroupHistory = h;
             // set unread messages as read
-            let messagesIds: number[];
+            var messagesIds: number[] = new Array();
             h.messages.forEach(m => {
                 if (m.isRead == false) {
                     messagesIds.push(m.id);
                 }
             });
             this.chatService.setMessagesAsRead(messagesIds);
+            // scroll the window to the end
+            this.scrollToEnd();
         });
     }
     onMessageChanged($event) {
@@ -69,7 +74,7 @@ export class ChatGroupsComponent implements OnInit {
             this.chatService.sendTextMessage(this.model.selectedGroupHistory.id, this.model.pendingTextMessage);
             var messageHistory: ChatGroupTextMessage = {
                 id: 0,
-                sender: "",
+                sender: '',
                 text: this.model.pendingTextMessage,
                 isRead: true,
                 dateSent: new Date(),
@@ -78,8 +83,32 @@ export class ChatGroupsComponent implements OnInit {
             this.model.selectedGroupHistory.messages.push(messageHistory);
 
             this.model.pendingTextMessage = "";
+            this.scrollToEnd();
         }
         return true;
+    }
+    scrollToEnd() {
+        setTimeout(() => {
+            this.messagesList.nativeElement.scrollTop = this.messagesList.nativeElement.scrollHeight;
+        });
+    }
+    blinkTitle() {
+        let message = 'New Message';
+
+        var oldTitle = document.title,
+            timeoutId,
+            blink = function () { document.title = document.title == message ? ' ' : message; },
+            clear = function () {
+                clearInterval(timeoutId);
+                document.title = oldTitle;
+                window.onmousemove = null;
+                timeoutId = null;
+            };
+
+        if (!timeoutId) {
+            timeoutId = setInterval(blink, 1000);
+            window.onmousemove = clear;
+        }
     }
 }
 

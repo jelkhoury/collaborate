@@ -148,7 +148,12 @@ export class ChatService {
     setMessageAsRead(messageId: number) {
         let url = this.apiUrl + "/api/chat/read?messageId=" + messageId;
 
-        this.http.post(url, {}).subscribe(r => { });
+        var requestArgs = {
+            headers: new Headers()
+        };
+        requestArgs.headers.append("Authorization", "Bearer " + this.authenticationService.getAccessToken());
+
+        this.http.post(url, {}, requestArgs).subscribe(r => { });
     }
     /**
      * Set messages as read by the current logged in user
@@ -157,7 +162,12 @@ export class ChatService {
     setMessagesAsRead(messagesIds: number[]) {
         let url = this.apiUrl + "/api/chat/read";
 
-        this.http.post(url, messagesIds).subscribe(r => { });
+        var requestArgs = {
+            headers: new Headers()
+        };
+        requestArgs.headers.append("Authorization", "Bearer " + this.authenticationService.getAccessToken());
+
+        this.http.post(url, messagesIds, requestArgs).subscribe(r => { });
     }
     /**
      * get all groups with number of unread messages (unread by the current user)

@@ -18,8 +18,8 @@
     list-style: none;
     padding: 20px 10px 0 10px;
     margin: 0;
-    /*height: 347px;
-    overflow: scroll;*/
+    height: 450px;
+    overflow-y: scroll;
 }
 
     .messages .message {
@@ -113,3 +113,7 @@
                 font-size: 18px;
                 font-weight: 300;
             }
+
+.send-button {
+    margin-top: 10px;
+}
