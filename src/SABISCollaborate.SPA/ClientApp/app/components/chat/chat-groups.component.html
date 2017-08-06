@@ -1,6 +1,8 @@
 <div class="col-md-3">
-    <!-- name list of all groups -->
-    <h3>Groups</h3>
+    <!-- list of all groups -->
+    <div>
+        <h3>Groups - {{model.connectionStatus}}</h3>
+    </div>
     <div class="list-group">
         <a class="list-group-item" *ngFor="let group of model.groupsSummary" (click)="selectGroup(group.destinationId)" href="javascript:void(0)">
             {{group.destinationName}} - <span style="color:red">{{group.unreadMessagesCount}}</span>
@@ -14,8 +16,8 @@
             <!-- group messages window -->
             <ul #messagesList class="messages">
                 <li class="message appeared" [ngClass]="{ 'right' : message.isFromMe, 'left' : !message.isFromMe }" *ngFor="let message of model.selectedGroupHistory?.messages">
-                    <div class="avatar">{{message.sender}}</div>
                     <div class="text-wrapper">
+                        <div class="">{{message.sender}}</div>
                         <div class="text">
                             {{message.text}}
                         </div>

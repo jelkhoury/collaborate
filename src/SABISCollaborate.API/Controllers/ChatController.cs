@@ -91,10 +91,10 @@ namespace SABISCollaborate.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("read")]
+        [HttpPost("message/read")]
         public IActionResult ReadMessage(int messageId)
         {
-            TextMessage message = this._messageRepository.FindBy(m => m.Id == messageId, m => m.ReadReceipts).FirstOrDefault();
+            TextMessage message = this._messageRepository.FindBy(m => m.Id == messageId, m => m.ReadReceipts, m => m.MessageReceivers).FirstOrDefault();
             if (message == null)
             {
                 return BadRequest("Message not found");
@@ -102,7 +102,7 @@ namespace SABISCollaborate.API.Controllers
 
             if (!message.ReadReceipts.Contains(this.CurrentUser.UserId))
             {
-                message.ReadReceipts.Add(new ReadReceipt(messageId, this.CurrentUser.UserId));
+                message.ReadByReceiver(this.CurrentUser.UserId);
                 this._messageRepository.Edit(message);
                 this._messageRepository.Save();
             }
@@ -110,27 +110,27 @@ namespace SABISCollaborate.API.Controllers
             return Ok(message.Id);
         }
 
-        //[HttpPost("read")]
-        //public IActionResult ReadMessages(List<int> messagesId)
-        //{
-        //    List<TextMessage> messages = this._messageRepository.FindBy(m => messagesId.Contains(m.Id), m => m.ReadReceipts).ToList();
-        //    if (messages.Count == 0)
-        //    {
-        //        return BadRequest("No message found");
-        //    }
+        [HttpPost("messages/read")]
+        public IActionResult ReadMessages([FromBody] List<int> messagesId)
+        {
+            List<TextMessage> messages = this._messageRepository.FindBy(m => messagesId.Contains(m.Id), m => m.ReadReceipts, m => m.MessageReceivers).ToList();
+            if (messages.Count == 0)
+            {
+                return BadRequest("No message found");
+            }
 
-        //    messages.ForEach(message =>
-        //    {
-        //        if (!message.ReadReceipts.Contains(this.CurrentUser.UserId))
-        //        {
-        //            message.ReadReceipts.Add(new ReadReceipt(message.Id, this.CurrentUser.UserId));
-        //            this._messageRepository.Add(message);
-        //        }
-        //    });
-        //    this._messageRepository.Save();
+            messages.ForEach(message =>
+            {
+                if (!message.ReadReceipts.Contains(this.CurrentUser.UserId))
+                {
+                    message.ReadByReceiver(this.CurrentUser.UserId);
+                    this._messageRepository.Edit(message);
+                }
+            });
+            this._messageRepository.Save();
 
-        //    return Ok(messagesId);
-        //}
+            return Ok(messagesId);
+        }
 
         [Route("unread")]
         public IActionResult GetUnreadMessages(int userId)

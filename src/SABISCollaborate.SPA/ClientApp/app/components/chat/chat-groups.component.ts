@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ChatService } from '../../services/chat.service';
+import { ChatService, ConnectionStatus } from '../../services/chat.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ChatGroupSummary, ChatGroupHistory, ChatGroupTextMessage } from '../../shared/models';
 
@@ -14,7 +14,8 @@ export class ChatGroupsComponent implements OnInit {
     private model: ViewModel = {
         groupsSummary: null,
         pendingTextMessage: "",
-        selectedGroupHistory: undefined
+        selectedGroupHistory: undefined,
+        connectionStatus: 'Connecting...'
         //currentUsername: this.authService.getCurrentUser().profile.preferred_username
     };
     @ViewChild('messagesList') private messagesList: ElementRef;
@@ -33,6 +34,14 @@ export class ChatGroupsComponent implements OnInit {
         // get groups summary
         this.chatService.getGroupsSummary().subscribe(groupsSummary => {
             this.model.groupsSummary = groupsSummary;
+        });
+
+        // watch connection status
+        this.chatService.statusChanged$.subscribe(s => {
+            this.model.connectionStatus = ConnectionStatus[s];
+            if (s == ConnectionStatus.connected) {
+                this.chatService.register();
+            }
         });
     }
 
@@ -116,4 +125,5 @@ interface ViewModel {
     groupsSummary: ChatGroupSummary[];
     pendingTextMessage: string;
     selectedGroupHistory: ChatGroupHistory;
+    connectionStatus: string;
 }

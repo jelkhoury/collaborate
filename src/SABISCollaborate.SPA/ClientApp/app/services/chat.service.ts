@@ -18,12 +18,13 @@ export class ChatService {
     // events sources
     private connectionStartedSource = new Subject<string>();
     private messageReceivedSource = new Subject<string>();
+    private statusChangedSource = new Subject<ConnectionStatus>();
     // events
     public connectionStarted$ = this.connectionStartedSource.asObservable();
     public messageReceived$ = this.messageReceivedSource.asObservable();
+    public statusChanged$ = this.statusChangedSource.asObservable();
 
     constructor(private authenticationService: AuthenticationService, @Inject('API_URL') private apiUrl: string, private http: Http) {
-        console.log('constructor');
         this.connection = $.hubConnection(this.apiUrl);
         this.connection.logging = true;
 
@@ -36,18 +37,14 @@ export class ChatService {
 
         this.connection.connectionSlow(function () {
             console.log("connectionSlow");
+            self.statusChangedSource.next(ConnectionStatus.slowConnection);
         });
 
-        this.connection.reconnecting(function () {
-            console.log("reconnecting");
-        });
-
-        this.connection.reconnected(function () {
-            console.log("reconnected");
-        });
-
-        this.connection.disconnected(function () {
-            console.log("disconnected");
+        this.connection.stateChanged(function (state: SignalRStateChangeModel) {
+            console.log("stateChanged");
+            console.log(state);
+            var x = state.newState as number as ConnectionStatus;
+            self.statusChangedSource.next(x);
         });
     }
 
@@ -59,7 +56,6 @@ export class ChatService {
         $.signalR.ajaxDefaults.headers = { Authorization: "Bearer " + this.authenticationService.getAccessToken() };
 
         var result: Observable<string> = Observable.create(observer => {
-            console.log($.signalR.connectionState);
             //if ($.signalR.connectionState == SignalRConnectionState.disconnected) {
             this.connection.start()
                 .done(function () {
@@ -146,7 +142,7 @@ export class ChatService {
      * @param messageId
      */
     setMessageAsRead(messageId: number) {
-        let url = this.apiUrl + "/api/chat/read?messageId=" + messageId;
+        let url = this.apiUrl + "/api/chat/message/read?messageId=" + messageId;
 
         var requestArgs = {
             headers: new Headers()
@@ -160,7 +156,7 @@ export class ChatService {
      * @param messagesIds
      */
     setMessagesAsRead(messagesIds: number[]) {
-        let url = this.apiUrl + "/api/chat/read";
+        let url = this.apiUrl + "/api/chat/messages/read";
 
         var requestArgs = {
             headers: new Headers()
@@ -206,9 +202,22 @@ export class ChatService {
     }
 }
 
+interface SignalRStateChangeModel {
+    oldState: SignalRConnectionState,
+    newState: SignalRConnectionState
+}
+
 enum SignalRConnectionState {
     connecting = 0,
     connected = 1,
     reconnecting = 2,
     disconnected = 4
+}
+
+export enum ConnectionStatus {
+    connecting = 0,
+    connected = 1,
+    reconnecting = 2,
+    disconnected = 4,
+    slowConnection = 5
 }
