@@ -26,8 +26,8 @@
     <ProjectReference Include="..\SABISCollaborate.Management.Data\SABISCollaborate.Registration.Data.csproj" />
     <ProjectReference Include="..\SABISCollaborate.Profile.Core\SABISCollaborate.Profile.Core.csproj" />
     <ProjectReference Include="..\SABISCollaborate.Profile.Data\SABISCollaborate.Profile.Data.csproj" />
-    <ProjectReference Include="..\SABISCollaborate.SharedKernel.Data\SABISCollaborate.SharedKernel.Data.csproj" />
-    <ProjectReference Include="..\SABISCollaborate.SharedKernel\SABISCollaborate.SharedKernel.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SharedKernel.Data\SABISCollaborate.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SharedKernel\SABISCollaborate.Shared.csproj" />
     <ProjectReference Include="..\SABISCollaborate.SystemManagement.Core\SABISCollaborate.System.Core.csproj" />
     <ProjectReference Include="..\SABISCollaborate.SystemManagement.Data\SABISCollaborate.System.Data.csproj" />
   </ItemGroup>

@@ -1,16 +1,20 @@
-﻿using System;
+﻿using SABISCollaborate.Profile.Core.Model;
+using SABISCollaborate.Profile.Core.Repositories;
+using SABISCollaborate.Shared.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SABISCollaborate.Identity.Core
 {
     public class UserService : IUserService
     {
-        public User AutoProvisionUser(string provider, string userId, List<Claim> claims)
+        private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
         {
-            throw new NotImplementedException();
+            this._userRepository = userRepository;
         }
 
         public User FindByExternalProvider(string provider, string userId)
@@ -18,19 +22,26 @@ namespace SABISCollaborate.Identity.Core
             throw new NotImplementedException();
         }
 
-        public User FindBySubjectId(string subjectId)
+        public User FindById(string id)
         {
-            throw new NotImplementedException();
+            return this._userRepository.GetSingle(int.Parse(id));
         }
 
         public User FindByUsername(string username)
         {
-            throw new NotImplementedException();
+            return this._userRepository.FindBy(u => u.Username.ToLowerInvariant() == username.Trim().ToLowerInvariant())
+                .FirstOrDefault();
         }
 
         public bool ValidateCredentials(string username, string password)
         {
-            throw new NotImplementedException();
+            password = password.PasswordHash();
+
+            User user = this._userRepository.FindBy(u => u.Username.ToLowerInvariant() == username.Trim().ToLowerInvariant())
+                .Where(u => u.PasswordHash == password)
+                .FirstOrDefault();
+
+            return user != null;
         }
     }
 }

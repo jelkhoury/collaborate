@@ -9,11 +9,11 @@ namespace IdentityServer4.Quickstart.UI
     public class AccountOptions
     {
         public static bool AllowLocalLogin = true;
-        public static bool AllowRememberLogin = true;
+        public static bool AllowRememberLogin = false;
         public static TimeSpan RememberMeLoginDuration = TimeSpan.FromDays(30);
 
-        public static bool ShowLogoutPrompt = true;
-        public static bool AutomaticRedirectAfterSignOut = false;
+        public static bool ShowLogoutPrompt = false;
+        public static bool AutomaticRedirectAfterSignOut = true;
 
         // to enable windows authentication, the host (IIS or IIS Express) also must have 
         // windows auth enabled.

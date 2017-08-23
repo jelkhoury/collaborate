@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SABISCollaborate.Profile.Core\SABISCollaborate.Profile.Core.csproj" />
-    <ProjectReference Include="..\SABISCollaborate.SharedKernel.Data\SABISCollaborate.SharedKernel.Data.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SharedKernel.Data\SABISCollaborate.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
