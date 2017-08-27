@@ -24,7 +24,8 @@ namespace SABISCollaborate.Identity.Core
 
         public User FindById(string id)
         {
-            return this._userRepository.GetSingle(int.Parse(id));
+            //return this._userRepository.GetSingle(int.Parse(id), u => u.Profile);
+            return this._userRepository.FindBy(u => u.Id == int.Parse(id), u => u.Profile).FirstOrDefault();
         }
 
         public User FindByUsername(string username)

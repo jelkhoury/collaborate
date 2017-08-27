@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace SABISCollaborate.SharedKernel.Interfaces
 {
-    public interface IGenericRepository <T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         IQueryable<T> GetAll();
         T GetSingle(int id);
+        T GetSingle(int id, params Expression<Func<T, object>>[] navigationPropertyPath);
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] navigationPropertyPath);
         void Add(T entity);

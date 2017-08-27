@@ -59,6 +59,14 @@ namespace SABISCollaborate.Profile.Core.Model
             }
         }
 
+        public string FullName
+        {
+            get
+            {
+                return $"{this.FirstName} {this.LastName}";
+            }
+        }
+
         [NotMapped]
         public string Quote { get; set; }
 
