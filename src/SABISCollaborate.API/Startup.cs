@@ -110,11 +110,9 @@ namespace SABISCollaborate.API
 
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
-                Authority = "http://localhost:5557",
+                Authority = "http://itdev03:9910",
                 RequireHttpsMetadata = false,
-
                 EnableCaching = true,
-
                 ApiName = "sc.api"
             });
 
