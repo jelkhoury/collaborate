@@ -3,6 +3,7 @@ using SABISCollaborate.Registration.Core.Repositories;
 using SABISCollaborate.SharedKernel.Exceptions;
 using System.Collections.Generic;
 using System;
+using SABISCollaborate.Shared.Extensions;
 
 namespace SABISCollaborate.Registration.Core.Services
 {
@@ -29,9 +30,9 @@ namespace SABISCollaborate.Registration.Core.Services
             return this._userRepository.GetUserByUsernameOrEmail(String.Empty, email);
         }
 
-        public User GetUser(string username, string passowrd)
+        public User GetUser(string username, string password)
         {
-            string passwordHash = this.HashPassword(passowrd);
+            string passwordHash = password.PasswordHash();
 
             return this._userRepository.GetUser(username, passwordHash);
         }
@@ -50,7 +51,7 @@ namespace SABISCollaborate.Registration.Core.Services
             }
 
             // hash the password
-            string passwordHash = this.HashPassword(password);
+            string passwordHash = password.PasswordHash();
 
             // create user model
             User user = new User(username, passwordHash, email, profile);
@@ -70,11 +71,6 @@ namespace SABISCollaborate.Registration.Core.Services
             bool result = this._userRepository.GetUserByUsernameOrEmail(username, email) == null;
 
             return result;
-        }
-
-        private string HashPassword(string password)
-        {
-            return $"a+b=*{password}*b+a";
         }
         #endregion
     }

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SABISCollaborate.SharedKernel\SABISCollaborate.SharedKernel.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.SharedKernel\SABISCollaborate.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,20 @@
 ﻿using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
+using IdentityServer4.Services;
 using IdentityServer4.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using SABISCollaborate.Identity.Core;
+using SABISCollaborate.Identity.Implementation;
+using SABISCollaborate.Profile.Core.Repositories;
+using SABISCollaborate.Profile.Data;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -14,6 +22,8 @@ namespace SABISCollaborate.Identity
 {
     public class Startup
     {
+        public IConfigurationRoot Configuration { get; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -21,28 +31,36 @@ namespace SABISCollaborate.Identity
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            Configuration = builder.Build();
-        }
 
-        public IConfigurationRoot Configuration { get; }
+            this.Configuration = builder.Build();
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connectionString = this.Configuration.GetConnectionString("SABISCollaborate");
+
             // Add framework services.
             services.AddMvc();
+            services.AddDbContext<ProfileDbContext>(o =>
+            {
+                o.UseSqlServer(connectionString);
+            });
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.Configure<Configuration>(this.Configuration.GetSection("IdentitySettings"));
 
             // Add identity server setup
             services.AddIdentityServer()
-                .AddInMemoryClients(Clients.Get())
-                .AddInMemoryIdentityResources(Resources.GetIdentityResources())
-                .AddInMemoryApiResources(Resources.GetApiResources())
-                .AddTestUsers(Users.Get())
+                .AddProfileService<ProfileService>()
+                .AddClientStore<ClientStore>()
+                .AddInMemoryIdentityResources(Implementation.Resources.GetIdentityResources())
+                .AddInMemoryApiResources(Implementation.Resources.GetApiResources())
                 .AddTemporarySigningCredential();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -56,123 +74,20 @@ namespace SABISCollaborate.Identity
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            var options = serviceProvider.GetService<IOptions<Configuration>>();
+            app.UseCors(policy =>
+            {
+                policy.WithOrigins("http://localhost:5555");// options.Value.AllowedCorsOrigins.ToArray());
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+                policy.AllowCredentials();
+            });
+
             app.UseIdentityServer();
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-        }
-    }
-
-    internal class Clients
-    {
-        public static IEnumerable<Client> Get()
-        {
-            return new List<Client> {
-                new Client {
-                    ClientId = "sc.js",
-                    ClientName = "SABIS Collaborate",
-                    AccessTokenType = AccessTokenType.Jwt,
-                    AllowedGrantTypes = GrantTypes.Implicit,
-                    AllowAccessTokensViaBrowser = true,
-                    RedirectUris = new List<string>
-                    {
-                        "http://localhost:5555/signin-callback"
-                    },
-                    AllowedCorsOrigins = new List<string>
-                    {
-                        "http://localhost:5555/"
-                    },
-                    AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "id",
-                        "username",
-                        "token",
-                        "scapi"
-                    },
-                }
-            };
-        }
-    }
-
-    internal class Resources
-    {
-        public static IEnumerable<IdentityResource> GetIdentityResources()
-        {
-            return new List<IdentityResource> {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-                new IdentityResources.Email(),
-                new IdentityResource {
-                    Name = "role",
-                    UserClaims = new List<string> { "role" }
-                },
-                new IdentityResource {
-                    Name = "username",
-                    UserClaims = new List<string> { "username" }
-                },
-                new IdentityResource {
-                    Name = "id",
-                    UserClaims = new List<string> { "id" }
-                }
-            };
-        }
-
-        public static IEnumerable<ApiResource> GetApiResources()
-        {
-            return new List<ApiResource> {
-                new ApiResource {
-                    Name = "sc.api",
-                    DisplayName = "SABIS Collaborate API",
-                    Description = "SABIS Collaborate API",
-                    UserClaims = new List<string> {
-                        JwtClaimTypes.Id,
-                        "username"
-                    },
-                    ApiSecrets = new List<Secret> {
-                        new Secret("scopeSecret".Sha256())
-                    },
-                    Scopes = new List<Scope> {
-                        new Scope("scapi"),
-                    }
-                }
-            };
-        }
-    }
-
-    internal class Users
-    {
-        public static List<TestUser> Get()
-        {
-            return new List<TestUser> {
-                new TestUser {
-                    SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABE",
-                    Username = "jek",
-                    Password = "1",
-                    Claims = new List<Claim> {
-                        new Claim(JwtClaimTypes.Email, "joseph.elkhoury@outlook.com"),
-                        new Claim(JwtClaimTypes.Role, "admin"),
-                        new Claim(JwtClaimTypes.Id, "4"),
-                        new Claim("username", "jek"),
-                        new Claim(JwtClaimTypes.NickName, "jek"),
-                        new Claim(JwtClaimTypes.Name, "Joseph El Khoury")
-                    }
-                },
-                new TestUser {
-                    SubjectId = "5BE86359-073C-434B-AD2D-A3932222DABF",
-                    Username = "egh",
-                    Password = "1",
-                    Claims = new List<Claim> {
-                        new Claim(JwtClaimTypes.Email, "eghazal@sabis.net"),
-                        new Claim(JwtClaimTypes.Role, "admin"),
-                        new Claim(JwtClaimTypes.Id, "5"),
-                        new Claim("username", "egh"),
-                        new Claim(JwtClaimTypes.NickName, "egh"),
-                        new Claim(JwtClaimTypes.Name, "Elias El Ghazal")
-                    }
-                }
-            };
         }
     }
 }

@@ -18,21 +18,20 @@
     list-style: none;
     padding: 20px 10px 0 10px;
     margin: 0;
-    /*height: 347px;
-    overflow: scroll;*/
+    height: 450px;
+    overflow-y: scroll;
 }
 
     .messages .message {
         clear: both;
         overflow: hidden;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         transition: all 0.5s linear;
         opacity: 0;
     }
 
-        .messages .message.left .avatar {
+        .messages .message.left .sender {
             background-color: #f5886e;
-            float: left;
         }
 
         .messages .message.left .text-wrapper {
@@ -49,9 +48,8 @@
             color: #c48843;
         }
 
-        .messages .message.right .avatar {
+        .messages .message.right .sender {
             background-color: #fdbf68;
-            float: right;
         }
 
         .messages .message.right .text-wrapper {
@@ -73,24 +71,21 @@
             opacity: 1;
         }
 
-        .messages .message .avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        .messages .message .sender {
             display: inline-block;
         }
 
         .messages .message .text-wrapper {
             display: inline-block;
-            padding: 20px;
-            border-radius: 6px;
-            width: calc(100% - 85px);
+            padding: 5px;
+            border-radius: 1px;
+            width: calc(100% - 50px);
             min-width: 100px;
             position: relative;
         }
 
             .messages .message .text-wrapper::after, .messages .message .text-wrapper:before {
-                top: 18px;
+                top: 15px;
                 border: solid transparent;
                 content: " ";
                 height: 0;
@@ -110,6 +105,10 @@
             }
 
             .messages .message .text-wrapper .text {
-                font-size: 18px;
+                font-size: 15px;
                 font-weight: 300;
             }
+
+.send-button {
+    margin-top: 10px;
+}

@@ -37,6 +37,18 @@ namespace SABISCollaborate.SharedKernel
             return entity;
         }
 
+        public T GetSingle(int id, params Expression<Func<T, object>>[] navigationPropertyPath)
+        {
+            DbSet<T> set = this._context.Set<T>();
+            foreach (var np in navigationPropertyPath)
+            {
+                set.Include(np);
+            }
+            T entity = set.Find(id);
+
+            return entity;
+        }
+
         public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
             IQueryable<T> query = this._context.Set<T>().Where(predicate);

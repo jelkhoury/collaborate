@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Registrati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Registration.Data", "SABISCollaborate.Management.Data\SABISCollaborate.Registration.Data.csproj", "{B4628A05-6744-4ADE-A7C6-33C3486D09E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.SharedKernel", "SABISCollaborate.SharedKernel\SABISCollaborate.SharedKernel.csproj", "{4184BA05-C013-4206-B4E8-A52A6FFF4C9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Shared", "SABISCollaborate.SharedKernel\SABISCollaborate.Shared.csproj", "{4184BA05-C013-4206-B4E8-A52A6FFF4C9B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.SPA", "SABISCollaborate.SPA\SABISCollaborate.SPA.csproj", "{5ABA9018-A8C0-4945-B0BA-7DF8BBC6EBE9}"
 EndProject
@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Profile.Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.System.IntegrationTests", "SABISCollaborate.System.IntegrationTests\SABISCollaborate.System.IntegrationTests.csproj", "{7CE0B08C-F34A-4389-9A16-349F513EC44D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.SharedKernel.Data", "SABISCollaborate.SharedKernel.Data\SABISCollaborate.SharedKernel.Data.csproj", "{5A77289D-EF57-49DF-9679-6D79B8272F81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Shared.Infrastructure", "SABISCollaborate.SharedKernel.Data\SABISCollaborate.Shared.Infrastructure.csproj", "{5A77289D-EF57-49DF-9679-6D79B8272F81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.API", "SABISCollaborate.API\SABISCollaborate.API.csproj", "{798B223D-A88E-4833-8C62-757B8325483C}"
 EndProject

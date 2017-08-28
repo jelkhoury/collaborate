@@ -91,10 +91,10 @@ namespace SABISCollaborate.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("read")]
+        [HttpPost("message/read")]
         public IActionResult ReadMessage(int messageId)
         {
-            TextMessage message = this._messageRepository.FindBy(m => m.Id == messageId, m => m.ReadReceipts).FirstOrDefault();
+            TextMessage message = this._messageRepository.FindBy(m => m.Id == messageId, m => m.ReadReceipts, m => m.MessageReceivers).FirstOrDefault();
             if (message == null)
             {
                 return BadRequest("Message not found");
@@ -102,18 +102,18 @@ namespace SABISCollaborate.API.Controllers
 
             if (!message.ReadReceipts.Contains(this.CurrentUser.UserId))
             {
-                message.ReadReceipts.Add(new ReadReceipt(messageId, this.CurrentUser.UserId));
-                this._messageRepository.Add(message);
+                message.ReadByReceiver(this.CurrentUser.UserId);
+                this._messageRepository.Edit(message);
                 this._messageRepository.Save();
             }
 
             return Ok(message.Id);
         }
 
-        [HttpPost("read")]
-        public IActionResult ReadMessages(List<int> messagesId)
+        [HttpPost("messages/read")]
+        public IActionResult ReadMessages([FromBody] List<int> messagesId)
         {
-            List<TextMessage> messages = this._messageRepository.FindBy(m => messagesId.Contains(m.Id), m => m.ReadReceipts).ToList();
+            List<TextMessage> messages = this._messageRepository.FindBy(m => messagesId.Contains(m.Id), m => m.ReadReceipts, m => m.MessageReceivers).ToList();
             if (messages.Count == 0)
             {
                 return BadRequest("No message found");
@@ -123,8 +123,8 @@ namespace SABISCollaborate.API.Controllers
             {
                 if (!message.ReadReceipts.Contains(this.CurrentUser.UserId))
                 {
-                    message.ReadReceipts.Add(new ReadReceipt(message.Id, this.CurrentUser.UserId));
-                    this._messageRepository.Add(message);
+                    message.ReadByReceiver(this.CurrentUser.UserId);
+                    this._messageRepository.Edit(message);
                 }
             });
             this._messageRepository.Save();

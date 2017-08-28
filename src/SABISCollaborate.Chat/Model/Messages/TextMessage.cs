@@ -23,11 +23,8 @@ namespace SABISCollaborate.Chat.Core.Model
             this.DestinationId = destinationId;
             this.DestinationType = destinationType;
             this.MessageReceivers = receivers.Select(r => new MessageReceiver(this.Id, r)).ToList();
-        }
-
-        public void ReadByReceiver(int userId)
-        {
-            this.MessageReceivers.FirstOrDefault(mr => mr.UserId == userId).IsRead = true;
+            this.ReadReceipts = new List<ReadReceipt>();
+            this.DeliveryReceipts = new List<DeliveryReceipt>();
         }
     }
 }

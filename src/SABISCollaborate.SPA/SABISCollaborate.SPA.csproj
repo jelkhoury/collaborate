@@ -4,6 +4,7 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <IsPackable>false</IsPackable>
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BuildWebCompiler" Version="1.11.347" />
@@ -42,21 +43,7 @@
     <Content Remove="wwwroot/css\main.scss~RF2940845e.TMP" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="wwwroot\css\components\_controls.scss" />
-    <Content Include="wwwroot\css\helpers\_functions.scss" />
-    <Content Include="wwwroot\css\helpers\_mixins.scss" />
-    <Content Include="wwwroot\css\helpers\_variables.scss" />
-    <Content Include="wwwroot\css\main.scss" />
-    <Content Include="wwwroot\css\theme.css" />
-    <Content Include="wwwroot\css\theme.scss" />
-    <Content Include="wwwroot\img\background.png" />
-    <Content Include="wwwroot\img\Business-people-collaborate.jpg" />
-    <Content Include="wwwroot\img\collaborate-login.png" />
-    <Content Include="wwwroot\img\collaboration.jpg" />
-    <Content Include="wwwroot\img\no-avatar.jpg" />
-    <Content Include="wwwroot\img\ppl-connection.jpg" />
-    <Content Include="wwwroot\img\ppl_connection.jpg" />
-    <Content Include="wwwroot\img\register-button.jpg" />
+
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SABISCollaborate.Management.Core\SABISCollaborate.Registration.Core.csproj" />
@@ -65,9 +52,7 @@
     <ProjectReference Include="..\SABISCollaborate.SystemManagement.Data\SABISCollaborate.System.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="wwwroot\css\layout\" />
-    <Folder Include="wwwroot\css\pages\" />
+
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
