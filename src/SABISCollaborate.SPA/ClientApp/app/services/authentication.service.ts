@@ -18,7 +18,7 @@ export class AuthenticationService {
 
     constructor(private router: Router, @Inject('ORIGIN_URL') private originUrl: string) {
         var config = {
-            authority: "http://localhost:5557",
+            authority: "http://itdev03:9910",
             client_id: "sc.js",
             redirect_uri: location.origin + "/signin-callback",
             response_type: "id_token token",
