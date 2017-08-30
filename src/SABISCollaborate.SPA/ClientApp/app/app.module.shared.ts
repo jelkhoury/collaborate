@@ -37,6 +37,7 @@ import { UsersPipe } from './components/management/users.component';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 import { NgUploaderModule } from 'ngx-uploader';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
@@ -73,6 +74,7 @@ export const sharedConfig: NgModule = {
         MultiselectDropdownModule,
         Ng2DatetimePickerModule,
         NgUploaderModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        SimpleNotificationsModule.forRoot()
     ]
 };

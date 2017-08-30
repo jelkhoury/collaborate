@@ -36,10 +36,6 @@ namespace SABISCollaborate.Identity
                     };
             context.IssuedClaims = claims;
 
-            //context.RequestedClaimTypes.ToList().ForEach(rct =>
-            //{
-            //});
-
             return Task.FromResult(0);
         }
 

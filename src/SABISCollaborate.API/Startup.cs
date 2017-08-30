@@ -93,7 +93,12 @@ namespace SABISCollaborate.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
+            // logger
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             this._dispatcher = new MessageDispatcher(serviceProvider.GetService<IConnectionManager>(), serviceProvider.GetService<IGroupRepository>());
+            string identityUrl = this.Configuration.GetValue<string>("IdentityServerUrl");
 
             // cors
             app.UseCors((b) =>
@@ -103,18 +108,12 @@ namespace SABISCollaborate.API
                 b.AllowAnyMethod();
                 b.AllowCredentials();
             });
-
-            // logger
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
+            
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
-                Authority = "http://localhost:5557",
+                Authority = identityUrl,
                 RequireHttpsMetadata = false,
-
                 EnableCaching = true,
-
                 ApiName = "sc.api"
             });
 

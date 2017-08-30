@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ChatService, ConnectionStatus } from '../../services/chat.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ChatGroupSummary, ChatGroupHistory, ChatGroupTextMessage } from '../../shared/models';
+import { SimpleNotificationsComponent, NotificationsService } from 'angular2-notifications';
 
 // TODO : in the next phase we can cache the received messages when the group is not selected
 @Component({
@@ -18,10 +19,25 @@ export class ChatGroupsComponent implements OnInit {
         connectionStatus: 'Connecting...'
         //currentUsername: this.authService.getCurrentUser().profile.preferred_username
     };
+    public options = {
+        position: ["bottom", "right"],
+        timeOut: 3000,
+        lastOnBottom: true
+    }
     @ViewChild('messagesList') private messagesList: ElementRef;
 
-    constructor(private chatService: ChatService, private authService: AuthenticationService) {
-
+    constructor(private chatService: ChatService, private authService: AuthenticationService, private _notificationService: NotificationsService) {
+        this._notificationService.success(
+            'Some Title',
+            'Some Content',
+            {
+                timeOut: 5000,
+                showProgressBar: true,
+                pauseOnHover: false,
+                clickToClose: false,
+                maxLength: 10
+            }
+        );
     }
     ngOnInit() {
         this.currentUserId = this.authService.getCurrentUserId();
@@ -58,7 +74,7 @@ export class ChatGroupsComponent implements OnInit {
         this.model.selectedGroupHistory.messages.push(messageHistory);
         this.chatService.setMessageAsRead(message.Id);
         this.scrollToEnd();
-        this.blinkTitle();
+        this.displayBrowserNotification(messageHistory.sender, messageHistory.text);
     }
     selectGroup(groupId: number) {
         this.chatService.getGroupHistory(groupId).subscribe(h => {
@@ -101,23 +117,18 @@ export class ChatGroupsComponent implements OnInit {
             this.messagesList.nativeElement.scrollTop = this.messagesList.nativeElement.scrollHeight;
         });
     }
-    blinkTitle() {
-        let message = 'New Message';
-
-        var oldTitle = document.title,
-            timeoutId,
-            blink = function () { document.title = document.title == message ? ' ' : message; },
-            clear = function () {
-                clearInterval(timeoutId);
-                document.title = oldTitle;
-                window.onmousemove = null;
-                timeoutId = null;
-            };
-
-        if (!timeoutId) {
-            timeoutId = setInterval(blink, 1000);
-            window.onmousemove = clear;
+    displayBrowserNotification(title: string, body: string): boolean {
+        if (!("Notification" in window)) {
+            return false;
         }
+        Notification.requestPermission(function (permission: NotificationPermission) {
+            if (permission === "granted") {
+                var notification = new Notification(title, { body: body, icon: "/img/user-avatar.jpg" });
+                return true;
+            }
+        });
+
+        return false;
     }
 }
 

@@ -13,11 +13,6 @@ namespace SABISCollaborate.Identity
     {
         private readonly Configuration _options;
 
-        //public ClientStore()
-        //{
-        //    this._options = new Configuration();
-        //}
-
         public ClientStore(IOptions<Configuration> options)
         {
             this._options = options.Value;
