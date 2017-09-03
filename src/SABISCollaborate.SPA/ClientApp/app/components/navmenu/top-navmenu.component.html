@@ -50,7 +50,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Profile</a></li>
+                        <li [routerLinkActive]="['link-active']"><a [routerLink]="['/profile']">Profile</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:void(0)" (click)="logout()">Logout</a></li>
                     </ul>

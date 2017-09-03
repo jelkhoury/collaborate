@@ -4,7 +4,6 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ChatGroupSummary, ChatGroupHistory, ChatGroupTextMessage } from '../../shared/models';
 import { SimpleNotificationsComponent, NotificationsService } from 'angular2-notifications';
 
-// TODO : in the next phase we can cache the received messages when the group is not selected
 @Component({
     selector: 'chat-groups',
     templateUrl: './chat-groups.component.html',
@@ -15,45 +14,32 @@ export class ChatGroupsComponent implements OnInit {
     private model: ViewModel = {
         groupsSummary: null,
         pendingTextMessage: "",
-        selectedGroupHistory: undefined,
+        selectedGroupHistory: null,
         connectionStatus: 'Connecting...'
-        //currentUsername: this.authService.getCurrentUser().profile.preferred_username
     };
-    public options = {
-        position: ["bottom", "right"],
-        timeOut: 3000,
-        lastOnBottom: true
-    }
     @ViewChild('messagesList') private messagesList: ElementRef;
 
     constructor(private chatService: ChatService, private authService: AuthenticationService, private _notificationService: NotificationsService) {
-        this._notificationService.success(
-            'Some Title',
-            'Some Content',
-            {
-                timeOut: 5000,
-                showProgressBar: true,
-                pauseOnHover: false,
-                clickToClose: false,
-                maxLength: 10
-            }
-        );
     }
+
     ngOnInit() {
-        this.currentUserId = this.authService.getCurrentUserId();
+        this.authService.getCurrentUserAsync().subscribe(u => {
+            this.currentUserId = u.profile.id;
+        });
 
         // listen to messages
         this.chatService.messageReceived$.subscribe(m => {
             this.onMessageReceived(m);
         });
 
-        // get groups summary
+        // get all groups summary
         this.chatService.getGroupsSummary().subscribe(groupsSummary => {
             this.model.groupsSummary = groupsSummary;
         });
 
         // watch connection status
         this.chatService.statusChanged$.subscribe(s => {
+            console.log('Connection status changed to : ' + ConnectionStatus[s]);
             this.model.connectionStatus = ConnectionStatus[s];
             if (s == ConnectionStatus.connected) {
                 this.chatService.register();

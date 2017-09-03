@@ -17,9 +17,11 @@ namespace SABISCollaborate.Profile.Core.Model
 
         public bool IsActive { get; private set; }
 
-        public int UserProfileId { get; protected set; }
+        public int UserProfileId { get; private set; }
 
-        public UserProfile Profile { get; protected set; }
+        public UserProfile Profile { get; private set; }
+        
+        public virtual ICollection<UserRoleLink> UserRoleLinks { get; private set; }
 
         public DateTime CreatedDate { get; private set; }
         #endregion

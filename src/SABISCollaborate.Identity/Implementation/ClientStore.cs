@@ -40,6 +40,7 @@ namespace SABISCollaborate.Identity
                         "id",
                         "username",
                         "token",
+                        "role",
                         "scapi"
                     },
                 };

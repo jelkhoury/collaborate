@@ -28,12 +28,16 @@ namespace SABISCollaborate.Identity
 
             List<Claim> claims = new List<Claim> {
                         new Claim(JwtClaimTypes.Email, user.IdentifierEmail),
-                        new Claim(JwtClaimTypes.Role, "admin"),
                         new Claim(JwtClaimTypes.Id, user.Id.ToString()),
                         new Claim("username", user.Username),
+                        new Claim(JwtClaimTypes.Role, ""),
                         new Claim(JwtClaimTypes.NickName, user.Profile.Nickname),
                         new Claim(JwtClaimTypes.Name, user.Profile.FullName)
                     };
+            user.UserRoleLinks.ToList().ForEach(role =>
+            {
+                claims.Add(new Claim(JwtClaimTypes.Role, role.Role.Name));
+            });
             context.IssuedClaims = claims;
 
             return Task.FromResult(0);

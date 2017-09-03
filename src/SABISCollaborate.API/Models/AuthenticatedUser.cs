@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SABISCollaborate.API.Models
 {
+    /// <summary>
+    /// User information received from the identity server
+    /// </summary>
     public class AuthenticatedUser
     {
         #region Fields

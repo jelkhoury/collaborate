@@ -1,47 +1,47 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registration", "Registration", "{41914B09-E192-4A98-982B-4D4C9BE2667B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedKernel", "SharedKernel", "{57DE8FEE-0E06-4258-8F96-5C71B23AAB3F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{57DE8FEE-0E06-4258-8F96-5C71B23AAB3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Registration.Core", "SABISCollaborate.Management.Core\SABISCollaborate.Registration.Core.csproj", "{DD10342A-43FD-4DD6-BC5C-49488A5FB189}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Registration.Core", "SABISCollaborate.Management.Core\SABISCollaborate.Registration.Core.csproj", "{DD10342A-43FD-4DD6-BC5C-49488A5FB189}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Registration.Data", "SABISCollaborate.Management.Data\SABISCollaborate.Registration.Data.csproj", "{B4628A05-6744-4ADE-A7C6-33C3486D09E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Registration.Data", "SABISCollaborate.Management.Data\SABISCollaborate.Registration.Data.csproj", "{B4628A05-6744-4ADE-A7C6-33C3486D09E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Shared", "SABISCollaborate.SharedKernel\SABISCollaborate.Shared.csproj", "{4184BA05-C013-4206-B4E8-A52A6FFF4C9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Shared", "SABISCollaborate.SharedKernel\SABISCollaborate.Shared.csproj", "{4184BA05-C013-4206-B4E8-A52A6FFF4C9B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.SPA", "SABISCollaborate.SPA\SABISCollaborate.SPA.csproj", "{5ABA9018-A8C0-4945-B0BA-7DF8BBC6EBE9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{7720C2BF-3571-43BA-A23D-9263A4D04B3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.System.Core", "SABISCollaborate.SystemManagement.Core\SABISCollaborate.System.Core.csproj", "{E28293E9-D488-402C-97F6-1371883D9D99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.System.Core", "SABISCollaborate.SystemManagement.Core\SABISCollaborate.System.Core.csproj", "{E28293E9-D488-402C-97F6-1371883D9D99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.System.Data", "SABISCollaborate.SystemManagement.Data\SABISCollaborate.System.Data.csproj", "{6FD0BCAF-C9E2-4DF4-AFDC-7A5777DE826E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.System.Data", "SABISCollaborate.SystemManagement.Data\SABISCollaborate.System.Data.csproj", "{6FD0BCAF-C9E2-4DF4-AFDC-7A5777DE826E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Profile", "Profile", "{637A23E3-9701-408B-B3D8-0CDB3189B690}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Profile.Core", "SABISCollaborate.Profile.Core\SABISCollaborate.Profile.Core.csproj", "{F5197EA1-851C-4A90-A003-0554D1D9210F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Profile.Core", "SABISCollaborate.Profile.Core\SABISCollaborate.Profile.Core.csproj", "{F5197EA1-851C-4A90-A003-0554D1D9210F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Registration.IntegrationTests", "SABISCollaborate.Registration.IntegrationTests\SABISCollaborate.Registration.IntegrationTests.csproj", "{69C8D3DA-C7A2-4B96-BC22-CBD1DEFCD018}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Registration.IntegrationTests", "SABISCollaborate.Registration.IntegrationTests\SABISCollaborate.Registration.IntegrationTests.csproj", "{69C8D3DA-C7A2-4B96-BC22-CBD1DEFCD018}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Profile.Data", "SABISCollaborate.Profile.Data\SABISCollaborate.Profile.Data.csproj", "{B76B5C2B-096F-4606-8A90-E497F01A2A90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Profile.Data", "SABISCollaborate.Profile.Data\SABISCollaborate.Profile.Data.csproj", "{B76B5C2B-096F-4606-8A90-E497F01A2A90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.System.IntegrationTests", "SABISCollaborate.System.IntegrationTests\SABISCollaborate.System.IntegrationTests.csproj", "{7CE0B08C-F34A-4389-9A16-349F513EC44D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.System.IntegrationTests", "SABISCollaborate.System.IntegrationTests\SABISCollaborate.System.IntegrationTests.csproj", "{7CE0B08C-F34A-4389-9A16-349F513EC44D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Shared.Infrastructure", "SABISCollaborate.SharedKernel.Data\SABISCollaborate.Shared.Infrastructure.csproj", "{5A77289D-EF57-49DF-9679-6D79B8272F81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.API", "SABISCollaborate.API\SABISCollaborate.API.csproj", "{798B223D-A88E-4833-8C62-757B8325483C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.API", "SABISCollaborate.API\SABISCollaborate.API.csproj", "{798B223D-A88E-4833-8C62-757B8325483C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chat", "Chat", "{4F9E5128-10CB-44FF-A9D8-470D6738BDB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Chat.Core", "SABISCollaborate.Chat\SABISCollaborate.Chat.Core.csproj", "{DD50E136-E40B-45BF-892C-24F3408E568F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Chat.Core", "SABISCollaborate.Chat\SABISCollaborate.Chat.Core.csproj", "{DD50E136-E40B-45BF-892C-24F3408E568F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Chat.Data", "SABISCollaborate.Chat.Data\SABISCollaborate.Chat.Data.csproj", "{EFCA6CDC-FCE3-4DBC-92AF-8DAD1FF69C05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Chat.Data", "SABISCollaborate.Chat.Data\SABISCollaborate.Chat.Data.csproj", "{EFCA6CDC-FCE3-4DBC-92AF-8DAD1FF69C05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABISCollaborate.Identity", "SABISCollaborate.Identity\SABISCollaborate.Identity.csproj", "{3ED868D2-CBBC-4F1B-BBEA-12C5D460BF8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Identity", "SABISCollaborate.Identity\SABISCollaborate.Identity.csproj", "{3ED868D2-CBBC-4F1B-BBEA-12C5D460BF8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,5 +126,8 @@ Global
 		{5A77289D-EF57-49DF-9679-6D79B8272F81} = {57DE8FEE-0E06-4258-8F96-5C71B23AAB3F}
 		{DD50E136-E40B-45BF-892C-24F3408E568F} = {4F9E5128-10CB-44FF-A9D8-470D6738BDB6}
 		{EFCA6CDC-FCE3-4DBC-92AF-8DAD1FF69C05} = {4F9E5128-10CB-44FF-A9D8-470D6738BDB6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27FF22BF-CBB5-4BEA-ACC6-8201C4DF0518}
 	EndGlobalSection
 EndGlobal

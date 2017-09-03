@@ -2,12 +2,11 @@
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { UserManager } from 'oidc-client';
+import { Observable } from "rxjs/Rx";
 
 @Injectable()
 export class AuthenticationService {
-    private isLoggedIn: boolean = false;
     private userManager: UserManager;
-    private user: Oidc.User;
 
     // Observable sources
     private userLoggedInSource = new Subject<string>();
@@ -18,58 +17,100 @@ export class AuthenticationService {
 
     constructor(private router: Router, @Inject('ORIGIN_URL') private originUrl: string) {
         var config = {
-            authority: "http://itdev03:9910",
+            authority: "http://localhost:5557",
             client_id: "sc.js",
             redirect_uri: location.origin + "/signin-callback",
             response_type: "id_token token",
-            scope: "openid profile scapi id",
+            scope: "openid profile scapi id role",
             post_logout_redirect_uri: "http://localhost:5555/",
         };
 
         this.userManager = new UserManager(config);
     }
 
-    isAuthenticated(): boolean {
-        // request login if not loggedin
-        if (!this.isLoggedIn) {
-            this.login();
-        }
-
-        return this.isLoggedIn;
-    }
     continueSignin() {
         var current = this;
 
-        this.userManager.signinRedirectCallback().then(function () {
-            current.userManager.getUser().then(function (user) {
-                current.user = user;
-                current.isLoggedIn = true;
-                current.userLoggedInSource.next();
-                // move to app
+        this.userManager.signinRedirectCallback().then(function (user) {
+            current.userLoggedInSource.next();
+            if (user.state) {
+                current.router.navigateByUrl(user.state);
+            } else {
                 current.router.navigateByUrl('home');
-            });
+            }
         }).catch(function (e) {
             console.error(e);
         });
     }
-    login() {
-        this.userManager.signinRedirect();
+    login(redirectUrl: string) {
+        this.userManager.signinRedirect({
+            data: redirectUrl
+        });
     }
     logout(): void {
         this.userManager.signoutRedirect();
         this.userLoggedOutSource.next();
     }
-    getCurrentUser(): Oidc.User {
-        return this.user;
+    ensureAuthenticatedAsync(redirectUrl: string): Observable<boolean> {
+        var current = this;
+
+        return Observable.create(observer => {
+            this.userManager.getUser().then(function (user) {
+                if (user == null) {
+                    current.login(redirectUrl);
+                }
+                observer.next(user != null);
+                observer.complete();
+            });
+        });
     }
-    getCurrentUserId(): number {
-        console.log(this.user);
-        return this.user.profile.id;
+    ensureRoleAsync(roleName: string, redirectUrl: string): Observable<boolean> {
+        var current = this;
+
+        return Observable.create(observer => {
+            this.userManager.getUser().then(function (user) {
+                var result = false;
+
+                if (user == null) {
+                    current.login(redirectUrl);
+                }
+                debugger;
+                var roles: string[] = user.profile.role;
+                if (roles && roles.length > 0) {
+                    for (var i = 0; i < roles.length; i++) {
+                        if (roles[i].toLocaleLowerCase() == roleName.toLocaleLowerCase()) {
+                            result = true;
+                            break;
+                        }
+                    }
+                }
+
+                observer.next(result);
+                observer.complete();
+            });
+        });
     }
-    getName(): string {
-        return this.user && this.user.profile ? this.user.profile.name : "";
+    getCurrentUserAsync(): Observable<Oidc.User> {
+        return Observable.create(observer => {
+            this.userManager.getUser().then(function (user) {
+                observer.next(user);
+                observer.complete();
+            });
+        });
     }
-    getAccessToken(): string {
-        return this.user.access_token;
+    getAccessTokenAsync(): Observable<string> {
+        var current = this;
+
+        return Observable.create(observer => {
+            this.userManager.getUser().then(function (user) {
+                let access_token = '';
+
+                if (user != null) {
+                    access_token = user.access_token;
+                }
+                observer.next(access_token);
+                observer.complete();
+            });
+        });
     }
 }

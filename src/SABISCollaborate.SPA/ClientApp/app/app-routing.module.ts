@@ -3,20 +3,20 @@ import { Route, Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './services/authentication.service';
 
-//import { LoginComponent } from './components/login/login.component';
 import { SigninCallbackComponent } from './components/login/signin-callback.component';
 import { HomeComponent } from './components/home/home.component';
 import { ManageUsersComponent } from './components/management/users.component';
 import { RegistrationComponent } from './components/management/registration.component';
 import { ManageDepartmentsComponent } from './components/management/departments.component';
 import { SearchResultComponent } from './components/search/search-result.component';
+import { MyProfileComponent } from './components/profile/my-profile.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    //{ path: 'login', component: LoginComponent },
     { path: 'signin-callback', component: SigninCallbackComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'search', component: SearchResultComponent, canActivate: [AuthGuard] },
+    { path: 'profile', component: MyProfileComponent, canActivate: [AuthGuard] },
     {
         path: 'management',
         children: [

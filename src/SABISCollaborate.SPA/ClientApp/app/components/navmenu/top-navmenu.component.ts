@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ChatService } from '../../services/chat.service';
 import { Router } from '@angular/router';
@@ -9,35 +9,26 @@ import { Router } from '@angular/router';
     styleUrls: ['./top-navmenu.component.css']
 })
 
-export class TopNavMenuComponent {
-    public model: ViewModel;
+export class TopNavMenuComponent implements OnInit {
+    public model: ViewModel = new ViewModel();
 
     constructor(private authService: AuthenticationService, private chatService: ChatService, private router: Router) {
-        this.refreshModel();
-
-        this.authService.userLoggedIn$.subscribe(u => {
-            this.refreshModel();
-            // TODO : show the number of unread messages menu header
-        });
-
-        this.authService.userLoggedOut$.subscribe(() => {
-            this.refreshModel();
-        });
     }
 
+    ngOnInit(): void {
+        this.authService.getCurrentUserAsync().subscribe(u => {
+            this.model = {
+                username: u ? u.profile.name : '',
+                isAdmin: u && u.profile.username == 'jek',
+                searchText: ""
+            }
+        });
+    }
     logout() {
         this.authService.logout();
-        //this.router.navigateByUrl('/login');
     }
     globalSearch(): void {
         this.router.navigateByUrl("/search?key=" + this.model.searchText);
-    }
-    private refreshModel() {
-        this.model = {
-            username: this.authService.getName(),
-            isAdmin: this.authService.getCurrentUser() != null,
-            searchText: ""
-        }
     }
 }
 
@@ -45,4 +36,10 @@ class ViewModel {
     isAdmin: boolean;
     username: string;
     searchText: string;
+
+    constructor() {
+        this.isAdmin = false;
+        this.username = '';
+        this.searchText = '';
+    }
 }

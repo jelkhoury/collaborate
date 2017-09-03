@@ -9,13 +9,11 @@ export class AuthGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (this.authService.isAuthenticated()) {
-            // logged in so return true
-            return true;
+        if (state.root.firstChild.url[0].path == 'management') {
+            return this.authService.ensureRoleAsync('admin', state.url);
         }
-
-        // not logged in so redirect to login page with the return url
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-        return false;
+        else {
+            return this.authService.ensureAuthenticatedAsync(state.url);
+        }
     }
 }

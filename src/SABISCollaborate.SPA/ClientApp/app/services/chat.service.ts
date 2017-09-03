@@ -53,23 +53,24 @@ export class ChatService {
      */
     start(): Observable<string> {
         var self = this;
-        $.signalR.ajaxDefaults.headers = { Authorization: "Bearer " + this.authenticationService.getAccessToken() };
 
         var result: Observable<string> = Observable.create(observer => {
-            //if ($.signalR.connectionState == SignalRConnectionState.disconnected) {
-            this.connection.start()
-                .done(function () {
-                    observer.next(self.connection.id);
-                    observer.complete();
-                    self.connectionStartedSource.next(self.connection.id);
-                })
-                .fail(function (e) {
-                    observer.error(e);
-                    observer.complete();
-                    console.log(e);
-                    self.connectionStartedSource.error(e);
-                });
-            //}
+            this.authenticationService.getAccessTokenAsync().subscribe(at => {
+                $.signalR.ajaxDefaults.headers = { Authorization: "Bearer " + at };
+
+                this.connection.start()
+                    .done(function () {
+                        observer.next(self.connection.id);
+                        observer.complete();
+                        self.connectionStartedSource.next(self.connection.id);
+                    })
+                    .fail(function (e) {
+                        observer.error(e);
+                        observer.complete();
+                        console.log(e);
+                        self.connectionStartedSource.error(e);
+                    });
+            });
         });
 
         return result;
@@ -84,7 +85,6 @@ export class ChatService {
             this.chatHub.invoke('register')
                 .done(function () {
                     observer.next(self.connection.id);
-                    console.log('registered');
                 })
                 .fail(function (e) {
                     observer.error(e);
@@ -142,43 +142,47 @@ export class ChatService {
      * @param messageId
      */
     setMessageAsRead(messageId: number) {
-        let url = this.apiUrl + "/api/chat/message/read?messageId=" + messageId;
+        this.authenticationService.getAccessTokenAsync().subscribe(at => {
+            let url = this.apiUrl + "/api/chat/message/read?messageId=" + messageId;
 
-        var requestArgs = {
-            headers: new Headers()
-        };
-        requestArgs.headers.append("Authorization", "Bearer " + this.authenticationService.getAccessToken());
+            var requestArgs = {
+                headers: new Headers()
+            };
+            requestArgs.headers.append("Authorization", "Bearer " + at);
 
-        this.http.post(url, {}, requestArgs).subscribe(r => { });
+            this.http.post(url, {}, requestArgs).subscribe(r => { });
+        });
     }
     /**
      * Set messages as read by the current logged in user
      * @param messagesIds
      */
     setMessagesAsRead(messagesIds: number[]) {
-        let url = this.apiUrl + "/api/chat/messages/read";
-
-        var requestArgs = {
-            headers: new Headers()
-        };
-        requestArgs.headers.append("Authorization", "Bearer " + this.authenticationService.getAccessToken());
-
-        this.http.post(url, messagesIds, requestArgs).subscribe(r => { });
+        this.authenticationService.getAccessTokenAsync().subscribe(at => {
+            let url = this.apiUrl + "/api/chat/messages/read";
+            var requestArgs = {
+                headers: new Headers()
+            };
+            requestArgs.headers.append("Authorization", "Bearer " + at);
+            this.http.post(url, messagesIds, requestArgs).subscribe(r => { });
+        });
     }
     /**
      * get all groups with number of unread messages (unread by the current user)
      */
     getGroupsSummary(): Observable<ChatGroupSummary[]> {
-        var url = this.apiUrl + '/api/chat/groups/summary';
-
-        var requestArgs = {
-            headers: new Headers()
-        };
-        requestArgs.headers.append("Authorization", "Bearer " + this.authenticationService.getAccessToken());
         return Observable.create(observer => {
-            this.http.get(url, requestArgs).map(g => g.json() as ChatGroupSummary[]).subscribe(g => {
-                observer.next(g);
-                observer.complete();
+            this.authenticationService.getAccessTokenAsync().subscribe(at => {
+                var url = this.apiUrl + '/api/chat/groups/summary';
+                var requestArgs = {
+                    headers: new Headers()
+                };
+                requestArgs.headers.append("Authorization", "Bearer " + at);
+
+                this.http.get(url, requestArgs).map(g => g.json() as ChatGroupSummary[]).subscribe(g => {
+                    observer.next(g);
+                    observer.complete();
+                });
             });
         });
     }
@@ -187,16 +191,17 @@ export class ChatService {
      * @param groupId : id of the group
      */
     getGroupHistory(groupId: number): Observable<ChatGroupHistory> {
-        let url = this.apiUrl + '/api/chat/group/history?groupId=' + groupId;
-
-        var requestArgs = {
-            headers: new Headers()
-        };
-        requestArgs.headers.append("Authorization", "Bearer " + this.authenticationService.getAccessToken());
         return Observable.create(observer => {
-            this.http.get(url, requestArgs).map(res => res.json() as ChatGroupHistory[]).subscribe(gh => {
-                observer.next(gh);
-                observer.complete();
+            this.authenticationService.getAccessTokenAsync().subscribe(at => {
+                let url = this.apiUrl + '/api/chat/group/history?groupId=' + groupId;
+                var requestArgs = {
+                    headers: new Headers()
+                };
+                requestArgs.headers.append("Authorization", "Bearer " + at);
+                this.http.get(url, requestArgs).map(res => res.json() as ChatGroupHistory[]).subscribe(gh => {
+                    observer.next(gh);
+                    observer.complete();
+                });
             });
         });
     }

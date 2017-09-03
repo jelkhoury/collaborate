@@ -39,7 +39,8 @@ namespace SABISCollaborate.Identity.Implementation
                     Description = "SABIS Collaborate API",
                     UserClaims = new List<string> {
                         JwtClaimTypes.Id,
-                        "username"
+                        "username",
+                        "role"
                     },
                     ApiSecrets = new List<Secret> {
                         new Secret("scopeSecret".Sha256())

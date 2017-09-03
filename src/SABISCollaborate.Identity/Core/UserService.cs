@@ -1,4 +1,5 @@
-﻿using SABISCollaborate.Profile.Core.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using SABISCollaborate.Profile.Core.Model;
 using SABISCollaborate.Profile.Core.Repositories;
 using SABISCollaborate.Shared.Extensions;
 using System;
@@ -25,7 +26,7 @@ namespace SABISCollaborate.Identity.Core
         public User FindById(string id)
         {
             //return this._userRepository.GetSingle(int.Parse(id), u => u.Profile);
-            return this._userRepository.FindBy(u => u.Id == int.Parse(id), u => u.Profile).FirstOrDefault();
+            return this._userRepository.FindBy(u => u.Id == int.Parse(id), u => u.Profile, u => u.UserRoleLinks).Include("UserRoleLinks.Role").FirstOrDefault();
         }
 
         public User FindByUsername(string username)

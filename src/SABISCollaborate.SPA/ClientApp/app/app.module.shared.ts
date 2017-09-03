@@ -9,7 +9,6 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AppComponent } from './components/app/app.component'
 import { SigninCallbackComponent } from './components/login/signin-callback.component'
 import { HomeComponent } from './components/home/home.component';
-import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { TopNavMenuComponent } from './components/navmenu/top-navmenu.component';
 import { ManageUsersComponent } from './components/management/users.component';
 import { ChatGroupsComponent } from './components/chat/chat-groups.component';
@@ -22,6 +21,7 @@ import { DropdownComponent } from './shared/components/dropdown.component';
 import { MultiDropdownComponent } from './shared/components/multi-dropdown.component';
 import { DatepickerComponent } from './shared/components/datepicker.component';
 import { SearchResultComponent } from './components/search/search-result.component';
+import { MyProfileComponent } from './components/profile/my-profile.component';
 
 // services
 import { RegistrationService } from './services/registration.service';
@@ -46,7 +46,7 @@ export const sharedConfig: NgModule = {
         //LoginComponent,
         SigninCallbackComponent,
         HomeComponent,
-        NavMenuComponent,
+        MyProfileComponent,
         TopNavMenuComponent,
         ManageUsersComponent,
         ManageDepartmentsComponent,
