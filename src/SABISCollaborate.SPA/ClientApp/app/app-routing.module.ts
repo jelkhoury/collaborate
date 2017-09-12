@@ -10,10 +10,12 @@ import { RegistrationComponent } from './components/management/registration.comp
 import { ManageDepartmentsComponent } from './components/management/departments.component';
 import { SearchResultComponent } from './components/search/search-result.component';
 import { MyProfileComponent } from './components/profile/my-profile.component';
+import { SilentRenewCallbackComponent } from './components/silent-renew-callback/silent-renew-callback.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'signin-callback', component: SigninCallbackComponent },
+    { path: 'silent-renew-callback', component: SilentRenewCallbackComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'search', component: SearchResultComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: MyProfileComponent, canActivate: [AuthGuard] },

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SABISCollaborate.Identity.Implementation
+namespace SABISCollaborate.Identity.Core
 {
     internal class Resources
     {

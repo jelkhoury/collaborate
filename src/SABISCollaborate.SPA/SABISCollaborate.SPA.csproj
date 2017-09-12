@@ -49,7 +49,11 @@
     <ProjectReference Include="..\SABISCollaborate.SystemManagement.Data\SABISCollaborate.System.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
-
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\silent-renew-callback\silent-renew-callback.component.html" />
+    <TypeScriptCompile Include="ClientApp\app\components\silent-renew-callback\silent-renew-callback.component.ts" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->

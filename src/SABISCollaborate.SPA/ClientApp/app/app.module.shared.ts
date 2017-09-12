@@ -22,6 +22,7 @@ import { MultiDropdownComponent } from './shared/components/multi-dropdown.compo
 import { DatepickerComponent } from './shared/components/datepicker.component';
 import { SearchResultComponent } from './components/search/search-result.component';
 import { MyProfileComponent } from './components/profile/my-profile.component';
+import { SilentRenewCallbackComponent } from './components/silent-renew-callback/silent-renew-callback.component';
 
 // services
 import { RegistrationService } from './services/registration.service';
@@ -58,7 +59,8 @@ export const sharedConfig: NgModule = {
         DatepickerComponent,
         SearchResultComponent,
         ChatGroupsComponent,
-        UsersPipe
+        UsersPipe,
+        SilentRenewCallbackComponent
     ],
     providers: [
         AuthGuard,

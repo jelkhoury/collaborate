@@ -22,7 +22,9 @@ export class AuthenticationService {
             redirect_uri: location.origin + "/signin-callback",
             response_type: "id_token token",
             scope: "openid profile scapi id role",
-            post_logout_redirect_uri: "http://localhost:5555/",
+            post_logout_redirect_uri: location.origin,
+            automaticSilentRenew: true,
+            silent_redirect_uri: location.origin + '/silent-renew-callback'
         };
 
         this.userManager = new UserManager(config);
@@ -41,6 +43,12 @@ export class AuthenticationService {
         }).catch(function (e) {
             console.error(e);
         });
+    }
+    continueSilentRenew() {
+        Oidc.Log.logger = console;
+        Oidc.Log.level = Oidc.Log.INFO;
+
+        this.userManager.signinSilentCallback();
     }
     login(redirectUrl: string) {
         this.userManager.signinRedirect({
