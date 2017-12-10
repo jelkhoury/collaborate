@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registration", "Registration", "{41914B09-E192-4A98-982B-4D4C9BE2667B}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Registration.Data", "SABISCollaborate.Management.Data\SABISCollaborate.Registration.Data.csproj", "{B4628A05-6744-4ADE-A7C6-33C3486D09E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Shared", "SABISCollaborate.SharedKernel\SABISCollaborate.Shared.csproj", "{4184BA05-C013-4206-B4E8-A52A6FFF4C9B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.SPA", "SABISCollaborate.SPA\SABISCollaborate.SPA.csproj", "{5ABA9018-A8C0-4945-B0BA-7DF8BBC6EBE9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{7720C2BF-3571-43BA-A23D-9263A4D04B3E}"
 EndProject
@@ -43,8 +41,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Chat.Data"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SABISCollaborate.Identity", "SABISCollaborate.Identity\SABISCollaborate.Identity.csproj", "{3ED868D2-CBBC-4F1B-BBEA-12C5D460BF8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SABIS.Collaborate.WebApp", "SABIS.Collaborate.WebApp\SABIS.Collaborate.WebApp.csproj", "{745AA89D-912E-4827-81D5-761C25FB5A9F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,10 +59,6 @@ Global
 		{4184BA05-C013-4206-B4E8-A52A6FFF4C9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4184BA05-C013-4206-B4E8-A52A6FFF4C9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4184BA05-C013-4206-B4E8-A52A6FFF4C9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5ABA9018-A8C0-4945-B0BA-7DF8BBC6EBE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5ABA9018-A8C0-4945-B0BA-7DF8BBC6EBE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5ABA9018-A8C0-4945-B0BA-7DF8BBC6EBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5ABA9018-A8C0-4945-B0BA-7DF8BBC6EBE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E28293E9-D488-402C-97F6-1371883D9D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E28293E9-D488-402C-97F6-1371883D9D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E28293E9-D488-402C-97F6-1371883D9D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -111,10 +103,6 @@ Global
 		{3ED868D2-CBBC-4F1B-BBEA-12C5D460BF8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ED868D2-CBBC-4F1B-BBEA-12C5D460BF8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ED868D2-CBBC-4F1B-BBEA-12C5D460BF8E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{745AA89D-912E-4827-81D5-761C25FB5A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{745AA89D-912E-4827-81D5-761C25FB5A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{745AA89D-912E-4827-81D5-761C25FB5A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{745AA89D-912E-4827-81D5-761C25FB5A9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
