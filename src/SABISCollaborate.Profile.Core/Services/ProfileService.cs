@@ -21,6 +21,13 @@ namespace SABISCollaborate.Profile.Core.Services
         #endregion
 
         #region Methods
+        public User GetUserById(int userId)
+        {
+            var result = this._userRepository.FindBy(u => u.Id == userId, u => u.Profile).FirstOrDefault();
+
+            return result;
+        }
+
         /// <summary>
         /// Get all users and related profiles
         /// </summary>
@@ -30,7 +37,7 @@ namespace SABISCollaborate.Profile.Core.Services
             return this._userRepository.GetAll().ToList();
         }
 
-        public List<User> GetByIds(List<int> usersIds)
+        public List<User> GetUsersByIds(List<int> usersIds)
         {
             List<User> result = this._userRepository.FindBy(u => usersIds.Contains(u.Id), u => u.Profile).ToList();
 

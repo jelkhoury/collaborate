@@ -58,7 +58,7 @@ namespace SABISCollaborate.API.Controllers
         public IActionResult GetGroupHistory(int groupId)
         {
             Group group = this._groupRepository.GetSingle(groupId);
-            List<User> members = this._profileService.GetByIds(group.GroupMembers.Select(gm => gm.UserId).ToList());
+            List<User> members = this._profileService.GetUsersByIds(group.GroupMembers.Select(gm => gm.UserId).ToList());
             // last 30 message + read receipts
             List<TextMessage> messages = this._messageRepository.FindBy(m => m.DestinationId == groupId && m.MessageReceivers.FirstOrDefault(mr => mr.UserId == this.CurrentUser.UserId) != null, m => m.MessageReceivers, m => m.ReadReceipts)
                 .OrderByDescending(m => m.SenderDate)
@@ -66,7 +66,7 @@ namespace SABISCollaborate.API.Controllers
                 .ToList();
 
             // senders info
-            List<User> senders = this._profileService.GetByIds(messages.Select(m => m.SenderUserId).ToList());
+            List<User> senders = this._profileService.GetUsersByIds(messages.Select(m => m.SenderUserId).ToList());
 
             DestinationChatHistory result = new DestinationChatHistory(group, members.Select(m => m.Profile.Nickname).ToList());
             messages.ForEach(m =>

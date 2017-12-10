@@ -7,9 +7,11 @@ namespace SABISCollaborate.Profile.Core.Services
 {
     public interface IProfileService
     {
+        User GetUserById(int userId);
+
         List<User> GetUsers();
 
-        List<User> GetByIds(List<int> usersIds);
+        List<User> GetUsersByIds(List<int> usersIds);
 
         List<User> GetUsers(string searchText);
 

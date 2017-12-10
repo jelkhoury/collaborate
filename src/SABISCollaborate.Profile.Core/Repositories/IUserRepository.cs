@@ -8,6 +8,8 @@ namespace SABISCollaborate.Profile.Core.Repositories
 {
     public interface IUserRepository : IGenericRepository<User>
     {
+
+
         List<User> GetUsers(string searchText);
 
         byte[] GetProfilePicture(string id);

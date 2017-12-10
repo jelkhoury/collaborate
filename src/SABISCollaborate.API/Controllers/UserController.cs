@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SABISCollaborate.Profile.Core.Services;
 using SABISCollaborate.Profile.Core.Model;
+using SABISCollaborate.Profile.Core.Repositories;
 
 namespace SABISCollaborate.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/user")]
+    [Route("api/users")]
     public class UserController : ControllerBase
     {
         private readonly IProfileService _profileService;
@@ -23,7 +24,7 @@ namespace SABISCollaborate.API.Controllers
         [HttpGet("")]
         public IActionResult GetCurrentUserProfile()
         {
-            User user = this._profileService.GetByIds(new List<int> { base.CurrentUser.UserId }).FirstOrDefault();
+            User user = this._profileService.GetUsersByIds(new List<int> { base.CurrentUser.UserId }).FirstOrDefault();
 
             return Ok(user.Profile);
         }
@@ -31,7 +32,9 @@ namespace SABISCollaborate.API.Controllers
         [HttpGet("{userId}")]
         public IActionResult GetUserProfile(int userId)
         {
-            return Ok(123);
+            var user = this._profileService.GetUserById(userId);
+
+            return Ok(user.Profile);
         }
     }
 }
