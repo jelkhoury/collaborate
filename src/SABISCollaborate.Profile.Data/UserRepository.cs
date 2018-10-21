@@ -1,12 +1,10 @@
-﻿using SABISCollaborate.Profile.Core.Model;
-using SABISCollaborate.Profile.Core.Repositories;
-using SABISCollaborate.SharedKernel;
+﻿using SABISCollaborate.SharedKernel;
+using SABISCollaborate.Users.Core.Models;
+using SABISCollaborate.Users.Core.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
 
-namespace SABISCollaborate.Profile.Data
+namespace SABISCollaborate.Users.Infrastructure
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {

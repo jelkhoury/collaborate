@@ -20,9 +20,9 @@ namespace SABISCollaborate.API.Controllers
     {
         private readonly ITextMessageRepository _messageRepository;
         private readonly IGroupRepository _groupRepository;
-        private readonly IProfileService _profileService;
+        private readonly IUserProfileService _profileService;
 
-        public ChatController(ITextMessageRepository messageRepository, IGroupRepository groupRepository, IProfileService profileService)
+        public ChatController(ITextMessageRepository messageRepository, IGroupRepository groupRepository, IUserProfileService profileService)
         {
             this._messageRepository = messageRepository;
             this._groupRepository = groupRepository;

@@ -7,20 +7,29 @@ using Microsoft.AspNetCore.Mvc;
 using SABISCollaborate.Profile.Core.Services;
 using SABISCollaborate.Profile.Core.Model;
 using SABISCollaborate.Profile.Core.Repositories;
+using SABISCollaborate.API.Models.UserViewModels;
 
 namespace SABISCollaborate.API.Controllers
 {
+    /// <summary>
+    /// Gives access to all users(+ profiles) and accounts
+    /// </summary>
     [Produces("application/json")]
     [Route("api/users")]
     public class UserController : ControllerBase
     {
-        private readonly IProfileService _profileService;
+        #region Fields
+        private readonly IUserProfileService _profileService;
+        #endregion
 
-        public UserController(IProfileService profileService)
+        #region Constructors
+        public UserController(IUserProfileService profileService)
         {
             this._profileService = profileService;
         }
+        #endregion
 
+        #region UserProfile
         [HttpGet("")]
         public IActionResult GetCurrentUserProfile()
         {
@@ -36,5 +45,16 @@ namespace SABISCollaborate.API.Controllers
 
             return Ok(user.Profile);
         }
+        #endregion
+
+        #region Accounts
+        [HttpPut("current/password")]
+        public IActionResult ChangePassword([FromBody] ChangePasswordViewModel viewModel)
+        {
+            bool result = true;
+
+            return Ok(result);
+        }
+        #endregion
     }
 }

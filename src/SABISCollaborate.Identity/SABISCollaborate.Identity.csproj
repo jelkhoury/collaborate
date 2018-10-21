@@ -22,8 +22,8 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SABISCollaborate.Profile.Core\SABISCollaborate.Profile.Core.csproj" />
-    <ProjectReference Include="..\SABISCollaborate.Profile.Data\SABISCollaborate.Profile.Data.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.Profile.Core\SABISCollaborate.Users.Core.csproj" />
+    <ProjectReference Include="..\SABISCollaborate.Profile.Data\SABISCollaborate.Users.Infrastructure.csproj" />
     <ProjectReference Include="..\SABISCollaborate.SharedKernel.Data\SABISCollaborate.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\SABISCollaborate.SharedKernel\SABISCollaborate.Shared.csproj" />
   </ItemGroup>

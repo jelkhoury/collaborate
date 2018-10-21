@@ -65,7 +65,7 @@ namespace SABISCollaborate.API
 
             // Profile context
             services.AddScoped<Profile.Core.Repositories.IUserRepository, Profile.Data.UserRepository>();
-            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IUserProfileService, UserProfileService>();
             services.AddDbContext<ProfileDbContext>(o =>
             {
                 o.UseSqlServer(connectionString);

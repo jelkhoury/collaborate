@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SABISCollaborate.Profile.Core.Model;
+using SABISCollaborate.Users.Core.Models;
 
-namespace SABISCollaborate.Profile.Data
+namespace SABISCollaborate.Users.Infrastructure
 {
     public class ProfileDbContext : DbContext
     {
